@@ -1,0 +1,338 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      8556,        270]*)
+(*NotebookOutlinePosition[      9199,        292]*)
+(*  CellTagsIndexPosition[      9155,        288]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 5  -  Section 5.6", "Title"],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will use ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" to explore Bessel functions of the first kind.",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem 14:  ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\^2\)]],
+  " y'' + x y' +  ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\^2\)]],
+  " y = 0"
+}], "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Solving the Bessel Differential Equation", "Subsection"],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " can solve this equation with the DSolve command."
+}], "Text"],
+
+Cell[BoxData[{\(Clear[x, y]\), "\[IndentingNewLine]", 
+    RowBox[{"eq", "=", 
+      StyleBox[\(\(x\^2\) \(y''\)[x] + x\ \(y'\)[x]\  + \ 
+            x\^2\ \ y[x] \[Equal] 0\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", \(DSolve[eq, 
+      y[x], x]\)}], "Input"],
+
+Cell[TextData[{
+  "Notice that, just as ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " has the Legendre polynomials built in, so to it has the Bessel functions \
+built in. For this problem, we are interested in ",
+  Cell[BoxData[
+      \(TraditionalForm\`J\_0\)]],
+  "(x) = BesselJ[0,x]. "
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Examining the Bessel Functions of the First Kind of Order Zero\
+\>", "Subsection"],
+
+Cell["\<\
+We can see what this Bessel function looks like and compute both its value \
+and its limit as x approaches 0.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{\(BesselJ[0, x]\), ",", 
+          RowBox[{"{", 
+            RowBox[{"x", ",", 
+              StyleBox[\(-20\),
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox[",",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox["20",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}], 
+      ";"}], "\[IndentingNewLine]", \(BesselJ[0, 
+      0]\), "\[IndentingNewLine]", \(Limit[BesselJ[0, x], 
+      x \[Rule] 0]\)}], "Input"],
+
+Cell["\<\
+You will notice that this function is defined for all values of x, even at x \
+= 0, the regular, singular point. \
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Exploring Bessel Functions of the First Kind of Different Orders\
+\>", "Subsection"],
+
+Cell["\<\
+We can plot the Bessel function of the first kind for other orders as well. \
+As n goes from 0 to 5, the colors go from green to purple.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"bestable", "=", 
+        RowBox[{"Table", "[", 
+          RowBox[{\(BesselJ[n, x]\), ",", 
+            RowBox[{"{", 
+              RowBox[{"n", ",", 
+                StyleBox["1",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["6",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}]}], 
+      ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{\(Evaluate[bestable]\), ",", 
+          RowBox[{"{", 
+            RowBox[{"x", ",", 
+              StyleBox[\(-30\),
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox[",",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox["30",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(PlotStyle \[Rule] {Hue[ .3], Hue[ .4], Hue[ .5], Hue[ .6], 
+              Hue[ .7], Hue[ .8]}\)}], "]"}], ";"}]}], "Input"],
+
+Cell["\<\
+You will notice that each of these functions are defined and have a limit of \
+0 at x = 0.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(bestable /. x \[Rule] 0\), "\[IndentingNewLine]", 
+    \(Limit[bestable, x \[Rule] 0]\)}], "Input"],
+
+Cell["We can let n take on negative values as well.", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"bestable3", "=", 
+        RowBox[{"Table", "[", 
+          RowBox[{\(BesselJ[n, x]\), ",", 
+            RowBox[{"{", 
+              RowBox[{"n", ",", 
+                StyleBox[\(-6\),
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[\(-1\),
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}]}], 
+      ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{\(Evaluate[bestable3]\), ",", 
+          RowBox[{"{", 
+            RowBox[{"x", ",", 
+              StyleBox[\(-30\),
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox[",",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox["30",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(PlotStyle \[Rule] {Hue[ .3], Hue[ .4], Hue[ .5], Hue[ .6], 
+              Hue[ .7], Hue[ .8]}\)}], "]"}], 
+      ";"}], "\[IndentingNewLine]", \(bestable3 /. 
+      x \[Rule] 0\), "\[IndentingNewLine]", \(Limit[bestable3, 
+      x \[Rule] 0]\)}], "Input"],
+
+Cell["\<\
+We can let n take on fractional values, but the Bessel functions in these \
+cases are defined only for positive values of x.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"bestable2", "=", 
+        RowBox[{"Table", "[", 
+          RowBox[{\(BesselJ[n, x]\), ",", 
+            RowBox[{"{", 
+              RowBox[{"n", ",", 
+                StyleBox[\(1/2\),
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[\(11/2\),
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}]}], 
+      ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{\(Evaluate[bestable2]\), ",", 
+          RowBox[{"{", 
+            RowBox[{"x", ",", 
+              StyleBox["0",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox[",",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox["30",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(PlotStyle \[Rule] {Hue[ .3], Hue[ .4], Hue[ .5], Hue[ .6], 
+              Hue[ .7], Hue[ .8]}\)}], "]"}], 
+      ";"}], "\[IndentingNewLine]", \(bestable2 /. 
+      x \[Rule] 0\), "\[IndentingNewLine]", \(Limit[bestable2, 
+      x \[Rule] 0]\)}], "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{538, 527},
+WindowMargins->{{0, Automatic}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 631, 19, 126, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2477, 78, 183, 8, 73, "Section"],
+
+Cell[CellGroupData[{
+Cell[2685, 90, 62, 0, 38, "Subsection"],
+Cell[2750, 92, 133, 4, 33, "Text"],
+Cell[2886, 98, 283, 5, 70, "Input"],
+Cell[3172, 105, 313, 9, 52, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[3522, 119, 92, 2, 48, "Subsection"],
+Cell[3617, 123, 133, 3, 52, "Text"],
+Cell[3753, 128, 544, 14, 70, "Input"],
+Cell[4300, 144, 137, 3, 52, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4474, 152, 94, 2, 48, "Subsection"],
+Cell[4571, 156, 160, 3, 52, "Text"],
+Cell[4734, 161, 1014, 26, 90, "Input"],
+Cell[5751, 189, 114, 3, 33, "Text"],
+Cell[5868, 194, 120, 2, 50, "Input"],
+Cell[5991, 198, 61, 0, 33, "Text"],
+Cell[6055, 200, 1154, 29, 130, "Input"],
+Cell[7212, 231, 148, 3, 52, "Text"],
+Cell[7363, 236, 1153, 29, 130, "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

@@ -1,0 +1,476 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     13639,        387]*)
+(*NotebookOutlinePosition[     14284,        409]*)
+(*  CellTagsIndexPosition[     14240,        405]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 9  -  Section 9.3", "Title",
+  PageWidth->WindowWidth],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will analyze the solution to a nonlinear \
+autonomous differential equation that represents an undamped pendulum. You \
+will find solutions to the system for differing angular displacements and no \
+initial velocity. The angular displacement will be plotted as a function of \
+time and the impact of the initial angular displacement on the amplitude and \
+period of motion will be analyzed.\n",
+    FontWeight->"Bold"],
+  "\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle",
+  PageWidth->WindowWidth],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Problem 21:  \tdx/dt = y
+\t\tdy/dt = - 4Sin[x]\
+\>", "Section",
+  PageWidth->WindowWidth],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Solving the System of Differential Equations with an Initial Angular \
+Displacement of A = 0.25.\
+\>", "Subsection",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+We will use the NDSolve command here, because this is a nonlinear \
+differential equation system. We will find solutions corresponding to \
+different sets of initial conditions and start with A = 0.25.\
+\>", "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[{\(Clear[x, y, t]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{\(rhs1[x_, y_]\), "=", 
+        StyleBox["y",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{\(rhs2[x_, y_]\), "=", 
+        StyleBox[\(\(-4\)\ Sin[x]\),
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"x0", "=", 
+        StyleBox[".25",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"y0", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(fastsoln1 = 
+      NDSolve[{\(x'\)[t] \[Equal] rhs1[x[t], y[t]], \(y'\)[t] \[Equal] 
+            rhs2[x[t], y[t]], x[0] \[Equal] x0, y[0] \[Equal] y0}, {x[t], 
+          y[t]}, {t, 0, 100}]\)}], "Input",
+  PageWidth->WindowWidth],
+
+Cell["Let's look at the plot of x as a function of t.", "Text"],
+
+Cell[BoxData[
+    \(\(p1 = 
+        Plot[x[t] /. fastsoln1, {t, 0, 10}, 
+          PlotStyle \[Rule] Hue[ .9]];\)\)], "Input"],
+
+Cell["\<\
+It appears that the amplitude is about 0.25, as demonstrated in the following \
+graph. The period appears to be just slightly over \[Pi]. We can start a list \
+with this information.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(\(Plot[{\(- .25\),  .25, x[t] /. fastsoln1}, {t, 0, 12}, 
+        Ticks \[Rule] {{0, \[Pi], 2  \[Pi], 
+              3  \[Pi]}, {\(- .25\), \(- .15\), \(- .05\),  .05,  .15,  \
+.25}}, PlotStyle \[Rule] Hue[ .9]];\)\), "\[IndentingNewLine]", 
+    \(Clear[Aamplist, Aperlist]\), "\[IndentingNewLine]", 
+    \(Aamplist = {{ .25,  .25}}\), "\[IndentingNewLine]", 
+    \(Aperlist = {{ .25, 3.15}}\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Finding and Plotting the Solution for Different Values of A", \
+"Subsection"],
+
+Cell[BoxData[{\(Clear[x, y, t]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"x0", "=", 
+        StyleBox[".5",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"y0", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(fastsoln2 = 
+      NDSolve[{\(x'\)[t] \[Equal] rhs1[x[t], y[t]], \(y'\)[t] \[Equal] 
+            rhs2[x[t], y[t]], x[0] \[Equal] x0, y[0] \[Equal] y0}, {x[t], 
+          y[t]}, {t, 0, 100}]\), "\[IndentingNewLine]", \(p2 = 
+        Plot[x[t] /. fastsoln2, {t, 0, 12}, 
+          PlotStyle \[Rule] Hue[ .8]];\)}], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+The amplitude for A = 0.5 appears to be around 0.5. The period is just \
+slightly larger, say about 3.25. We will add this to our list and then \
+continue finding more solutions.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(AppendTo[Aamplist, { .5,  .5}]\), "\[IndentingNewLine]", 
+    \(AppendTo[Aperlist, { .5, 3.25}]\)}], "Input"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"x0", "=", 
+        StyleBox["1",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"y0", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(fastsoln3 = 
+      NDSolve[{\(x'\)[t] \[Equal] rhs1[x[t], y[t]], \(y'\)[t] \[Equal] 
+            rhs2[x[t], y[t]], x[0] \[Equal] x0, y[0] \[Equal] y0}, {x[t], 
+          y[t]}, {t, 0, 100}]\), "\[IndentingNewLine]", \(p3 = 
+        Plot[x[t] /. fastsoln3, {t, 0, 12}, 
+          PlotStyle \[Rule] Hue[ .7]];\)}], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+For A = 1, the amplitude is about 1. The period is again, slightly larger, \
+say 3.4. We will add this to our list and continue.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(AppendTo[Aamplist, {1, 1}]\), "\[IndentingNewLine]", 
+    \(AppendTo[Aperlist, {1, 3.4}]\)}], "Input"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"x0", "=", 
+        StyleBox["1.5",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"y0", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(fastsoln4 = 
+      NDSolve[{\(x'\)[t] \[Equal] rhs1[x[t], y[t]], \(y'\)[t] \[Equal] 
+            rhs2[x[t], y[t]], x[0] \[Equal] x0, y[0] \[Equal] y0}, {x[t], 
+          y[t]}, {t, 0, 100}]\), "\[IndentingNewLine]", \(p4 = 
+        Plot[x[t] /. fastsoln4, {t, 0, 12}, 
+          PlotStyle \[Rule] Hue[ .6]];\)}], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+For A = 1.5, the amplitude is about 1.5 and the period is about 3.7. We will \
+add this to our list and continue.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(AppendTo[Aamplist, {1.5, 1.5}]\), "\[IndentingNewLine]", 
+    \(AppendTo[Aperlist, {1.5, 3.7}]\)}], "Input"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"x0", "=", 
+        StyleBox["2",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"y0", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(fastsoln5 = 
+      NDSolve[{\(x'\)[t] \[Equal] rhs1[x[t], y[t]], \(y'\)[t] \[Equal] 
+            rhs2[x[t], y[t]], x[0] \[Equal] x0, y[0] \[Equal] y0}, {x[t], 
+          y[t]}, {t, 0, 100}]\), "\[IndentingNewLine]", \(p5 = 
+        Plot[x[t] /. fastsoln5, {t, 0, 12}, 
+          PlotStyle \[Rule] Hue[ .5]];\)}], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+For A = 2, the amplitude is about 2 and the period is about 4.1. We will add \
+this to our list.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(AppendTo[Aamplist, {2, 2}]\), "\[IndentingNewLine]", 
+    \(AppendTo[Aperlist, {2, 4.1}]\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Exploring the Impact of A on the Amplitude and Period", "Subsection"],
+
+Cell["\<\
+We will show all of the above plots on the same set of axes. Recall that the \
+color of the plots go from pink to aqua as A increases.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(Show[{p1, p2, p3, p4, p5}, AxesLabel \[Rule] {t, x}];\)\)], "Input"],
+
+Cell["\<\
+You might notice that both the amplitude and period increase as A increases. \
+We can get a rough idea of the relationships between A and those quantities \
+by observing and plotting the lists we created.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Aamplist\)], "Input"],
+
+Cell[BoxData[{
+    \(Aamplist\), "\[IndentingNewLine]", 
+    \(Aperlist\), "\[IndentingNewLine]", 
+    \(\(lpamp = 
+        ListPlot[Aamplist, 
+          PlotStyle \[Rule] PointSize[ .02]];\)\), "\[IndentingNewLine]", 
+    \(\(lpper = 
+        ListPlot[Aperlist, PlotStyle \[Rule] PointSize[ .02]];\)\)}], "Input"],
+
+Cell["\<\
+The amplitude list clearly shows that the value of A is the same as the \
+amplitude of the oscillation. The relationship between A and the also appears \
+to be somewhat linear but it seems to increase faster as A gets larger.
+Let's plot the solution for a smaller value of A to get a sense of what is \
+happening as A approaches 0\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"x0", "=", 
+        StyleBox[".05",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"y0", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(fastsoln6 = 
+      NDSolve[{\(x'\)[t] \[Equal] rhs1[x[t], y[t]], \(y'\)[t] \[Equal] 
+            rhs2[x[t], y[t]], x[0] \[Equal] x0, y[0] \[Equal] y0}, {x[t], 
+          y[t]}, {t, 0, 100}]\), "\[IndentingNewLine]", \(p6 = 
+        Plot[{\(- .05\),  .05, x[t] /. fastsoln6}, {t, 0, 12}, 
+          Ticks \[Rule] {{0, \[Pi], 2  \[Pi], 3  \[Pi]}, {\(- .05\), 
+                0,  .05}}, PlotStyle \[Rule] Hue[1]];\)}], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+It appears that the amplitude is always equal to A and the period appears to \
+get closer and closer to \[Pi] as A approaches 0.\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Exploring Critical Values of A", "Subsection"],
+
+Cell["\<\
+Let us see what happens when A = 4 and plot this result with that obtained \
+when A = 2.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"x0", "=", 
+        StyleBox["4",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"y0", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(fastsoln7 = 
+      NDSolve[{\(x'\)[t] \[Equal] rhs1[x[t], y[t]], \(y'\)[t] \[Equal] 
+            rhs2[x[t], y[t]], x[0] \[Equal] x0, y[0] \[Equal] y0}, {x[t], 
+          y[t]}, {t, 0, 100}]\), "\[IndentingNewLine]", \(p7 = 
+        Plot[{x[t] /. fastsoln7}, {t, 0, 12}, 
+          Ticks \[Rule] {{0, \[Pi], 2  \[Pi], 3  \[Pi]}, Automatic}, 
+          PlotStyle \[Rule] Hue[ .4]];\), "\[IndentingNewLine]", \(Show[p7, 
+        p5];\)}], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+How can you explain this? What is happening to the pendulum??? Did our \
+mathematics go wrong.
+Let's check out the solution for some values of A between 2 and 4.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"x0", "=", 
+        StyleBox["3.1",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"y0", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(fastsoln8 = 
+      NDSolve[{\(x'\)[t] \[Equal] rhs1[x[t], y[t]], \(y'\)[t] \[Equal] 
+            rhs2[x[t], y[t]], x[0] \[Equal] x0, y[0] \[Equal] y0}, {x[t], 
+          y[t]}, {t, 0, 100}]\), "\[IndentingNewLine]", \(p8 = 
+        Plot[{x[t] /. fastsoln8}, {t, 0, 12}, 
+          Ticks \[Rule] {{0, \[Pi], 2  \[Pi], 3  \[Pi]}, Automatic}, 
+          PlotStyle \[Rule] Hue[ .7]];\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"x0", "=", 
+        StyleBox["3.2",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"y0", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\n", \(fastsoln9 = 
+      NDSolve[{\(x'\)[t] \[Equal] rhs1[x[t], y[t]], \(y'\)[t] \[Equal] 
+            rhs2[x[t], y[t]], x[0] \[Equal] x0, y[0] \[Equal] y0}, {x[t], 
+          y[t]}, {t, 0, 100}]\), "\n", \(p9 = 
+        Plot[{x[t] /. fastsoln9}, {t, 0, 12}, 
+          Ticks \[Rule] {{0, \[Pi], 2  \[Pi], 3  \[Pi]}, Automatic}, 
+          PlotStyle \[Rule] Hue[1]];\), "\n", \(Show[p8, p9];\)}], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+The problem seems to occur between A = 3.1 and A = 3.2. what familiar number \
+do you know that is in that interval? Recalling that A is the angular \
+displacement, what happens when the displacement exceeds 180\[Degree] (\[Pi] \
+radians)?\
+\>", "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{492, 561},
+WindowMargins->{{24, Automatic}, {Automatic, 30}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 68, 1, 95, "Title"],
+Cell[1847, 56, 875, 20, 252, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2747, 80, 99, 4, 99, "Section"],
+
+Cell[CellGroupData[{
+Cell[2871, 88, 152, 4, 56, "Subsection"],
+Cell[3026, 94, 251, 5, 71, "Text"],
+Cell[3280, 101, 843, 20, 170, "Input"],
+Cell[4126, 123, 63, 0, 33, "Text"],
+Cell[4192, 125, 126, 3, 50, "Input"],
+Cell[4321, 130, 206, 4, 71, "Text"],
+Cell[4530, 136, 426, 7, 150, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4993, 148, 83, 1, 48, "Subsection"],
+Cell[5079, 151, 651, 14, 170, "Input"],
+Cell[5733, 167, 202, 4, 71, "Text"],
+Cell[5938, 173, 130, 2, 50, "Input"],
+Cell[6071, 177, 607, 14, 150, "Input"],
+Cell[6681, 193, 152, 3, 52, "Text"],
+Cell[6836, 198, 123, 2, 50, "Input"],
+Cell[6962, 202, 609, 14, 150, "Input"],
+Cell[7574, 218, 137, 3, 52, "Text"],
+Cell[7714, 223, 129, 2, 50, "Input"],
+Cell[7846, 227, 607, 14, 150, "Input"],
+Cell[8456, 243, 120, 3, 52, "Text"],
+Cell[8579, 248, 123, 2, 50, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[8739, 255, 75, 0, 30, "Subsection"],
+Cell[8817, 257, 158, 3, 52, "Text"],
+Cell[8978, 262, 90, 1, 30, "Input"],
+Cell[9071, 265, 228, 4, 71, "Text"],
+Cell[9302, 271, 41, 1, 30, "Input"],
+Cell[9346, 274, 314, 7, 130, "Input"],
+Cell[9663, 283, 354, 6, 109, "Text"],
+Cell[10020, 291, 713, 15, 170, "Input"],
+Cell[10736, 308, 152, 3, 52, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[10925, 316, 52, 0, 30, "Subsection"],
+Cell[10980, 318, 112, 3, 52, "Text"],
+Cell[11095, 323, 730, 16, 190, "Input"],
+Cell[11828, 341, 185, 4, 71, "Text"],
+Cell[12016, 347, 1317, 28, 350, "Input"],
+Cell[13336, 377, 263, 5, 90, "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

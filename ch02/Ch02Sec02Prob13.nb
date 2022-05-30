@@ -1,0 +1,257 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      6146,        193]*)
+(*NotebookOutlinePosition[      6791,        215]*)
+(*  CellTagsIndexPosition[      6747,        211]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 2  -  Section 2.2", "Title"],
+
+Cell[TextData[{
+  StyleBox["In this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will explore hazards associated with solutions in \
+implicit form.  \n",
+    FontWeight->"Bold"],
+  "\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. Throughout this notebook, you may \
+ignore the warnings about possible spelling errors. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem",
+  " 13:   y' = ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(2  x\)\/\(y\  + \(x\^2\) y\)\)]]
+}], "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Separating the Variables and Integrating", "Subsection"],
+
+Cell["\<\
+We will separate the variables and integrate both sides, using definite \
+integrals, since we have an initial condition.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[x, y]\), "\[IndentingNewLine]", 
+    RowBox[{"lhs", ":=", 
+      RowBox[{
+        StyleBox[\(\[Integral]\_\(-2\)\%y\),
+          FontColor->RGBColor[1, 0, 0]], 
+        RowBox[{
+          StyleBox["y",
+            FontColor->RGBColor[1, 0, 
+            0]], \(\[DifferentialD]y\)}]}]}], "\[IndentingNewLine]", 
+    RowBox[{"rhs", ":=", 
+      RowBox[{
+        StyleBox[\(\[Integral]\_0\%x\),
+          FontColor->RGBColor[1, 0, 0]], 
+        RowBox[{
+          StyleBox[\(\(2  x\)\/\(1 + x\^2\)\),
+            FontColor->RGBColor[1, 0, 
+            0]], \(\[DifferentialD]x\)}]}]}], "\[IndentingNewLine]", \(lhs \
+\[Equal] rhs\), "\[IndentingNewLine]", \(soln = 
+      Solve[lhs \[Equal] rhs, y]\)}], "Input"],
+
+Cell[TextData[{
+  "Since y[0] = -2, the first solution is the one we want here. If the ",
+  StyleBox["Solve",
+    FontWeight->"Bold"],
+  " command does not yield results, move on to the implicit plot section."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Plotting an Explicit Solution", "Subsection"],
+
+Cell["\<\
+We will isolate the correct solution and plot it. There are different ways to \
+isolate the desired solution. One would be to call on the second part of the \
+first solution: soln[[1,1,2]], Another is with the evaluation of the first \
+part of soln and we will use this latter method here.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"xmin", "=", 
+        StyleBox[\(-10\),
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"xmax", "=", 
+        StyleBox[" ",
+          FontColor->RGBColor[1, 0, 0]], 
+        StyleBox["10",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{"ysoln", "=", 
+      StyleBox[\(y /. First[soln]\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", \(Plot[
+      ysoln, {x, xmin, xmax}, \ AxesLabel \[Rule] {x, y}]\)}], "Input"],
+
+Cell["\<\
+You may plot this over a larger domain by changing xmin and/or xmax. It does \
+not appear that there are limitations on the domain for the solution \
+function.\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Alternative Implicit Plot Analysis", "Subsection"],
+
+Cell[TextData[{
+  "If the ",
+  StyleBox["Solve",
+    FontWeight->"Bold"],
+  " command does not work, the solution can be plotted implicitly. First load \
+a graphics package."
+}], "Text"],
+
+Cell[BoxData[
+    \(<< Graphics`ImplicitPlot`\)], "Input"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"xmin", "=", 
+        StyleBox[\(-10\),
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"xmax", "=", " ", 
+        StyleBox["10",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"ymin", "=", 
+        StyleBox[\(-10\),
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"ymax", "=", 
+        StyleBox["10",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(ImplicitPlot[
+      lhs \[Equal] rhs, {x, xmin, xmax}, {y, ymin, ymax}\ , 
+      AxesLabel \[Rule] {x, y}]\)}], "Input"],
+
+Cell["\<\
+You may change the values of the bounds to see the solution over a larger \
+interval. There do not appear to be any vertical tangents. The upper graph \
+does not satisfy the initial condition so it can be disregarded.\
+\>", "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{681, 561},
+WindowMargins->{{54, Automatic}, {Automatic, -7}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 609, 15, 126, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2455, 74, 137, 5, 80, "Section"],
+
+Cell[CellGroupData[{
+Cell[2617, 83, 62, 0, 38, "Subsection"],
+Cell[2682, 85, 144, 3, 33, "Text"],
+Cell[2829, 90, 731, 18, 137, "Input"],
+Cell[3563, 110, 221, 5, 52, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[3821, 120, 51, 0, 30, "Subsection"],
+Cell[3875, 122, 313, 5, 71, "Text"],
+Cell[4191, 129, 532, 13, 70, "Input"],
+Cell[4726, 144, 183, 4, 52, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4946, 153, 56, 0, 30, "Subsection"],
+Cell[5005, 155, 186, 6, 33, "Text"],
+Cell[5194, 163, 58, 1, 30, "Input"],
+Cell[5255, 166, 607, 16, 50, "Input"],
+Cell[5865, 184, 241, 4, 52, "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

@@ -1,0 +1,375 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      9871,        303]*)
+(*NotebookOutlinePosition[     10515,        325]*)
+(*  CellTagsIndexPosition[     10471,        321]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 5  -  Section 5.2", "Title"],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will use ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" to find and compare Series solutions to a differential equation \
+near an ordinary point. ",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem 16:  (2 + ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\^2\)]],
+  ") y'' - x y' +  4y = 0\t\t"
+}], "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Solving the Differential Equation ", "Subsection"],
+
+Cell[TextData[{
+  "We will begin by naming the left hand side of the differential equation \
+and finding its Taylor series expansion about ",
+  StyleBox["x",
+    FontSlant->"Italic"],
+  " = 0. This is done using the ",
+  StyleBox["Series ",
+    FontWeight->"Bold"],
+  " command in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  ". The numbers following the independent variable represent the number \
+about which the series is expanded (0 in this case), followed by the number \
+of terms you want in the expansion (5 in this case). After finding the \
+series, we will insert the initial conditions. You may ignore warnings about \
+spelling errors."
+}], "Text"],
+
+Cell[BoxData[{\(Clear[x, y]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"lhs", "=", 
+        StyleBox[\(\((2 + x\^2)\) \(y''\)[x]\  - \ x\ \(y'\)[x]\  + \ 
+            4  y[x]\),
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"y0", "=", 
+        StyleBox[\(-1\),
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"yp0", "=", 
+        StyleBox["3",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{"lhsseries", "=", 
+      RowBox[{"Series", "[", 
+        RowBox[{"lhs", ",", 
+          RowBox[{"{", 
+            RowBox[{"x", ",", 
+              StyleBox["0",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox[",",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox["5",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], 
+        "]"}]}], "\[IndentingNewLine]", \(lhsseriesinit = 
+      lhsseries /. {y[0] \[Rule] y0, \(y'\)[0] \[Rule] yp0}\)}], "Input"],
+
+Cell[TextData[{
+  "In this case, the right hand side of the equation is 0, but in order to \
+determine the set of equations that will equate the coefficient of each power \
+of ",
+  StyleBox["x ",
+    FontSlant->"Italic"],
+  "to 0, we will need to create a series expansion for the right hand side. \
+The ",
+  StyleBox["LogicalExpand",
+    FontWeight->"Bold"],
+  " command here will set coefficients of like powers of ",
+  StyleBox["x ",
+    FontSlant->"Italic"],
+  "equal to one another."
+}], "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"rhs", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"rhsseries", "=", 
+        RowBox[{"Series", "[", 
+          RowBox[{"rhs", ",", 
+            RowBox[{"{", 
+              RowBox[{"x", ",", 
+                StyleBox["0",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["5",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}]}], 
+      ";"}], "\[IndentingNewLine]", \(setofeqs = 
+      LogicalExpand[lhsseriesinit \[Equal] rhsseries]\)}], "Input"],
+
+Cell["We will now solve this system of equations", "Text"],
+
+Cell[BoxData[
+    \(solutionset = Solve[setofeqs]\)], "Input"],
+
+Cell[TextData[{
+  "We can now write the series expansion for y and evaluate it at the initial \
+conditions and at this solution set. The command ",
+  StyleBox["Normal ",
+    FontWeight->"Bold"],
+  "truncates the series by removing the terms of higher order than we \
+requested."
+}], "Text"],
+
+Cell[BoxData[{
+    RowBox[{"sery5", "=", 
+      RowBox[{"Series", "[", 
+        RowBox[{\(y[x]\), ",", 
+          RowBox[{"{", 
+            RowBox[{"x", ",", 
+              StyleBox["0",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox[",",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox["5",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], 
+        "]"}]}], "\[IndentingNewLine]", \(yapprox5 = \(Normal[
+            sery5] /. {y[0] \[Rule] y0, \(y'\)[0] \[Rule] yp0}\) /. 
+        solutionset[\([1]\)]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"sery4", "=", 
+        RowBox[{"Series", "[", 
+          RowBox[{\(y[x]\), ",", 
+            RowBox[{"{", 
+              RowBox[{"x", ",", 
+                StyleBox["0",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["4",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}]}], 
+      ";"}], "\[IndentingNewLine]", \(yapprox4 = \(Normal[
+            sery4] /. {y[0] \[Rule] y0, \(y'\)[0] \[Rule] yp0}\) /. 
+        solutionset[\([1]\)]\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Analyzing the Solution Graphically", "Subsection"],
+
+Cell["\<\
+Now we can plot these two approximations. The four term approximation is \
+green, while the five term is blue.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{"width", "=", 
+      StyleBox["3",
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", \(pser = 
+        Plot[{yapprox4, yapprox5}, {x, \(-width\), width}, 
+          PlotStyle \[Rule] {RGBColor[0, 1, 0], 
+              RGBColor[0, 0, 1]}];\)}], "Input"],
+
+Cell[TextData[{
+  "Something unusual seems to be happening outside of the interval from -1 to \
++1. What would happen if we use the ",
+  StyleBox["N",
+    FontWeight->"Bold"],
+  StyleBox["DSolve",
+    FontWeight->"Bold"],
+  " command?"
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Graphical Comparison to the Numerical Solution", "Subsection"],
+
+Cell[TextData[{
+  "We could try to look at the numerical solution to this differential \
+equation using the ",
+  StyleBox["NDSolve",
+    FontWeight->"Bold"],
+  " command"
+}], "Text"],
+
+Cell[BoxData[{
+    \(numsoln1 = 
+      NDSolve[{lhs \[Equal] rhs, y[0] \[Equal] y0, \(y'\)[0] \[Equal] yp0}, 
+        y[x], {x, 0, width}]\), "\[IndentingNewLine]", 
+    \(numsoln2 = 
+      NDSolve[{lhs \[Equal] rhs, y[0] \[Equal] y0, \(y'\)[0] \[Equal] yp0}, 
+        y[x], {x, 0, \(-width\)}]\)}], "Input"],
+
+Cell["\<\
+This doesn't help much, since it cannot seem to get much past t=1.5  either. \
+Let us explore the analytical solution arrived at earlier.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(\(numplot1 = 
+        Plot[y[x] /. numsoln1, {x, 0, width}, 
+          PlotStyle \[Rule] RGBColor[1, 0, 0]];\)\), "\[IndentingNewLine]", 
+    \(\(numplot2 = 
+        Plot[y[x] /. numsoln2, {x, \(-width\), 0}, 
+          PlotStyle \[Rule] RGBColor[1, 0, 0]];\)\)}], "Input"],
+
+Cell[BoxData[
+    \(\(Show[pser, numplot1, numplot2];\)\)], "Input"],
+
+Cell[TextData[{
+  "You can see that both of our approximations become less accurate as we \
+move farther away from ",
+  StyleBox["x",
+    FontSlant->"Italic"],
+  " = 0. We can try to narrow down the interval over which we plot these \
+functions to see where the approximations seem reasonable."
+}], "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Show", "[", 
+        RowBox[{"pser", ",", "numplot1", ",", "numplot2", ",", 
+          RowBox[{"PlotRange", "\[Rule]", 
+            RowBox[{"{", 
+              StyleBox[\({\(-1.5\), 1.5}, {\(-4\), 4}\),
+                FontColor->RGBColor[1, 0, 0]], "}"}]}], 
+          ",", \(AspectRatio \[Rule] 1\)}], "]"}], ";"}]], "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{705, 527},
+WindowMargins->{{6, Automatic}, {35, Automatic}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 675, 20, 108, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2521, 79, 136, 5, 73, "Section"],
+
+Cell[CellGroupData[{
+Cell[2682, 88, 56, 0, 38, "Subsection"],
+Cell[2741, 90, 670, 16, 71, "Text"],
+Cell[3414, 108, 1020, 25, 111, "Input"],
+Cell[4437, 135, 500, 14, 52, "Text"],
+Cell[4940, 151, 696, 18, 70, "Input"],
+Cell[5639, 171, 58, 0, 33, "Text"],
+Cell[5700, 173, 62, 1, 30, "Input"],
+Cell[5765, 176, 290, 7, 52, "Text"],
+Cell[6058, 185, 1183, 29, 90, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7278, 219, 56, 0, 30, "Subsection"],
+Cell[7337, 221, 134, 3, 33, "Text"],
+Cell[7474, 226, 293, 6, 50, "Input"],
+Cell[7770, 234, 247, 8, 33, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[8054, 247, 68, 0, 30, "Subsection"],
+Cell[8125, 249, 182, 6, 33, "Text"],
+Cell[8310, 257, 308, 6, 50, "Input"],
+Cell[8621, 265, 161, 3, 33, "Text"],
+Cell[8785, 270, 294, 6, 50, "Input"],
+Cell[9082, 278, 68, 1, 30, "Input"],
+Cell[9153, 281, 306, 7, 52, "Text"],
+Cell[9462, 290, 369, 8, 30, "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

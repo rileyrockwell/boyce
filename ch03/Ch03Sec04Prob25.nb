@@ -1,0 +1,310 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      7887,        238]*)
+(*NotebookOutlinePosition[      8533,        260]*)
+(*  CellTagsIndexPosition[      8489,        256]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 3  -  Section 3.4", "Title"],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will explore the behavior of solutions to linear \
+differential equations and see how varying initial states cause the solution \
+to go to zero at different times. These are linear differential equations \
+with complex roots.",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Problem 25:  y'' + 2y' + 6 y = 0\
+\>", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Solving the Differential Equation", "Subsection"],
+
+Cell[TextData[{
+  StyleBox["Special Note:  ",
+    FontWeight->"Bold"],
+  "If you are doing this problem right after having done Problem 25 from \
+Section 3.1, you must close the Kernel to close the RealsOnly package that \
+had been loaded in doing that problem. Here we will expect to get nonreal \
+solutions to our characteristic equations.\n\nWe will solve this differential \
+equation using the techniques presented in this section. We begin by solving \
+the characteristic equation."
+}], "Text"],
+
+Cell[BoxData[{\(Clear[r, r1, r2, c1, c2, y, t, 
+      genlsoln]\), "\[IndentingNewLine]", 
+    RowBox[{"rsoln", "=", 
+      RowBox[{"Solve", "[", 
+        RowBox[{
+          RowBox[{
+            RowBox[{
+              RowBox[{
+                StyleBox["1",
+                  FontColor->RGBColor[1, 0, 0]], \(r\^2\)}], 
+              StyleBox["+",
+                FontColor->RGBColor[1, 0, 0]], 
+              RowBox[{
+                StyleBox["2",
+                  FontColor->RGBColor[1, 0, 0]], "r"}], 
+              StyleBox["+",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox["6",
+                FontColor->RGBColor[1, 0, 0]]}], "\[Equal]", "0"}], ",", 
+          "r"}], "]"}]}]}], "Input"],
+
+Cell[TextData[{
+  "We will use these values of ",
+  StyleBox["r",
+    FontSlant->"Italic"],
+  " to write the general solution with two arbitrary constants,. Here we will \
+need to separate the real portion of the solutions from the imaginary \
+portion. That is why the expressions pulling out the parts are so long. The \
+real part is the first part of the solution and the imaginary part we need is \
+the second part of the second portion of the solution."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\[Lambda] = rsoln[\([1, 1, 2, 1]\)]\), "\[IndentingNewLine]", 
+    \(\[Mu] = rsoln[\([1, 1, 2, 2, 2]\)]\), "\[IndentingNewLine]", 
+    \(genlsoln[
+        t_] = \(\[ExponentialE]\^\(\[Lambda]\ t\)\) \((c1\ \ Cos[\[Mu]\ t]\  \
++ \ c2\ Sin[\[Mu]\ t])\)\)}], "Input"],
+
+Cell["\<\
+Now, we will apply the initial conditions and write our solution as a \
+function of \[Alpha]. Don't worry about warnings of possible spelling errors.\
+\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[\[Alpha], ysoln]\), "\[IndentingNewLine]", 
+    RowBox[{"arbconstants", "=", 
+      RowBox[{"Solve", "[", 
+        RowBox[{
+          RowBox[{"{", 
+            RowBox[{
+              RowBox[{\(genlsoln[0]\), "\[Equal]", 
+                StyleBox["2",
+                  FontColor->RGBColor[1, 0, 0]]}], ",", 
+              RowBox[{\(\(genlsoln'\)[0]\), "\[Equal]", 
+                StyleBox["\[Alpha]",
+                  FontColor->RGBColor[1, 0, 0]]}]}], "}"}], 
+          ",", \({c1, c2}\)}], "]"}]}], "\[IndentingNewLine]", \(ysoln[
+        t_, \[Alpha]_] = genlsoln[t] /. arbconstants\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["What Makes y(1) = 0?", "Subsection"],
+
+Cell[TextData[{
+  "We will use the Solve command to determine what value of \[Alpha] makes ",
+  StyleBox["y",
+    FontSlant->"Italic"],
+  "(1) = 0."
+}], "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"Solve", "[", 
+        RowBox[{
+          RowBox[{
+            RowBox[{"ysoln", "[", 
+              RowBox[{
+                StyleBox["1",
+                  FontColor->RGBColor[1, 0, 0]], ",", "\[Alpha]"}], "]"}], 
+            "\[Equal]", 
+            StyleBox["0",
+              FontColor->RGBColor[1, 0, 0]]}], ",", "\[Alpha]"}], "]"}], "//",
+       "Simplify"}], "\[IndentingNewLine]", \(N[%]\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["What Makes y(t) = 0?", "Subsection"],
+
+Cell[BoxData[
+    RowBox[{"tzerosoln", "=", 
+      RowBox[{
+        RowBox[{"Solve", "[", 
+          RowBox[{
+            RowBox[{\(ysoln[t, \[Alpha]]\), "\[Equal]", 
+              StyleBox["0",
+                FontColor->RGBColor[1, 0, 0]]}], ",", "t"}], "]"}], "//", 
+        "Simplify"}]}]], "Input"],
+
+Cell["\<\
+The second and fourth solutions here yield positive values of t. We can pull \
+these out and plot the t-values as functions of \[Alpha].\
+\>", "Text"],
+
+Cell[BoxData[{\(t1 = 
+      tzerosoln[\([2, 1, 2]\)]\), "\[IndentingNewLine]", \(t2 = 
+      tzerosoln[\([4, 1, 2]\)]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{\({t1, t2}\), ",", 
+          RowBox[{"{", 
+            RowBox[{"\[Alpha]", ",", "0", ",", 
+              StyleBox["50",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(PlotStyle \[Rule] {RGBColor[0, 1, 0], RGBColor[0, 0, 1]}\), 
+          ",", \(AxesLabel \[Rule] {\[Alpha], t}\)}], "]"}], ";"}]}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["What Happens When \[Alpha]\[Rule]\[Infinity]?", "Subsection"],
+
+Cell[TextData[{
+  "The plots above give us a good idea of the limiting values of t1 and t2, \
+but we could also use the ",
+  StyleBox["Limit ",
+    FontWeight->"Bold"],
+  "command to do this."
+}], "Text"],
+
+Cell[BoxData[{
+    \(Limit[t1, \[Alpha] \[Rule] \[Infinity]]\), "\[IndentingNewLine]", 
+    \(N[%]\), "\[IndentingNewLine]", 
+    \(Limit[t2, \[Alpha] \[Rule] \[Infinity]]\), "\[IndentingNewLine]", 
+    \(N[%]\)}], "Input"],
+
+Cell["The values found validate what we see in the plots.", "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{661, 561},
+WindowMargins->{{157, Automatic}, {Automatic, 28}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 684, 17, 168, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2530, 76, 59, 2, 73, "Section"],
+
+Cell[CellGroupData[{
+Cell[2614, 82, 55, 0, 38, "Subsection"],
+Cell[2672, 84, 499, 9, 128, "Text"],
+Cell[3174, 95, 719, 19, 51, "Input"],
+Cell[3896, 116, 469, 9, 90, "Text"],
+Cell[4368, 127, 285, 5, 70, "Input"],
+Cell[4656, 134, 175, 4, 52, "Text"],
+Cell[4834, 140, 623, 13, 70, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5494, 158, 42, 0, 30, "Subsection"],
+Cell[5539, 160, 160, 5, 33, "Text"],
+Cell[5702, 167, 451, 12, 50, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[6190, 184, 42, 0, 30, "Subsection"],
+Cell[6235, 186, 303, 8, 30, "Input"],
+Cell[6541, 196, 160, 3, 52, "Text"],
+Cell[6704, 201, 536, 11, 90, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7277, 217, 67, 0, 30, "Subsection"],
+Cell[7347, 219, 204, 6, 52, "Text"],
+Cell[7554, 227, 223, 4, 90, "Input"],
+Cell[7780, 233, 67, 0, 33, "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

@@ -1,0 +1,360 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      9201,        287]*)
+(*NotebookOutlinePosition[      9845,        309]*)
+(*  CellTagsIndexPosition[      9801,        305]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 3  -  Section 3.1", "Title"],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will explore the behavior of solutions to linear \
+differential equations with varying initial states.  These are linear \
+differential equations with two real roots.",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Problem 25:  2y'' + 3y' - 2 y = 0\
+\>", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Solving the Differential Equation", "Subsection"],
+
+Cell["\<\
+We will solve this differential equation using the techniques presented in \
+this section. We begin by solving the characteristic equation.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[r, r1, r2, c1, c2, y, t, 
+      genlsoln]\), "\[IndentingNewLine]", 
+    RowBox[{"rsoln", "=", 
+      RowBox[{"Solve", "[", 
+        RowBox[{
+          RowBox[{
+            RowBox[{
+              RowBox[{
+                StyleBox["2",
+                  FontColor->RGBColor[1, 0, 0]], \(r\^2\)}], 
+              StyleBox["+",
+                FontColor->RGBColor[1, 0, 0]], 
+              RowBox[{
+                StyleBox["3",
+                  FontColor->RGBColor[1, 0, 0]], "r"}], 
+              StyleBox["-",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox["2",
+                FontColor->RGBColor[1, 0, 0]]}], "\[Equal]", "0"}], ",", 
+          "r"}], "]"}]}]}], "Input"],
+
+Cell[TextData[{
+  "We will use these values of ",
+  StyleBox["r",
+    FontSlant->"Italic"],
+  " to write the general solution with two arbitrary constants."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(r1 = rsoln[\([1, 1, 2]\)];\)\), "\[IndentingNewLine]", 
+    \(\(r2 = rsoln[\([2, 1, 2]\)];\)\), "\[IndentingNewLine]", 
+    \(genlsoln[t_] = 
+      c1\ \[ExponentialE]\^\(r1\ t\)\  + \ 
+        c2\ \[ExponentialE]\^\(r2\ t\)\)}], "Input"],
+
+Cell["\<\
+Now, we will apply the initial conditions and write our soltion as a function \
+of \[Beta].\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[\[Beta], ysoln]\), "\[IndentingNewLine]", 
+    RowBox[{"arbconstants", "=", 
+      RowBox[{"Solve", "[", 
+        RowBox[{
+          RowBox[{"{", 
+            RowBox[{
+              RowBox[{\(genlsoln[0]\), "\[Equal]", 
+                StyleBox["1",
+                  FontColor->RGBColor[1, 0, 0]]}], ",", 
+              RowBox[{\(\(genlsoln'\)[0]\), "\[Equal]", 
+                StyleBox[\(-\[Beta]\),
+                  FontColor->RGBColor[1, 0, 0]]}]}], "}"}], 
+          ",", \({c1, c2}\)}], "]"}]}], "\[IndentingNewLine]", \(ysoln[
+        t_, \[Beta]_] = genlsoln[t] /. arbconstants\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Exploring the Solution for \[Beta] = 1\
+\>", "Subsection"],
+
+Cell["We will begin by plotting  the solution.", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{\(ysoln[t, 1]\), ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["3",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(PlotStyle \[Rule] RGBColor[0, 1, 0]\)}], "]"}], 
+      ";"}]], "Input"],
+
+Cell["\<\
+We can find the point at which the curve reaches a minimum with the following \
+commands.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(solvemin = 
+      Solve[D[ysoln[t, 1], t] \[Equal] 0, t]\), "\[IndentingNewLine]", 
+    \(Print["\<The coordinates of the minimum value of the solution are \>", 
+      N[{t, \ ysoln[t, 1]} /. solvemin]]\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Exploring the Solution for Other Values of \[Beta]\
+\>", "Subsection"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{
+          RowBox[{"{", 
+            RowBox[{
+              RowBox[{"ysoln", "[", 
+                RowBox[{"t", ",", 
+                  StyleBox["0",
+                    FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+              RowBox[{"ysoln", "[", 
+                RowBox[{"t", ",", 
+                  StyleBox["1",
+                    FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+              RowBox[{"ysoln", "[", 
+                RowBox[{"t", ",", 
+                  StyleBox["2",
+                    FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+              RowBox[{"ysoln", "[", 
+                RowBox[{"t", ",", 
+                  StyleBox["3",
+                    FontColor->RGBColor[1, 0, 0]]}], "]"}]}], "}"}], ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["7",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], RGBColor[0, 1, 0], 
+              RGBColor[0, 0, 1], RGBColor[0,  .5,  .5]}\)}], "]"}], 
+      ";"}]], "Input"],
+
+Cell["\<\
+It appears that something different happens when \[Beta] = 2. We can examine \
+values closer to 2.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{
+          RowBox[{"{", 
+            RowBox[{
+              RowBox[{"ysoln", "[", 
+                RowBox[{"t", ",", 
+                  StyleBox["1.9",
+                    FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+              RowBox[{"ysoln", "[", 
+                RowBox[{"t", ",", 
+                  StyleBox["2",
+                    FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+              RowBox[{"ysoln", "[", 
+                RowBox[{"t", ",", 
+                  StyleBox["2.1",
+                    FontColor->RGBColor[1, 0, 0]]}], "]"}]}], "}"}], ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["7",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], RGBColor[0, 1, 0], 
+              RGBColor[0, 0, 1]}\)}], "]"}], ";"}]], "Input"],
+
+Cell[TextData[{
+  "We could look at it analytically, since our solution is given is a \
+function of both ",
+  StyleBox["t",
+    FontSlant->"Italic"],
+  " and \[Beta]. We will determine where the derivative of the solution is 0 \
+and express that value of ",
+  StyleBox["t",
+    FontSlant->"Italic"],
+  " as a function of \[Beta]. Since we are interested in real values only, we \
+will load a special ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " package that will restrict our solutions to reals only."
+}], "Text"],
+
+Cell[BoxData[{
+    \(<< Miscellaneous`RealOnly`\), "\[IndentingNewLine]", 
+    \(ysoln[t, \[Beta]]\)}], "Input"],
+
+Cell[BoxData[
+    \(solvemin = Solve[D[ysoln[t, \[Beta]], t] \[Equal] 0, t]\)], "Input"],
+
+Cell["\<\
+Now, let us plot this relationship between t and \[Beta].\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{\(solvemin[\([1, 1, 2]\)]\), ",", 
+          RowBox[{"{", 
+            RowBox[{"\[Beta]", ",", "0", ",", 
+              StyleBox["5",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}], 
+      ";"}]], "Input"],
+
+Cell["\<\
+It appears as though the value of t where the derivative is zero is not \
+defined if \[Beta] = 2, and our graphs would indicate that the solution does \
+not have a minimum when \[Beta] > 2.\
+\>", "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{666, 527},
+WindowMargins->{{8, Automatic}, {60, Automatic}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 625, 16, 147, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2471, 75, 60, 2, 73, "Section"],
+
+Cell[CellGroupData[{
+Cell[2556, 81, 55, 0, 38, "Subsection"],
+Cell[2614, 83, 163, 3, 33, "Text"],
+Cell[2780, 88, 719, 19, 51, "Input"],
+Cell[3502, 109, 168, 5, 33, "Text"],
+Cell[3673, 116, 261, 5, 70, "Input"],
+Cell[3937, 123, 115, 3, 33, "Text"],
+Cell[4055, 128, 623, 13, 70, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4715, 146, 68, 2, 30, "Subsection"],
+Cell[4786, 150, 56, 0, 33, "Text"],
+Cell[4845, 152, 332, 9, 30, "Input"],
+Cell[5180, 163, 113, 3, 33, "Text"],
+Cell[5296, 168, 237, 4, 50, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5570, 177, 80, 2, 30, "Subsection"],
+Cell[5653, 181, 1122, 28, 70, "Input"],
+Cell[6778, 211, 122, 3, 33, "Text"],
+Cell[6903, 216, 926, 23, 50, "Input"],
+Cell[7832, 241, 527, 14, 71, "Text"],
+Cell[8362, 257, 112, 2, 50, "Input"],
+Cell[8477, 261, 88, 1, 30, "Input"],
+Cell[8568, 264, 81, 2, 33, "Text"],
+Cell[8652, 268, 293, 8, 30, "Input"],
+Cell[8948, 278, 213, 4, 52, "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

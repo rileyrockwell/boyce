@@ -1,0 +1,302 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      8280,        238]*)
+(*NotebookOutlinePosition[      8923,        260]*)
+(*  CellTagsIndexPosition[      8879,        256]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 1  -  Section 1.1", "Title"],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will learn how to draw direction fields for \
+differential equations and use these direction fields to explore the behavior \
+of solutions to the differential equations. ",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem 27:  y' = t ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[ExponentialE]\^\(\(-2\) t\)\)]],
+  " - 2 y"
+}], "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Drawing Direction Fields", "Subsection"],
+
+Cell[TextData[{
+  "Certain built-in commands in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " require the loading of a packaged ",
+  StyleBox["before",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " executing the command. This is the case with the ",
+  StyleBox["PlotVectorField",
+    FontWeight->"Bold"],
+  " command."
+}], "Text"],
+
+Cell[BoxData[
+    \(<< Graphics`PlotField`\)], "Input"],
+
+Cell[TextData[{
+  "The first input for the ",
+  StyleBox["PlotVectorField ",
+    FontWeight->"Bold"],
+  "command is an ordered pair, {change in x, change in y). Here, we will let \
+our change in x be 1 and let y' represent the change in y. We must also \
+specify the domain over which we want the direction field plotted. The ",
+  StyleBox["PlotVectorField",
+    FontWeight->"Bold"],
+  " command has many options. You can get information on this by typing the \
+command in the Help Browser and search the Master Index. We will begin by \
+defining the derivative as a function of y. You may ignore warning messages \
+about the possible spelling errors here.\n\nIf, when you execute this cell, \
+you just get back the command, it is probably because you forgot to first \
+load the graphics package noted above. You will now have to ",
+  StyleBox["close",
+    FontWeight->"Bold"],
+  " the ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " kernel, then load the graphics package and  re-execute this set of \
+commands."
+}], "Text"],
+
+Cell[BoxData[{\(Clear[y, t]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"yprime", "=", 
+        StyleBox[\(t\ \[ExponentialE]\^\(\(-2\) t\) - 2  y\),
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"tmin", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"tmax", "=", 
+        StyleBox["6",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"ymin", "=", 
+        StyleBox[\(-2\),
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"ymax", "=", 
+        StyleBox["6",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(pd = 
+      PlotVectorField[{1, yprime}, {t, tmin, tmax}, {y, ymin, ymax}, \ 
+        Axes \[Rule] True, AxesLabel \[Rule] {t, y}, ScaleFactor \[Rule] 1, 
+        ScaleFunction \[Rule] \(( .3  # &)\)]\)}], "Input"],
+
+Cell["\<\
+If you want to enlarge your plot, highlight the plot and drag the right-hand \
+side out. The arrows get longer as the value of the derivative gets larger.\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Exploring Solution Curves", "Subsection"],
+
+Cell[TextData[{
+  "It is clear from both the differential equation and the direction field \
+that an equilibrium occurs at y = 0. Considering the directions in which the \
+arrows point, it appears that no matter where solutions start, they approach \
+y = 0. To check this out with ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  ", we need to find some solution curves. We will do this with the command \
+DSolve. In using this command, the dependent variable must be called on as a \
+function, here y[t]. The first portion of the input will contain the \
+differential equation and initial condition, both with double equal signs \
+since this is conditional as opposed to an assignment. The last inputs are \
+the dependent and independent variables, respectively.\n\nUsing an initial \
+value of t = 0, we will allow y[0] to take on four different values around \
+the equilibrium values of 0 and 4:  ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(-1\)\/10\)]],
+  ",  ",
+  Cell[BoxData[
+      \(TraditionalForm\`1\/2\)]],
+  ", 3, 6. We will name each solution, plot them, and then show their plots \
+together with the plot of the direction field. Don't worry about the warning \
+messages here."
+}], "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"diffeq", "=", 
+        RowBox[{\(\(y'\)[t]\), "\[Equal]", 
+          StyleBox[\(t\ \[ExponentialE]\^\(\(-2\) t\) - 2  y[t]\),
+            FontColor->RGBColor[1, 0, 0]]}]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{\({init1, init2, init3, init4}\), "=", 
+        RowBox[{
+          StyleBox["{",
+            Background->None], 
+          StyleBox[\(\(-2\), 1/2, 3, 6\),
+            CellFrame->True,
+            FontColor->RGBColor[1, 0, 0]], 
+          StyleBox["}",
+            CellFrame->True]}]}], 
+      StyleBox[";",
+        CellFrame->True]}], "\[IndentingNewLine]", \(y1 = 
+        DSolve[{diffeq, y[0] \[Equal] init1}, y[t], 
+          t];\), "\[IndentingNewLine]", \(y2 = 
+        DSolve[{diffeq, y[0] \[Equal] init2}, y[t], 
+          t];\), "\[IndentingNewLine]", \(y3 = 
+        DSolve[{diffeq, y[0] \[Equal] init3}, y[t], 
+          t];\), "\[IndentingNewLine]", \(y4 = 
+        DSolve[{diffeq, y[0] \[Equal] init4}, y[t], 
+          t];\), "\[IndentingNewLine]", \(solncurves = 
+      Flatten[Table[
+          y[t] /. {y1, y2, y3, y4}]]\), "\[IndentingNewLine]", \(pc = 
+        Plot[Evaluate[solncurves], {t, tmin, tmax}, 
+          PlotRange \[Rule] {ymin, ymax}];\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Direction Fields with Solution Curves", "Subsection"],
+
+Cell["\<\
+We display the two sets of plots together with the Show command. \
+\>", "Text"],
+
+Cell[BoxData[
+    \(Show[pd, pc]\)], "Input"],
+
+Cell["\<\
+Our suppositions about the behavior of the solutions relative to the \
+equilibrium point is confirmed. 
+Try changing the last initial condition and see what effect that has on the \
+solution.\
+\>", "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{497, 527},
+WindowMargins->{{0, Automatic}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 629, 16, 168, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2475, 75, 143, 5, 73, "Section"],
+
+Cell[CellGroupData[{
+Cell[2643, 84, 46, 0, 38, "Subsection"],
+Cell[2692, 86, 351, 12, 71, "Text"],
+Cell[3046, 100, 55, 1, 30, "Input"],
+Cell[3104, 103, 1036, 22, 261, "Text"],
+Cell[4143, 127, 908, 21, 130, "Input"],
+Cell[5054, 150, 178, 3, 52, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5269, 158, 47, 0, 30, "Subsection"],
+Cell[5319, 160, 1211, 23, 283, "Text"],
+Cell[6533, 185, 1253, 29, 190, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7823, 219, 59, 0, 30, "Subsection"],
+Cell[7885, 221, 89, 2, 33, "Text"],
+Cell[7977, 225, 45, 1, 30, "Input"],
+Cell[8025, 228, 215, 5, 90, "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

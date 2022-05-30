@@ -1,0 +1,486 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     13564,        404]*)
+(*NotebookOutlinePosition[     14209,        426]*)
+(*  CellTagsIndexPosition[     14165,        422]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 9  -  Section 9.8", "Title",
+  PageWidth->WindowWidth],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will analyze the solutions for the Lorenz \
+equations with parameter r values near 100. You will use ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" to solve the system of differential equations and examine the \
+period-doubling property graphically.",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle",
+  PageWidth->WindowWidth],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Problem 9:  \tdx/dt = 10 (-x + y)
+\t\tdy/dt = r x - y - x z
+\t\tdz/dt = -8/3 z + x y\
+\>", "Section",
+  PageWidth->WindowWidth],
+
+Cell[CellGroupData[{
+
+Cell["Exploring the Solutions When r = 100", "Subsection"],
+
+Cell["\<\
+First we will define our functions and solve the differential equation \
+numerically.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[x, y, z, r]\), "\[IndentingNewLine]", 
+    RowBox[{"rhs1", ":=", 
+      StyleBox[\(10\ \((\(-x[t]\)\  + \ y[t])\)\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{\(rhs2[r_]\), ":=", 
+      StyleBox[\(r\ x[t] - y[t] - x[t]\ z[t]\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{"rhs3", ":=", 
+      StyleBox[\(\(-8\)/3  z[t] + x[t]\ y[t]\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"init", "=", 
+        RowBox[{"{", 
+          StyleBox[\(5, 5, 5\),
+            FontColor->RGBColor[1, 0, 0]], "}"}]}], 
+      ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"r", "=", 
+        StyleBox["100",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(sol1 = 
+      NDSolve[{\(x'\)[t] \[Equal] rhs1, \(y'\)[t] \[Equal] 
+              rhs2[r], \(z'\)[t] \[Equal] rhs3, 
+            Thread[{x[0], y[0], z[0]} \[Equal] init]}, {x[t], y[t], 
+            z[t]}, {t, 0, 30}] // Simplify\)}], "Input"],
+
+Cell["\<\
+We can plot x and y as functions of t to observe their periodicity.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"p1", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{\(x[t] /. sol1\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["15",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] Hue[ .8]\)}], "]"}]}], ";"}]], "Input"],
+
+Cell["\<\
+We can also look at the plot of the solutions in the x-y phase plane or in \
+the x-z phase plane.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"pp1", "=", 
+        RowBox[{"ParametricPlot", "[", 
+          RowBox[{\({sol1[\([1, 1, 2]\)], sol1[\([1, 2, 2]\)]}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["10",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {Hue[ .8]}\), 
+            ",", \(PlotRange \[Rule] All\)}], "]"}]}], ";"}]], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"pp11", "=", 
+        RowBox[{"ParametricPlot", "[", 
+          RowBox[{\({sol1[\([1, 1, 2]\)], sol1[\([1, 3, 2]\)]}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["10",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {Hue[ .8]}\), 
+            ",", \(PlotRange \[Rule] All\)}], "]"}]}], ";"}]], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Exploring the Solutions When r = 99.98", "Subsection"],
+
+Cell["\<\
+First we will define our new value of r and solve the differential equation \
+numerically.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[r]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"r", "=", 
+        StyleBox["99.98",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{"sol2", "=", 
+      RowBox[{
+        RowBox[{"NDSolve", "[", 
+          
+          RowBox[{\({\(x'\)[t] \[Equal] rhs1, \(y'\)[t] \[Equal] 
+                rhs2[r], \(z'\)[t] \[Equal] rhs3, 
+              Thread[{x[0], y[0], z[0]} \[Equal] init]}\), 
+            ",", \({x[t], y[t], z[t]}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["30",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}], "//", 
+        "Simplify"}]}]}], "Input"],
+
+Cell["\<\
+We can plot x and y as functions of t to observe their periodicity.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"p2", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{\(x[t] /. sol2\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["15",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {Hue[ .6]}\)}], "]"}]}], ";"}]], "Input"],
+
+Cell["\<\
+We can also look at the plot of the solutions in the x-y phase plane or in \
+the x-z phase plane.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"pp2", "=", 
+        RowBox[{"ParametricPlot", "[", 
+          RowBox[{\({sol2[\([1, 1, 2]\)], sol2[\([1, 2, 2]\)]}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["10",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {Hue[ .6]}\)}], "]"}]}], ";"}]], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"pp22", "=", 
+        RowBox[{"ParametricPlot", "[", 
+          RowBox[{\({sol2[\([1, 1, 2]\)], sol2[\([1, 3, 2]\)]}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["10",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {Hue[ .6]}\)}], "]"}]}], ";"}]], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Exploring the Solutions When r = 99.629", "Subsection"],
+
+Cell["\<\
+First we will define our new value of r and solve the differential equation \
+numerically.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[r]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"r", "=", 
+        StyleBox["99.629",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{"sol3", "=", 
+      RowBox[{
+        RowBox[{"NDSolve", "[", 
+          
+          RowBox[{\({\(x'\)[t] \[Equal] rhs1, \(y'\)[t] \[Equal] 
+                rhs2[r], \(z'\)[t] \[Equal] rhs3, 
+              Thread[{x[0], y[0], z[0]} \[Equal] init]}\), 
+            ",", \({x[t], y[t], z[t]}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["30",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}], "//", 
+        "Simplify"}]}]}], "Input"],
+
+Cell["\<\
+We can plot x and y as functions of t to observe their periodicity.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"p3", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{\(x[t] /. sol3\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["15",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {Hue[ .4]}\)}], "]"}]}], ";"}]], "Input"],
+
+Cell["\<\
+We can also look at the plot of the solutions in the x-y phase plane or in \
+the x-z phase plane.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"pp3", "=", 
+        RowBox[{"ParametricPlot", "[", 
+          RowBox[{\({sol3[\([1, 1, 2]\)], sol3[\([1, 2, 2]\)]}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["10",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {Hue[ .4]}\)}], "]"}]}], ";"}]], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"pp33", "=", 
+        RowBox[{"ParametricPlot", "[", 
+          RowBox[{\({sol3[\([1, 1, 2]\)], sol3[\([1, 3, 2]\)]}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["10",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {Hue[ .4]}\)}], "]"}]}], ";"}]], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Exploring the Solution for Other Values of r", "Subsection"],
+
+Cell["You can try out other values of r as well.", "Text"],
+
+Cell[BoxData[{\(Clear[r]\), "\n", 
+    RowBox[{
+      RowBox[{"r", "=", 
+        StyleBox["99.96",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\n", 
+    RowBox[{"sol4", "=", 
+      RowBox[{
+        RowBox[{"NDSolve", "[", 
+          
+          RowBox[{\({\(x'\)[t] \[Equal] rhs1, \(y'\)[t] \[Equal] 
+                rhs2[r], \(z'\)[t] \[Equal] rhs3, 
+              Thread[{x[0], y[0], z[0]} \[Equal] init]}\), 
+            ",", \({x[t], y[t], z[t]}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["30",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}], "//", 
+        "Simplify"}]}], "\n", 
+    RowBox[{
+      RowBox[{"p4", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{\(x[t] /. sol4\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["15",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {Hue[ .5]}\)}], "]"}]}], 
+      ";"}], "\[IndentingNewLine]", \(Clear[r]\), "\n", 
+    RowBox[{
+      RowBox[{"r", "=", 
+        StyleBox["99.95",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\n", 
+    RowBox[{"sol5", "=", 
+      RowBox[{
+        RowBox[{"NDSolve", "[", 
+          
+          RowBox[{\({\(x'\)[t] \[Equal] rhs1, \(y'\)[t] \[Equal] 
+                rhs2[r], \(z'\)[t] \[Equal] rhs3, 
+              Thread[{x[0], y[0], z[0]} \[Equal] init]}\), 
+            ",", \({x[t], y[t], z[t]}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["30",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}], "//", 
+        "Simplify"}]}], "\n", 
+    RowBox[{
+      RowBox[{"p5", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{\(x[t] /. sol5\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["15",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {Hue[ .7]}\)}], "]"}]}], 
+      ";"}], "\[IndentingNewLine]", \(Clear[r]\), "\n", 
+    RowBox[{
+      RowBox[{"r", "=", 
+        StyleBox["99.94",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\n", 
+    RowBox[{"sol6", "=", 
+      RowBox[{
+        RowBox[{"NDSolve", "[", 
+          
+          RowBox[{\({\(x'\)[t] \[Equal] rhs1, \(y'\)[t] \[Equal] 
+                rhs2[r], \(z'\)[t] \[Equal] rhs3, 
+              Thread[{x[0], y[0], z[0]} \[Equal] init]}\), 
+            ",", \({x[t], y[t], z[t]}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["30",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}], "//", 
+        "Simplify"}]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"p6", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{\(x[t] /. sol6\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["15",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {Hue[ .9]}\)}], "]"}]}], ";"}]}], "Input"],
+
+Cell["You can see that as r decreases, the period increases.", "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{598, 561},
+WindowMargins->{{16, Automatic}, {Automatic, 37}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 68, 1, 95, "Title"],
+Cell[1847, 56, 804, 22, 168, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2676, 82, 137, 5, 125, "Section"],
+
+Cell[CellGroupData[{
+Cell[2838, 91, 58, 0, 38, "Subsection"],
+Cell[2899, 93, 109, 3, 33, "Text"],
+Cell[3011, 98, 1061, 24, 210, "Input"],
+Cell[4075, 124, 91, 2, 33, "Text"],
+Cell[4169, 128, 360, 9, 30, "Input"],
+Cell[4532, 139, 121, 3, 33, "Text"],
+Cell[4656, 144, 448, 10, 50, "Input"],
+Cell[5107, 156, 449, 10, 50, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5593, 171, 60, 0, 30, "Subsection"],
+Cell[5656, 173, 114, 3, 33, "Text"],
+Cell[5773, 178, 707, 17, 130, "Input"],
+Cell[6483, 197, 91, 2, 33, "Text"],
+Cell[6577, 201, 362, 9, 30, "Input"],
+Cell[6942, 212, 121, 3, 33, "Text"],
+Cell[7066, 217, 403, 9, 50, "Input"],
+Cell[7472, 228, 404, 9, 50, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7913, 242, 61, 0, 30, "Subsection"],
+Cell[7977, 244, 114, 3, 33, "Text"],
+Cell[8094, 249, 708, 17, 130, "Input"],
+Cell[8805, 268, 91, 2, 33, "Text"],
+Cell[8899, 272, 362, 9, 30, "Input"],
+Cell[9264, 283, 121, 3, 33, "Text"],
+Cell[9388, 288, 403, 9, 50, "Input"],
+Cell[9794, 299, 404, 9, 50, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[10235, 313, 66, 0, 30, "Subsection"],
+Cell[10304, 315, 58, 0, 33, "Text"],
+Cell[10365, 317, 3086, 80, 430, "Input"],
+Cell[13454, 399, 70, 0, 33, "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

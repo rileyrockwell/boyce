@@ -1,0 +1,449 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     13671,        367]*)
+(*NotebookOutlinePosition[     14316,        389]*)
+(*  CellTagsIndexPosition[     14272,        385]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 2  -  Section 2.9", "Title"],
+
+Cell[TextData[{
+  StyleBox["In this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will analyze the behavior of difference equations \
+relative to the stability around equilibrium values. The importance of the \
+value of the parameter involved will be demonstrated.\n\n",
+    FontWeight->"Bold"],
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. Throughout this notebook, you may \
+ignore the warnings about possible spelling errors. ",
+    FontSize->14],
+  StyleBox["To open a cell grouping, double-click on the right-hand side of \
+the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem 17:  ",
+  Cell[BoxData[
+      \(TraditionalForm\`u\_\(n + 1\)\)]],
+  " = \[Rho] ",
+  Cell[BoxData[
+      \(TraditionalForm\`u\_n\)]],
+  " (1 - ",
+  Cell[BoxData[
+      \(TraditionalForm\`u\_n\)]],
+  ")"
+}], "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Defining the Function and Finding Steady State Values", "Subsection"],
+
+Cell[TextData[{
+  "We might first determine the limiting (equilibrium) values as a function \
+of \[Rho]. To do so, we will set ",
+  Cell[BoxData[
+      \(TraditionalForm\`u\_\(n + 1\)\)]],
+  "= ",
+  Cell[BoxData[
+      \(TraditionalForm\`u\_n\)]],
+  "= uss and solve for uss."
+}], "Text"],
+
+Cell[BoxData[{\(Clear[\[Rho]]\), "\[IndentingNewLine]", 
+    RowBox[{"sssolve", "=", 
+      RowBox[{"Solve", "[", 
+        StyleBox[\(uss == \[Rho]\ uss\ \((1 - uss)\), uss\),
+          FontColor->RGBColor[1, 0, 0]], "]"}]}]}], "Input"],
+
+Cell["\<\
+The zero equilibrium is not stable. We will look at the second steady state \
+solution.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(limitingval = sssolve[\([2, 1, 2]\)]\)], "Input"],
+
+Cell[TextData[{
+  "Now, let us define our initial condition and tolerance limit. You may \
+alter the initial condition (u0) and tolerance anytime. Come back to this \
+cell to do so and then click on ",
+  StyleBox["Kernel",
+    FontSlant->"Italic"],
+  " menu item and select ",
+  StyleBox["Evaluation - Evaluate Notebook",
+    FontSlant->"Italic"],
+  ". All the cells will be updated with your new initial condition and \
+tolerance.. "
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(u0 =  .5;\)\), "\[IndentingNewLine]", 
+    \(\(tolerance = 0.001;\)\)}], "Input"],
+
+Cell[TextData[{
+  "We will use the same terminology that we did for the sequence in the \
+previous section to enable ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " to store and recall the functions efficiently. We will begin by letting \
+\[Rho] = 3 and observe the graph of the resulting iterations. "
+}], "Text"],
+
+Cell[BoxData[{\(Clear[u, n, \[Rho], 
+      k]\), "\[IndentingNewLine]", \(u[0] = u0;\), "\[IndentingNewLine]", 
+    RowBox[{\(u[n_]\), ":=", 
+      StyleBox[\(u[n] = \[Rho]\ u[n - 1]\ \((1 - u[n - 1])\)\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"\[Rho]", "=", 
+        StyleBox["3",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(Print["\<The limiting value for \[Rho] \
+= \>", \[Rho], "\< is \>", 
+      limitingval, "\<.\>"]\), "\[IndentingNewLine]", \(p0 = 
+      ListPlot[Table[{n, u[n]}, {n, 0, 100}], 
+        PlotJoined \[Rule] True]\)}], "Input"],
+
+Cell["\<\
+Let us see if we get within our tolerance limit of the limiting value after \
+10,000 iterations. We observe that the values for u[n] are never increasing \
+in size as n increases.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{"Do", "[", 
+      RowBox[{\({diff = Abs[u[n] - limitingval], 
+          If[diff < tolerance, {conv0 = n, , Abort[]}, 
+            conv0 = "\<not able to be found.\>"]}\), ",", 
+        RowBox[{"{", 
+          RowBox[{"n", ",", "0", ",", 
+            StyleBox["10000",
+              FontColor->RGBColor[1, 0, 0]]}], "}"}]}], 
+      "]"}], "\[IndentingNewLine]", \(Print["\<The number of iterations \
+required to get within \>", tolerance, "\< of the limiting value is \>", 
+      conv0]\)}], "Input"],
+
+Cell["\<\
+If you think that this will eventually converge, you may increase the 100,000 \
+(in red) to a larger number and re-execute the cell..\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Solutions for \[Rho] = 2.9, 2.95, 2.99\
+\>", "Subsection"],
+
+Cell["\<\
+Now we will explore what happens when \[Rho] takes on a value slightly less \
+than 3. We can do all steps in one cell.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[u, n, \[Rho], 
+      k]\), "\[IndentingNewLine]", \(u[0] = u0;\), "\[IndentingNewLine]", 
+    RowBox[{\(u[n_]\), ":=", 
+      StyleBox[\(u[n] = \[Rho]\ u[n - 1]\ \((1 - u[n - 1])\)\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"\[Rho]", "=", 
+        StyleBox["2.9",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(Print["\<The limiting value for \[Rho] \
+= \>", \[Rho], "\< is \>", 
+      limitingval, "\<.\>"]\), "\[IndentingNewLine]", \(p1 = 
+      ListPlot[Table[{n, u[n]}, {n, 0, 100}], PlotStyle \[Rule] {Hue[ .2]}, 
+        PlotJoined \[Rule] True]\), "\[IndentingNewLine]", \(Do[{diff = 
+          Abs[u[n] - limitingval], 
+        If[diff < tolerance, {conv1 = n, , Abort[]}, 
+          conv1 = "\<not able to be found.\>"]}, {n, 0, 
+        1000}]\), "\[IndentingNewLine]", \(Print["\<The number of iterations \
+required to get within \>", tolerance, "\< of the limiting value is \>", 
+      conv1]\)}], "Input"],
+
+Cell[BoxData[{\(Clear[u, n, \[Rho], 
+      k]\), "\[IndentingNewLine]", \(u[0] = u0;\), "\[IndentingNewLine]", 
+    RowBox[{\(u[n_]\), ":=", 
+      StyleBox[\(u[n] = \[Rho]\ u[n - 1]\ \((1 - u[n - 1])\)\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"\[Rho]", "=", 
+        StyleBox["2.95",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(Print["\<The limiting value for \[Rho] \
+= \>", \[Rho], "\< is \>", 
+      limitingval, "\<.\>"]\), "\[IndentingNewLine]", \(p2 = 
+      ListPlot[Table[{n, u[n]}, {n, 0, 100}], PlotStyle \[Rule] {Hue[ .3]}, 
+        PlotJoined \[Rule] True]\), "\[IndentingNewLine]", \(Do[{diff = 
+          Abs[u[n] - limitingval], 
+        If[diff < tolerance, {conv2 = n, , Abort[]}, 
+          conv2 = "\<not able to be found.\>"]}, {n, 0, 
+        1000}]\), "\[IndentingNewLine]", \(Print["\<The number of iterations \
+required to get within \>", tolerance, "\< of the limiting value is \>", 
+      conv2]\)}], "Input"],
+
+Cell[BoxData[{\(Clear[u, n, \[Rho], 
+      k]\), "\[IndentingNewLine]", \(u[0] = u0;\), "\[IndentingNewLine]", 
+    RowBox[{\(u[n_]\), ":=", 
+      StyleBox[\(u[n] = \[Rho]\ u[n - 1]\ \((1 - u[n - 1])\)\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"\[Rho]", "=", 
+        StyleBox["2.99",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(Print["\<The limiting value for \[Rho] \
+= \>", \[Rho], "\< is \>", 
+      limitingval, "\<.\>"]\), "\[IndentingNewLine]", \(p3 = 
+      ListPlot[Table[{n, u[n]}, {n, 0, 100}], PlotStyle \[Rule] {Hue[ .4]}, 
+        PlotJoined \[Rule] True]\), "\[IndentingNewLine]", \(Do[{diff = 
+          Abs[u[n] - limitingval], 
+        If[diff < tolerance, {conv3 = n, , Abort[]}, 
+          conv3 = "\<not able to be found.\>"]}, {n, 0, 
+        1000}]\), "\[IndentingNewLine]", \(Print["\<The number of iterations \
+required to get within \>", tolerance, "\< of the limiting value is \>", 
+      conv3]\)}], "Input"],
+
+Cell[BoxData[
+    \(Show[p0, p1, p2, p3]\)], "Input"],
+
+Cell["\<\
+Each of the above solutions with \[Rho] < 3 appears to be converging to the \
+limiting value. The number of iterations required increases as \[Rho] gets \
+closer to 3.\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Solutions for \[Rho] = 3.01, 3.05, 3.1\
+\>", "Subsection"],
+
+Cell["\<\
+Now we will explore what happens when \[Rho] takes on a value slightly \
+greater than 3. We will look for a tolerance limit here out to 100,000 terms. \
+.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[u, n, \[Rho], 
+      k]\), "\[IndentingNewLine]", \(u[0] = u0;\), "\[IndentingNewLine]", 
+    RowBox[{\(u[n_]\), ":=", 
+      StyleBox[\(u[n] = \[Rho]\ u[n - 1]\ \((1 - u[n - 1])\)\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"\[Rho]", "=", 
+        StyleBox["3.01",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(Print["\<The limiting value for \[Rho] \
+= \>", \[Rho], "\< is \>", 
+      limitingval, "\<.\>"]\), "\[IndentingNewLine]", \(p4 = 
+      ListPlot[Table[{n, u[n]}, {n, 0, 100}], PlotStyle \[Rule] {Hue[ .6]}, 
+        PlotJoined \[Rule] True]\), "\[IndentingNewLine]", \(Do[{diff = 
+          Abs[u[n] - limitingval], 
+        If[diff < tolerance, {conv4 = n, , Abort[]}, 
+          conv4 = "\<not able to be found.\>"]}, {n, 0, 
+        10000}]\), "\[IndentingNewLine]", \(Print["\<The number of iterations \
+required to get within \>", tolerance, "\< of the limiting value is \>", 
+      conv4]\)}], "Input"],
+
+Cell[BoxData[{\(Clear[u, n, \[Rho], 
+      k]\), "\[IndentingNewLine]", \(u[0] = u0;\), "\[IndentingNewLine]", 
+    RowBox[{\(u[n_]\), ":=", 
+      StyleBox[\(u[n] = \[Rho]\ u[n - 1]\ \((1 - u[n - 1])\)\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"\[Rho]", "=", 
+        StyleBox["3.05",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(Print["\<The limiting value for \[Rho] \
+= \>", \[Rho], "\< is \>", 
+      limitingval, "\<.\>"]\), "\[IndentingNewLine]", \(p5 = 
+      ListPlot[Table[{n, u[n]}, {n, 0, 100}], PlotStyle \[Rule] {Hue[ .7]}, 
+        PlotJoined \[Rule] True]\), "\[IndentingNewLine]", \(Do[{diff = 
+          Abs[u[n] - limitingval], 
+        If[diff < tolerance, {conv5 = n, , Abort[]}, 
+          conv5 = "\<not able to be found.\>"]}, {n, 0, 
+        10000}]\), "\[IndentingNewLine]", \(Print["\<The number of iterations \
+required to get within \>", tolerance, "\< of the limiting value is \>", 
+      conv5]\)}], "Input"],
+
+Cell[BoxData[{\(Clear[u, n, \[Rho], 
+      k]\), "\[IndentingNewLine]", \(u[0] = u0;\), "\[IndentingNewLine]", 
+    RowBox[{\(u[n_]\), ":=", 
+      StyleBox[\(u[n] = \[Rho]\ u[n - 1]\ \((1 - u[n - 1])\)\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"\[Rho]", "=", 
+        StyleBox["3.1",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(Print["\<The limiting value for \[Rho] \
+= \>", \[Rho], "\< is \>", 
+      limitingval, "\<.\>"]\), "\[IndentingNewLine]", \(p6 = 
+      ListPlot[Table[{n, u[n]}, {n, 0, 100}], PlotStyle \[Rule] {Hue[ .8]}, 
+        PlotJoined \[Rule] True]\), "\[IndentingNewLine]", \(Do[{diff = 
+          Abs[u[n] - limitingval], 
+        If[diff < tolerance, {conv6 = n, , Abort[]}, 
+          conv6 = "\<not able to be found.\>"]}, {n, 0, 
+        10000}]\), "\[IndentingNewLine]", \(Print["\<The number of iterations \
+required to get within \>", tolerance, "\< of the limiting value is \>", 
+      conv6]\)}], "Input"],
+
+Cell[BoxData[
+    \(Show[p0, p4, p5, p6]\)], "Input"],
+
+Cell["\<\
+Note how the amplitude of oscillation increases as \[Rho] moves away from \
+3.\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Equilibrium Values as Starting Values", "Subsection"],
+
+Cell["\<\
+See what happens if you have a starting value equal to your limiting value. \
+Go back to the cell where you defined u0 and change it to u0 = limitingval. \
+Then re-evaluate all the cells.
+The results should be horizontal lines, except in a case where rounding error \
+causes minor oscillation.\
+\>", "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{681, 561},
+WindowMargins->{{82, Automatic}, {Automatic, 39}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 751, 17, 148, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2597, 76, 244, 11, 73, "Section"],
+
+Cell[CellGroupData[{
+Cell[2866, 91, 75, 0, 38, "Subsection"],
+Cell[2944, 93, 288, 9, 52, "Text"],
+Cell[3235, 104, 236, 4, 50, "Input"],
+Cell[3474, 110, 111, 3, 33, "Text"],
+Cell[3588, 115, 69, 1, 30, "Input"],
+Cell[3660, 118, 446, 11, 71, "Text"],
+Cell[4109, 131, 104, 2, 50, "Input"],
+Cell[4216, 135, 325, 7, 71, "Text"],
+Cell[4544, 144, 642, 13, 130, "Input"],
+Cell[5189, 159, 203, 4, 52, "Text"],
+Cell[5395, 165, 526, 11, 110, "Input"],
+Cell[5924, 178, 157, 3, 52, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[6118, 186, 68, 2, 30, "Subsection"],
+Cell[6189, 190, 142, 3, 33, "Text"],
+Cell[6334, 195, 1027, 19, 250, "Input"],
+Cell[7364, 216, 1028, 19, 250, "Input"],
+Cell[8395, 237, 1028, 19, 250, "Input"],
+Cell[9426, 258, 53, 1, 30, "Input"],
+Cell[9482, 261, 191, 4, 52, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9710, 270, 68, 2, 30, "Subsection"],
+Cell[9781, 274, 178, 4, 52, "Text"],
+Cell[9962, 280, 1029, 19, 250, "Input"],
+Cell[10994, 301, 1029, 19, 250, "Input"],
+Cell[12026, 322, 1028, 19, 250, "Input"],
+Cell[13057, 343, 53, 1, 30, "Input"],
+Cell[13113, 346, 102, 3, 33, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[13252, 354, 59, 0, 30, "Subsection"],
+Cell[13314, 356, 317, 6, 71, "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

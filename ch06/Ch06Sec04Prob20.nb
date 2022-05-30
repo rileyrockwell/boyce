@@ -1,0 +1,427 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     12505,        354]*)
+(*NotebookOutlinePosition[     13150,        376]*)
+(*  CellTagsIndexPosition[     13106,        372]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 6  -  Section 6.4", "Title"],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will explore the impact of a square wave forcing \
+function on the solution to a differential equation. You will then contrast \
+this result to one obtained with a sinusoidal forcing function",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem 20:   y'' + 0.1 y' +  y = ",
+  Cell[BoxData[
+      \(TraditionalForm\`u\_0\)]],
+  "(t) + 2 ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[Sum]\+\(k = 1\)\%n\((\(-1\))\)\^k\)]],
+  Cell[BoxData[
+      \(TraditionalForm\`u\_k\[Pi]\)]],
+  "(t)"
+}], "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Solving the Differential Equation and Plotting the Solution", \
+"Subsection"],
+
+Cell["\<\
+For this problem, we will use the NDSolve command to get a numerical solution \
+to the differential equation.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[lhs, y, g, t]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"lhs", "=", 
+        StyleBox[\(\(y''\)[t] + 0.1 \( y'\)[t] + y[t]\),
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{\(g[t_]\), "=", 
+        StyleBox[\(UnitStep[t] + 
+            2 \(\[Sum]\+\(k = 1\)\%30\(\((\(-1\))\)\^k\) 
+                  UnitStep[t - k\ \[Pi]]\)\),
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{"numsoln", "=", 
+      RowBox[{"NDSolve", "[", 
+        RowBox[{
+          RowBox[{"{", 
+            RowBox[{\(lhs \[Equal] g[t]\), ",", 
+              RowBox[{\(y[0]\), "\[Equal]", 
+                StyleBox["0",
+                  FontColor->RGBColor[1, 0, 0]]}], ",", 
+              RowBox[{\(\(y'\)[0]\), "\[Equal]", 
+                StyleBox["0",
+                  FontColor->RGBColor[1, 0, 0]]}]}], "}"}], ",", \(y[t]\), 
+          ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["200",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}]}]}], "Input"],
+
+Cell["\<\
+We will plot the solution together with the forcing function.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"pg", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{\({Evaluate[y[t] /. numsoln], g[t]}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["150",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], RGBColor[0, 0, 1]}\),
+             ",", \(PlotPoints \[Rule] 60\)}], "]"}]}], ";"}]], "Input"],
+
+Cell["\<\
+It appears as though the amplitude is around 12.5. Let's plot this with the \
+bounds of +/- 12.5 to check this out.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"pb1", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{\({Evaluate[y[t] /. numsoln], 12.5, \(-12.5\)}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["80",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], Thickness[ .01], 
+                Thickness[ .01]}\), ",", \(PlotPoints \[Rule] 60\)}], "]"}]}],
+       ";"}]], "Input"],
+
+Cell["\<\
+Our estimate of the steady state amplitude is accurate. It looks as though \
+that the period is 2\[Pi]. Here is the solution plotted over two periods.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"pb2", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{\({Evaluate[y[t] /. numsoln], 12.5, \(-12.5\)}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", \(22  \[Pi]\), ",", 
+                RowBox[{
+                  StyleBox["26",
+                    FontColor->RGBColor[1, 0, 0]], "\[Pi]"}]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], Thickness[ .01], 
+                Thickness[ .01]}\), ",", \(PlotPoints \[Rule] 60\)}], "]"}]}],
+       ";"}]], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Increasing the Value of \"n\" and Observing the Results", "Subsection"],
+
+Cell["\<\
+Will the amplitude or period change if we increase the value of n? We can \
+solve the equation with a larger value of n (60 here) and see what happens.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{\(g[t_]\), "=", 
+        RowBox[{\(UnitStep[t]\), "+", 
+          RowBox[{"2", 
+            RowBox[{
+              UnderoverscriptBox["\[Sum]", \(k = 1\), 
+                StyleBox["60",
+                  FontColor->RGBColor[1, 0, 0]]], \(\(\((\(-1\))\)\^k\) 
+                UnitStep[t - k\ \[Pi]]\)}]}]}]}], 
+      ";"}], "\[IndentingNewLine]", 
+    RowBox[{"numsoln", "=", 
+      RowBox[{"NDSolve", "[", 
+        RowBox[{
+          RowBox[{"{", 
+            RowBox[{\(lhs \[Equal] g[t]\), ",", 
+              RowBox[{\(y[0]\), "\[Equal]", 
+                StyleBox["0",
+                  FontColor->RGBColor[1, 0, 0]]}], ",", 
+              RowBox[{\(\(y'\)[0]\), "\[Equal]", 
+                StyleBox["0",
+                  FontColor->RGBColor[1, 0, 0]]}]}], "}"}], ",", \(y[t]\), 
+          ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["300",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}]}]}], "Input"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"pb1", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{\({Evaluate[y[t] /. numsoln], 12.5, \(-12.5\)}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox[
+                  RowBox[{
+                    StyleBox["2",
+                      FontColor->RGBColor[1, 0, 0]], 
+                    StyleBox["50",
+                      FontColor->RGBColor[1, 0, 0]]}]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], Thickness[ .01], 
+                Thickness[ .01]}\), ",", \(PlotPoints \[Rule] 80\)}], "]"}]}],
+       ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"pb22", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{\({Evaluate[y[t] /. numsoln], 12.5, \(-12.5\)}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["70",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], Thickness[ .01], 
+                Thickness[ .01]}\), ",", \(PlotPoints \[Rule] 80\)}], "]"}]}],
+       ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"pb3", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{\({Evaluate[y[t] /. numsoln], 12.5, \(-12.5\)}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", 
+                StyleBox[\(40  \[Pi]\),
+                  FontColor->RGBColor[1, 0, 0]], ",", 
+                RowBox[{
+                  StyleBox["44",
+                    FontColor->RGBColor[1, 0, 0]], 
+                  StyleBox["\[Pi]",
+                    FontColor->RGBColor[1, 0, 0]]}]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], Thickness[ .01], 
+                Thickness[ .01]}\), ",", \(PlotPoints \[Rule] 60\)}], "]"}]}],
+       ";"}]}], "Input"],
+
+Cell["\<\
+The larger the value of n, the longer the amplitude stays at 12.5. In the \
+limit as n \[Rule]\[Infinity], one would probably conclude that this would \
+continue indefinitely,\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Contrasting the Results to a Sinusoidal Forcing Function", "Subsection"],
+
+Cell["\<\
+We will now take the same differential equation only change the forcing \
+function to a sinusoidal function that you saw in Chapter 3.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[lhs, y, f, t]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"lhs", "=", 
+        StyleBox[\(\(y''\)[t] + 0.1 \( y'\)[t] + y[t]\),
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{\(f[t_]\), "=", 
+        StyleBox[\(Sin[t]\),
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{"fsoln", "=", 
+      RowBox[{"NDSolve", "[", 
+        RowBox[{
+          RowBox[{"{", 
+            RowBox[{\(lhs \[Equal] f[t]\), ",", 
+              RowBox[{\(y[0]\), "\[Equal]", 
+                StyleBox["0",
+                  FontColor->RGBColor[1, 0, 0]]}], ",", 
+              RowBox[{\(\(y'\)[0]\), "\[Equal]", 
+                StyleBox["0",
+                  FontColor->RGBColor[1, 0, 0]]}]}], "}"}], ",", \(y[t]\), 
+          ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["200",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], 
+        "]"}]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"pf", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{\({Evaluate[y[t] /. fsoln], f[t]}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["150",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], RGBColor[0, 0, 1]}\),
+             ",", \(PlotPoints \[Rule] 60\)}], "]"}]}], ";"}]}], "Input"],
+
+Cell["\<\
+The results look remarkably the same, except that the amplitude appears to be \
+closer to 10.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"pb22", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{\({Evaluate[y[t] /. fsoln], 10, \(-10\)}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["90",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], Thickness[ .01], 
+                Thickness[ .01]}\), ",", \(PlotPoints \[Rule] 80\)}], "]"}]}],
+       ";"}]], "Input"],
+
+Cell["Let's look at the plots together.", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{\({Evaluate[y[t] /. fsoln], Evaluate[y[t] /. numsoln]}\), ",",
+           
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["90",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], RGBColor[0, 1, 0]}\), 
+          ",", \(PlotPoints \[Rule] 80\)}], "]"}], ";"}]], "Input"],
+
+Cell["\<\
+You can see that the period is the same, but the amplitude for the sinusoidal \
+forcing function is slightly smaller than the one with the square wave \
+forcing function.\
+\>", "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{627, 561},
+WindowMargins->{{52, Automatic}, {Automatic, 41}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 650, 16, 147, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2496, 75, 281, 10, 81, "Section"],
+
+Cell[CellGroupData[{
+Cell[2802, 89, 83, 1, 38, "Subsection"],
+Cell[2888, 92, 133, 3, 52, "Text"],
+Cell[3024, 97, 1116, 26, 115, "Input"],
+Cell[4143, 125, 85, 2, 33, "Text"],
+Cell[4231, 129, 457, 10, 50, "Input"],
+Cell[4691, 141, 139, 3, 52, "Text"],
+Cell[4833, 146, 494, 11, 70, "Input"],
+Cell[5330, 159, 174, 3, 52, "Text"],
+Cell[5507, 164, 544, 12, 70, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[6088, 181, 77, 0, 30, "Subsection"],
+Cell[6168, 183, 175, 3, 52, "Text"],
+Cell[6346, 188, 1016, 26, 73, "Input"],
+Cell[7365, 216, 1843, 42, 190, "Input"],
+Cell[9211, 260, 199, 4, 52, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9447, 269, 78, 0, 30, "Subsection"],
+Cell[9528, 271, 158, 3, 52, "Text"],
+Cell[9689, 276, 1470, 35, 130, "Input"],
+Cell[11162, 313, 117, 3, 33, "Text"],
+Cell[11282, 318, 489, 11, 70, "Input"],
+Cell[11774, 331, 49, 0, 33, "Text"],
+Cell[11826, 333, 442, 10, 70, "Input"],
+Cell[12271, 345, 194, 4, 52, "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

@@ -1,0 +1,518 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     13001,        419]*)
+(*NotebookOutlinePosition[     13645,        441]*)
+(*  CellTagsIndexPosition[     13601,        437]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 7  -  Section 7.5", "Title",
+  PageWidth->WindowWidth],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you find the solution to a system of differential \
+equations with a given initial state. The solutions to the system will be \
+plotted both as functions of time and in the phase plane. In this case, both \
+solutions approach zero as time increases.",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle",
+  PageWidth->WindowWidth],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem 30:   x' = ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{"(", GridBox[{
+              {\(-\(1\/10\)\), \(3\/40\)},
+              {\(1\/10\), \(-\(1\/5\)\)}
+              }], ")"}], TraditionalForm]]],
+  " x"
+}], "Section",
+  PageWidth->WindowWidth],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Finding the Eigenvalues and Corresponding Eigenvectors for the Coefficient \
+Matrix\
+\>", "Subsection",
+  PageWidth->WindowWidth],
+
+Cell[CellGroupData[{
+
+Cell["Using the Formulas", "Subsubsection",
+  PageWidth->WindowWidth],
+
+Cell[TextData[{
+  "We can determine the eigenvalues for the coefficient matrix (A) by setting \
+the determinant of (A - r I) equal to zero and solving for r. We will call \
+upon the ",
+  StyleBox["IdentityMatrix",
+    FontWeight->"Bold"],
+  " function and also the determinant (",
+  StyleBox["Det",
+    FontWeight->"Bold"],
+  ") function."
+}], "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[{\(Clear[A, r, x, t]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"A", "=", 
+        RowBox[{"(", GridBox[{
+              {
+                StyleBox[\(\(-1\)\/10\),
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[\(3\/40\),
+                  FontColor->RGBColor[1, 0, 0]]},
+              {
+                StyleBox[\(1\/10\),
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[\(\(-1\)\/5\),
+                  FontColor->RGBColor[1, 0, 0]]}
+              }], ")"}]}], ";"}], "\[IndentingNewLine]", \(matr = 
+      A - r\ IdentityMatrix[2] // 
+        Simplify\), "\[IndentingNewLine]", \(eigsoln = 
+      Solve[Det[matr] \[Equal] 0, r]\)}], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+Then to find the corresponding eigenvectors, we can solve the following \
+system of equations. Matrix multiplication requires the use of a period, \
+\".\". Without that symbol, the proper multiplication will not occur.\
+\>", "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[{
+    \(v1soln = 
+      Solve[\((matr /. 
+                r \[Rule] 
+                  eigsoln[\([1, 1, 2]\)])\) . {\[Xi]1, \[Xi]2} \[Equal] {0, 
+            0}, {\[Xi]1, \[Xi]2}]\), "\[IndentingNewLine]", 
+    \(v2soln = 
+      Solve[\((matr /. 
+                r \[Rule] 
+                  eigsoln[\([2, 1, 2]\)])\) . {\[Xi]1, \[Xi]2} \[Equal] {0, 
+            0}, {\[Xi]1, \[Xi]2}]\)}], "Input",
+  PageWidth->WindowWidth],
+
+Cell[TextData[{
+  "From this, we can see that an eigenvector associated with the eigenvalue \
+-1/4 is ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{"(", GridBox[{
+              {\(-\(1\/2\)\)},
+              {"1"}
+              }], ")"}], TraditionalForm]]],
+  " and an eigenvector associated with the eigenvalue -1/20 is ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{"(", GridBox[{
+              {\(3\/2\)},
+              {"1"}
+              }], ")"}], TraditionalForm]]]
+}], "Text",
+  PageWidth->WindowWidth]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Using ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " Built-in Commands"
+}], "Subsubsection",
+  PageWidth->WindowWidth],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " is great at determining eigenvalues and eigenvectors. We can find each \
+separately as follows."
+}], "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[{
+    \(Eigenvalues[A]\), "\[IndentingNewLine]", 
+    \(Eigenvectors[A]\)}], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+The first vector corresponds to the first value; similarly for the second.
+There is also a command that gives us both together. We will express the \
+result in output form and in matrix form for clarity.\
+\>", "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[{
+    \(eigs = Eigensystem[A]\), "\[IndentingNewLine]", 
+    \(eigs // MatrixForm\)}], "Input",
+  PageWidth->WindowWidth]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Solving the System of Differential Equations", "Subsection",
+  PageWidth->WindowWidth],
+
+Cell[CellGroupData[{
+
+Cell["Using the Eigenvalues and Eigenvectors", "Subsubsection",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+We can call upon our eigensystem results and insert the appropriate values to \
+form our general solution. You may ignore warnings about possible spelling \
+errors.\
+\>", "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[{
+    \(Clear[genlsoln, c1, c2]\), "\[IndentingNewLine]", 
+    \(\(soln1 = 
+        eigs[\([2, 
+              1]\)]\ \[ExponentialE]\^\(eigs[\([1, 1]\)]\ t\);\)\), "\
+\[IndentingNewLine]", 
+    \(\(soln2 = 
+        eigs[\([2, 
+              2]\)]\ \[ExponentialE]\^\(eigs[\([1, 2]\)]\ t\);\)\), "\
+\[IndentingNewLine]", 
+    \(\(genlsoln = c1\ soln1\  + \ c2\ soln2;\)\), "\[IndentingNewLine]", 
+    \(genlsoln // MatrixForm\)}], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+Let's find the particular solution corresponding to the given initial \
+condition.\
+\>", "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[
+    RowBox[{"const", "=", 
+      RowBox[{"Solve", "[", 
+        RowBox[{
+          RowBox[{\((genlsoln /. t \[Rule] 0)\), "\[Equal]", 
+            RowBox[{"{", 
+              StyleBox[\(\(-17\), \(-21\)\),
+                FontColor->RGBColor[1, 0, 0]], "}"}]}], ",", \({c1, c2}\)}], 
+        "]"}]}]], "Input"],
+
+Cell[BoxData[
+    \(particular = genlsoln /. const\)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Using the DSolve Command", "Subsubsection",
+  PageWidth->WindowWidth],
+
+Cell[TextData[{
+  "The ",
+  StyleBox["DSolve",
+    FontWeight->"Bold"],
+  " command is used to solve systems of differential equations in a manner \
+similar to solving single differential equations, but ",
+  "you need to use the ",
+  StyleBox["Thread",
+    FontWeight->"Bold"],
+  " command inside the ",
+  StyleBox["DSolve",
+    FontWeight->"Bold"],
+  " command i",
+  "f we want to leave the system of equations in matrix form",
+  ". Note that we also need the \".\" for matrix multiplication and both \
+dependent variables must be called upon as functions of the independent \
+variable, ",
+  StyleBox["t",
+    FontSlant->"Italic"],
+  ".."
+}], "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[{\(Clear[x1, x2, t]\), "\[IndentingNewLine]", 
+    RowBox[{"fastsoln", "=", 
+      RowBox[{
+        RowBox[{"DSolve", "[", 
+          RowBox[{
+            RowBox[{"{", 
+              
+              RowBox[{\(Thread[{\(x1'\)[t], \(x2'\)[t]} == 
+                    A . {x1[t], x2[t]}]\), ",", 
+                RowBox[{"Thread", "[", 
+                  RowBox[{\({x1[0], x2[0]}\), "\[Equal]", 
+                    RowBox[{"{", 
+                      StyleBox[\(\(-17\), \(-21\)\),
+                        FontColor->RGBColor[1, 0, 0]], "}"}]}], "]"}]}], 
+              "}"}], ",", \({x1[t], x2[t]}\), ",", "t"}], "]"}], "//", 
+        "FullSimplify"}]}]}], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+The form of the expressions looks a bit different, but upon inspection, you \
+can see that both solutions agree with the earlier result arrived at using \
+eigenvalues and eigenvectors.\
+\>", "Text",
+  PageWidth->WindowWidth]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Plotting the Solutions as Functions of Time", "Subsection"],
+
+Cell["\<\
+We will now plot the solutions representing the standard deviations of the \
+salt levels as functions of time. The first will be in green and the second \
+in blue.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{\({particular[\([1, 1]\)], particular[\([1, 2]\)]}\), ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", 
+              StyleBox["0",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox[",",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox["50",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(PlotStyle \[Rule] {RGBColor[0, 1, 0], RGBColor[0, 0, 1]}\)}],
+         "]"}], ";"}]], "Input"],
+
+Cell["\<\
+How does this compare with the ParametricPlot of the e solution to the \
+system? Note that they are both approaching 0 as t \[Rule] \[Infinity]. Note \
+that the time variable does not appear in the parametric plot.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"ParametricPlot", "[", 
+        RowBox[{\({particular[\([1, 1]\)], particular[\([1, 2]\)]}\), ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", 
+              StyleBox["0",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox[",",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox["50",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0]}\)}], "]"}], 
+      ";"}]], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Determining How Long It Takes for Solutions to Die Out", "Subsection"],
+
+Cell["\<\
+We will re-plot our solutions for large values of t in order to see when the \
+solution is within 0.5 of 0. The bounds will be plotted in red.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{
+          RowBox[{"{", 
+            RowBox[{
+              StyleBox[".5",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox[",",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox[\(- .5\),
+                FontColor->RGBColor[1, 0, 0]], 
+              ",", \(particular[\([1, 1]\)]\), 
+              ",", \(particular[\([1, 2]\)]\)}], "}"}], ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", 
+              StyleBox["60",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox[",",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox["80",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], RGBColor[1, 0, 0], 
+              RGBColor[0, 1, 0], RGBColor[0, 0, 1]}\)}], "]"}], 
+      ";"}]], "Input"],
+
+Cell["\<\
+It appears as though they are both smaller than 0.5 in size from about t = 75 \
+on. We can check this out by evaluating the functions at t = 0.5.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{\(particular[\([1, 1]\)]\), "/.", 
+      RowBox[{"t", "\[Rule]", 
+        StyleBox["75.",
+          FontColor->RGBColor[1, 0, 0]]}]}], "\[IndentingNewLine]", 
+    RowBox[{\(particular[\([1, 2]\)]\), "/.", 
+      RowBox[{"t", "\[Rule]", 
+        StyleBox["75.",
+          FontColor->RGBColor[1, 0, 0]]}]}]}], "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{546, 561},
+WindowMargins->{{72, Automatic}, {0, Automatic}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 68, 1, 95, "Title"],
+Cell[1847, 56, 730, 18, 189, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2602, 78, 279, 10, 117, "Section"],
+
+Cell[CellGroupData[{
+Cell[2906, 92, 139, 4, 56, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[3070, 100, 69, 1, 29, "Subsubsection"],
+Cell[3142, 103, 377, 11, 71, "Text"],
+Cell[3522, 116, 748, 18, 125, "Input"],
+Cell[4273, 136, 268, 5, 71, "Text"],
+Cell[4544, 143, 437, 11, 130, "Input"],
+Cell[4984, 156, 518, 17, 92, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5539, 178, 149, 6, 23, "Subsubsection"],
+Cell[5691, 186, 206, 6, 52, "Text"],
+Cell[5900, 194, 124, 3, 50, "Input"],
+Cell[6027, 199, 253, 5, 71, "Text"],
+Cell[6283, 206, 134, 3, 50, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[6466, 215, 92, 1, 30, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[6583, 220, 89, 1, 29, "Subsubsection"],
+Cell[6675, 223, 214, 5, 52, "Text"],
+Cell[6892, 230, 477, 12, 110, "Input"],
+Cell[7372, 244, 132, 4, 33, "Text"],
+Cell[7507, 250, 324, 8, 30, "Input"],
+Cell[7834, 260, 63, 1, 30, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7934, 266, 75, 1, 23, "Subsubsection"],
+Cell[8012, 269, 677, 21, 109, "Text"],
+Cell[8692, 292, 702, 16, 110, "Input"],
+Cell[9397, 310, 234, 5, 71, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9680, 321, 65, 0, 30, "Subsection"],
+Cell[9748, 323, 187, 4, 52, "Text"],
+Cell[9938, 329, 535, 13, 70, "Input"],
+Cell[10476, 344, 238, 4, 71, "Text"],
+Cell[10717, 350, 524, 13, 50, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[11278, 368, 76, 0, 30, "Subsection"],
+Cell[11357, 370, 166, 3, 52, "Text"],
+Cell[11526, 375, 917, 24, 90, "Input"],
+Cell[12446, 401, 169, 3, 52, "Text"],
+Cell[12618, 406, 343, 8, 50, "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

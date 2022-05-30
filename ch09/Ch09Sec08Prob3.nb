@@ -1,0 +1,287 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      6485,        214]*)
+(*NotebookOutlinePosition[      7128,        236]*)
+(*  CellTagsIndexPosition[      7084,        232]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 9  -  Section 9.8", "Title",
+  PageWidth->WindowWidth],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will analyze the equation leading to the \
+eigenvalues for a perturbation of the Lorenz equations with parameter r. You \
+will use ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" to factor the cubic and evaluate the solutions for different \
+values of this parameter. The exact value of the parameter where a \
+bifurcation exists will be determined.\n",
+    FontWeight->"Bold"],
+  "\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle",
+  PageWidth->WindowWidth],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem 3:  \t3",
+  Cell[BoxData[
+      \(TraditionalForm\`\[Lambda]\^3\)]],
+  "+ 41",
+  Cell[BoxData[
+      \(TraditionalForm\`\[Lambda]\^2\)]],
+  "+ 8(r + 10)\[Lambda] + 160(r - 1) = 0"
+}], "Section",
+  PageWidth->WindowWidth],
+
+Cell[CellGroupData[{
+
+Cell["Solving for \[Lambda]", "Subsection"],
+
+Cell["\<\
+We will begin by solving for \[Lambda] as a function of r. We will do this \
+symbolically and show the result in approximate form as well.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[r, \[Lambda], f, sol]\), "\[IndentingNewLine]", 
+    RowBox[{\(f[r_]\), ":=", 
+      StyleBox[\(3  \[Lambda]\^3 + 41\ \[Lambda]\^2 + 
+          8 \((r + 10)\) \[Lambda] + 160\ \((r - 1)\)\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", \(sol[r_] = 
+      Solve[f[r] \[Equal] 0, \[Lambda]] // 
+        Simplify\), "\[IndentingNewLine]", \(N[%]\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Evaluating the Solution for Different r Values", "Subsection"],
+
+Cell["We can evaluate this solution for any value of r", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"sol", "[", 
+        StyleBox["24",
+          FontColor->RGBColor[1, 0, 0]], "]"}], "//", 
+      "N"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"sol", "[", 
+        StyleBox["25",
+          FontColor->RGBColor[1, 0, 0]], "]"}], "//", "N"}]}], "Input"],
+
+Cell["\<\
+Notice how small the real portion of the complex solutions are. Notice also \
+that the real parts change signs between r = 24 and r = 25. Let's check it \
+out for r = 24.737\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"sol", "[", 
+        StyleBox["24.737",
+          FontColor->RGBColor[1, 0, 0]], "]"}], "//", "N"}]], "Input"],
+
+Cell["\<\
+The real portion of the solution is negligible here. If we knew the exact \
+value to assign to r, the real part would become identically zero.\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Examining a Special Cubic", "Subsection"],
+
+Cell[TextData[{
+  "We can factor the cubic expression, ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\^3\)]],
+  " + A",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(\ \)\(x\^2\)\)\)]],
+  "+ B x + AB, by hand, but we can do this with ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " as well."
+}], "Text"],
+
+Cell[BoxData[{
+    \(Clear[A, B, x]\), "\[IndentingNewLine]", 
+    \(\(poly = x\^3 + A\ x\^2 + B\ x + A\ B;\)\), "\[IndentingNewLine]", 
+    \(Factor[poly]\)}], "Input"],
+
+Cell["\<\
+From this we see the one real and two imaginary roots of the cubic.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Solve[poly \[Equal] 0, x]\)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Turning Our Cubic Into the Special Cubic", "Subsection"],
+
+Cell[TextData[{
+  "By taking our original cubic in \[Lambda], diving through by 3 (the \
+coefficient of ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[Lambda]\^3\)]],
+  "), then setting the product of the coefficients of ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[Lambda]\^2\)]],
+  "and \[Lambda] equal to the constant term, we can determine the value of r \
+required to arrive at the desired relationship."
+}], "Text"],
+
+Cell[BoxData[
+    RowBox[{"critr", "=", 
+      RowBox[{"Solve", "[", 
+        RowBox[{
+          StyleBox[\(41/3\ *8/3 \((r + 10)\) \[Equal] 160/3 \((r - 1)\)\),
+            FontColor->RGBColor[1, 0, 0]], ",", "r"}], "]"}]}]], "Input"],
+
+Cell["\<\
+Evaluating our polynomial and solutions at this critical value of r, we get \
+the following.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(f[r /. critr]\), "\[IndentingNewLine]", 
+    \(Factor[f[r /. critr]]\), "\[IndentingNewLine]", 
+    \(Solve[f[r /. critr] \[Equal] 0, \[Lambda]]\)}], "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{618, 527},
+WindowMargins->{{0, Automatic}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 68, 1, 95, "Title"],
+Cell[1847, 56, 903, 24, 189, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2775, 84, 247, 9, 73, "Section"],
+
+Cell[CellGroupData[{
+Cell[3047, 97, 43, 0, 38, "Subsection"],
+Cell[3093, 99, 162, 3, 52, "Text"],
+Cell[3258, 104, 397, 6, 90, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[3692, 115, 68, 0, 30, "Subsection"],
+Cell[3763, 117, 64, 0, 33, "Text"],
+Cell[3830, 119, 304, 9, 50, "Input"],
+Cell[4137, 130, 197, 4, 52, "Text"],
+Cell[4337, 136, 151, 4, 30, "Input"],
+Cell[4491, 142, 166, 3, 52, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4694, 150, 47, 0, 30, "Subsection"],
+Cell[4744, 152, 312, 11, 52, "Text"],
+Cell[5059, 165, 169, 3, 70, "Input"],
+Cell[5231, 170, 91, 2, 33, "Text"],
+Cell[5325, 174, 58, 1, 30, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5420, 180, 62, 0, 30, "Subsection"],
+Cell[5485, 182, 421, 10, 71, "Text"],
+Cell[5909, 194, 235, 5, 30, "Input"],
+Cell[6147, 201, 116, 3, 33, "Text"],
+Cell[6266, 206, 179, 3, 70, "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

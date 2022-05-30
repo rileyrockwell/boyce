@@ -1,0 +1,312 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      8665,        246]*)
+(*NotebookOutlinePosition[      9346,        269]*)
+(*  CellTagsIndexPosition[      9302,        265]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 2  -  Section 2.3", "Title"],
+
+Cell[TextData[{
+  StyleBox["In this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will explore the importance of initial conditions \
+and parameters when solving differential equations that model paying off a \
+loan. \n\n",
+    FontWeight->"Bold"],
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. Throughout this notebook, you may \
+ignore the warnings about possible spelling errors. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell["Problem 11: Paying Off a Loan", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Solving the Problem", "Subsection"],
+
+Cell[TextData[{
+  "Using the methodology from Example 2, the differential equation becomes \
+s'[t] = ",
+  Cell[BoxData[
+      \(TraditionalForm\`0.09\/12\)]],
+  "s[t] - 800 (1+ ",
+  Cell[BoxData[
+      \(TraditionalForm\`t\/120\)]],
+  ")."
+}], "Text"],
+
+Cell[BoxData[{
+    \(Clear[t]\), "\[IndentingNewLine]", 
+    \(\(a0 = 100000;\)\ \), "\[IndentingNewLine]", 
+    \(\(intrate =  .09;\)\), "\[IndentingNewLine]", 
+    \(\(sprime = 
+        intrate\/12\ s[t]\  - \ 
+          800\ \((1 + t\/120)\);\)\), "\[IndentingNewLine]", 
+    \(ssoln = 
+      NDSolve[{\(s'\)[t] \[Equal] sprime, s[0] \[Equal] a0}, 
+        s[t], {t, 0, 240}]\), "\[IndentingNewLine]", 
+    \(Plot[ssoln[\([1, 1, 2]\)], {t, 0, 150}]\)}], "Input"],
+
+Cell[TextData[{
+  "The ",
+  StyleBox["Solve",
+    FontWeight->"Bold"],
+  " command will not work here for finding the root, so we use the ",
+  StyleBox["FindRoot",
+    FontWeight->"Bold"],
+  " command. This employs a method similar to Newton's method for finding \
+real roots and requires a starting value. We can also use the ",
+  StyleBox["Print ",
+    FontWeight->"Bold"],
+  "command to make our output more understandable."
+}], "Text"],
+
+Cell[BoxData[{
+    \(term = 
+      FindRoot[ssoln[\([1, 1, 2]\)], {t, 130}]\), "\[IndentingNewLine]", 
+    \(Print["\<The loan will be paid off in \>", 
+      term[\([1, 2]\)], \ "\< months or \>", 
+      term[\([1, 2]\)]/12, "\< years.\>"]\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Experimenting with Different Amounts Borrowed", "Subsection"],
+
+Cell["\<\
+Let's change the amount borrowed to $150,000 and see how long it takes to pay \
+off the loan.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[t]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{
+        RowBox[{"a0", "=", 
+          StyleBox["150000",
+            FontColor->RGBColor[1, 0, 0]]}], ";"}], 
+      " "}], "\[IndentingNewLine]", \(intrate =  .09;\), \
+"\[IndentingNewLine]", \(sprime = 
+        intrate\/12\ s[t]\  - \ 
+          800\ \((1 + t\/120)\);\), "\[IndentingNewLine]", \(ssoln = 
+      NDSolve[{\(s'\)[t] \[Equal] sprime, s[0] \[Equal] a0}, 
+        s[t], {t, 0, 600}]\), "\[IndentingNewLine]", 
+    RowBox[{"Plot", "[", 
+      RowBox[{\(ssoln[\([1, 1, 2]\)]\), ",", 
+        RowBox[{"{", 
+          RowBox[{"t", ",", "0", ",", 
+            StyleBox["250",
+              FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+        ",", \(AxesLabel \[Rule] {months, amount_owed}\), 
+        ",", \(PlotRange \[Rule] All\)}], "]"}], "\[IndentingNewLine]", 
+    RowBox[{"term", "=", 
+      RowBox[{"FindRoot", "[", 
+        RowBox[{\(ssoln[\([1, 1, 2]\)]\), ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", 
+              StyleBox["200",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], 
+        "]"}]}], "\[IndentingNewLine]", \(Print["\<The loan will be paid off \
+in \>", term[\([1, 2]\)], \ "\< months or \>", 
+      term[\([1, 2]\)]/12, "\< years.\>"]\)}], "Input"],
+
+Cell["\<\
+Borrowing  just a little more than $150,000 would extend the term of the loan \
+to closer to 20 years.
+Check and see what happens to this curve if you borrow $200,000.\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Experimenting with Different Interest Rates", "Subsection"],
+
+Cell["\<\
+Now leave the amount borrowed at $100,000, but consider the impact of \
+different interest rates. First, we will reduce the rate by 2%.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[t]\), "\[IndentingNewLine]", 
+    RowBox[{\(a0 = 100000;\), " "}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"intrate", "=", 
+        StyleBox[".07",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(sprime = 
+        intrate\/12\ s[t]\  - \ 
+          800\ \((1 + t\/120)\);\), "\[IndentingNewLine]", \(ssoln = 
+      NDSolve[{\(s'\)[t] \[Equal] sprime, s[0] \[Equal] a0}, 
+        s[t], {t, 0, 600}]\), "\[IndentingNewLine]", 
+    RowBox[{"Plot", "[", 
+      RowBox[{\(ssoln[\([1, 1, 2]\)]\), ",", 
+        RowBox[{"{", 
+          RowBox[{"t", ",", "0", ",", 
+            StyleBox["150",
+              FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+        ",", \(AxesLabel \[Rule] {months, amount_owed}\), 
+        ",", \(PlotRange \[Rule] All\)}], "]"}], "\[IndentingNewLine]", 
+    RowBox[{"term", "=", 
+      RowBox[{"FindRoot", "[", 
+        RowBox[{\(ssoln[\([1, 1, 2]\)]\), ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", 
+              StyleBox["150",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], 
+        "]"}]}], "\[IndentingNewLine]", \(Print["\<The loan will be paid off \
+in \>", term[\([1, 2]\)], \ "\< months or \>", 
+      term[\([1, 2]\)]/12, "\< years.\>"]\)}], "Input"],
+
+Cell["Now, we will increase the rate by 2%.", "Text"],
+
+Cell[BoxData[{\(Clear[t]\), "\[IndentingNewLine]", 
+    RowBox[{\(a0 = 100000;\), " "}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"intrate", "=", 
+        StyleBox[".11",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(sprime = 
+        intrate\/12\ s[t]\  - \ 
+          800\ \((1 + t\/120)\);\), "\[IndentingNewLine]", \(ssoln = 
+      NDSolve[{\(s'\)[t] \[Equal] sprime, s[0] \[Equal] a0}, 
+        s[t], {t, 0, 600}]\), "\[IndentingNewLine]", 
+    RowBox[{"Plot", "[", 
+      RowBox[{\(ssoln[\([1, 1, 2]\)]\), ",", 
+        RowBox[{"{", 
+          RowBox[{"t", ",", "0", ",", 
+            StyleBox["170",
+              FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+        ",", \(AxesLabel \[Rule] {months, amount_owed}\), 
+        ",", \(PlotRange \[Rule] All\)}], "]"}], "\[IndentingNewLine]", 
+    RowBox[{"term", "=", 
+      RowBox[{"FindRoot", "[", 
+        RowBox[{\(ssoln[\([1, 1, 2]\)]\), ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", 
+              StyleBox["150",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], 
+        "]"}]}], "\[IndentingNewLine]", \(Print["\<The loan will be paid off \
+in \>", term[\([1, 2]\)], \ "\< months or \>", 
+      term[\([1, 2]\)]/12, "\< years.\>"]\)}], "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{885, 627},
+WindowMargins->{{32, Automatic}, {-62, Automatic}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 670, 15, 127, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2516, 74, 48, 0, 73, "Section"],
+
+Cell[CellGroupData[{
+Cell[2589, 78, 41, 0, 38, "Subsection"],
+Cell[2633, 80, 251, 9, 36, "Text"],
+Cell[2887, 91, 465, 10, 144, "Input"],
+Cell[3355, 103, 439, 12, 52, "Text"],
+Cell[3797, 117, 254, 5, 50, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4088, 127, 67, 0, 30, "Subsection"],
+Cell[4158, 129, 117, 3, 33, "Text"],
+Cell[4278, 134, 1283, 29, 184, "Input"],
+Cell[5564, 165, 191, 4, 52, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5792, 174, 65, 0, 30, "Subsection"],
+Cell[5860, 176, 159, 3, 33, "Text"],
+Cell[6022, 181, 1272, 28, 184, "Input"],
+Cell[7297, 211, 53, 0, 33, "Text"],
+Cell[7353, 213, 1272, 28, 184, "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

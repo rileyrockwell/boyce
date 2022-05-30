@@ -1,0 +1,431 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     11982,        346]*)
+(*NotebookOutlinePosition[     12660,        369]*)
+(*  CellTagsIndexPosition[     12616,        365]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 9  -  Section 9.3", "Title",
+  PageWidth->WindowWidth],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will approximate a nonlinear autonomous system \
+with linearizations of the system. Predictions about the behavior of the \
+solutions to the original system will be made based on the eigenvalues \
+corresponding to the linear systems. You will use ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" to find numerical solutions to the original system. These \
+solutions will be plotted in the phase plane together with the direction \
+field for the system. \n",
+    FontWeight->"Bold"],
+  "\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle",
+  PageWidth->WindowWidth],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem 11:  \tdx/dt = 2x + y + x ",
+  Cell[BoxData[
+      \(TraditionalForm\`y\^3\)]],
+  "\n\t\tdy/dt = x - 2y - x y"
+}], "Section",
+  PageWidth->WindowWidth],
+
+Cell[CellGroupData[{
+
+Cell["Finding the Equilibria ", "Subsection",
+  Evaluatable->False],
+
+Cell[BoxData[{\(Clear[x, y, t, rhs1, rhs2]\), "\[IndentingNewLine]", 
+    RowBox[{\(rhs1[x_, y_]\), ":=", 
+      StyleBox[\(2  x\  + y\  + \ x\ y\^3\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{\(rhs2[x_, y_]\), ":=", 
+      StyleBox[\(x - 2  y - x\ y\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", \(equil = 
+      NSolve[{rhs1[x, y] \[Equal] 0, rhs2[x, y] \[Equal] 0}, {x, 
+          y}]\)}], "Input"],
+
+Cell["\<\
+There appear to be two real-valued equilibrium points. We will pull these out \
+and name them. In different problems, you may have to pull out different \
+parts. Here it is parts 3 and 4. You can always type in the values or cut and \
+paste them.\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Finding the Corresponding Linear Systems", "Subsection"],
+
+Cell["\<\
+Now, let's find the linear system corresponding to each of these equilibrium \
+points. We will begin by computing the Jacobian and then evaluating it at \
+each point of equilibrium. The output is displayed in matrix form for \
+clarity.\
+\>", "Text"],
+
+Cell[BoxData[{\(jacob = {{D[rhs1[x, y], x], 
+            D[rhs1[x, y], y]}, {D[rhs2[x, y], x], 
+            D[rhs2[x, y], y]}};\), "\[IndentingNewLine]", \(MatrixForm[
+      jacob]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"jacob3", "=", 
+        RowBox[{"jacob", "/.", 
+          RowBox[{"equil", "[", 
+            RowBox[{"[", 
+              StyleBox["3",
+                FontColor->RGBColor[1, 0, 0]], "]"}], "]"}]}]}], 
+      ";"}], "\[IndentingNewLine]", \(Print[
+      MatrixForm\ [{\(x'\)[t], \(y'\)[t]}], "\<\[Equal]\>", 
+      MatrixForm[jacob3 . {x[t], y[t]}]]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"jacob4", "=", 
+        RowBox[{"jacob", "/.", 
+          RowBox[{"equil", "[", 
+            RowBox[{"[", 
+              StyleBox["4",
+                FontColor->RGBColor[1, 0, 0]], "]"}], "]"}]}]}], 
+      ";"}], "\[IndentingNewLine]", \(Print[
+      MatrixForm[{\(x'\)[t], \(y'\)[t]}], "\<\[Equal]\>", 
+      MatrixForm[\((jacob4 . {x[t], y[t]})\)]]\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Finding the Eigenvalues for the Linear Systems", "Subsection"],
+
+Cell["\<\
+We can find the eigenvalues for the linear systems above by determining the \
+eigenvalues of their corresponding Jacobian matrices.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(Eigenvalues[jacob3]\), "\[IndentingNewLine]", 
+    \(Eigenvalues[jacob4]\)}], "Input"],
+
+Cell["\<\
+For the critical point {-1.19345, -1.4797}, we have complex eigenvalues with \
+negative real parts. Therefore, we would anticipate this equilibrium point to \
+be a stable spiral. For the critical point (0, 0), both eigenvalues are real, \
+and since one is positive, we would anticipate this equilibrium point to be \
+unstable. \
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Solving the System of Differential Equations Using Mathematica\
+\>", "Subsection",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+We will use the NDSolve command here, because this is a nonlinear \
+differential equation system. We will find solutions corresponding to sets of \
+initial conditions surrounding our equilibrium points.\
+\>", "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[{\(Clear[x, y, t]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"x0", "=", 
+        StyleBox["1",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"y0", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(fastsoln1 = 
+        NDSolve[{\(x'\)[t] \[Equal] rhs1[x[t], y[t]], \(y'\)[t] \[Equal] 
+              rhs2[x[t], y[t]], x[0] \[Equal] x0, y[0] \[Equal] y0}, {x[t], 
+            y[t]}, {t, 0, 10}];\), "\[IndentingNewLine]", \(solset1 = 
+      Flatten[{x[t], y[t]} /. fastsoln1] // Simplify\)}], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+The numerical technique for these initial conditions appears to fail for \
+values of t close to 9. This is not surprising since we anticipate the point \
+(0, 0) to be and unstable equilibrium.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"x0", "=", 
+        StyleBox[\(- .5\),
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"y0", "=", 
+        StyleBox[\(- .5\),
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(fastsoln2 = 
+        NDSolve[{\(x'\)[t] \[Equal] rhs1[x[t], y[t]], \(y'\)[t] \[Equal] 
+              rhs2[x[t], y[t]], x[0] \[Equal] x0, y[0] \[Equal] y0}, {x[t], 
+            y[t]}, {t, 0, 10}];\), "\[IndentingNewLine]", \(solset2 = 
+      Flatten[{x[t], y[t]} /. fastsoln2] // Simplify\)}], "Input",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"x0", "=", 
+        StyleBox[\(-2\),
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"y0", "=", 
+        StyleBox[\(-2\),
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(fastsoln3 = 
+        NDSolve[{\(x'\)[t] \[Equal] rhs1[x[t], y[t]], \(y'\)[t] \[Equal] 
+              rhs2[x[t], y[t]], x[0] \[Equal] x0, y[0] \[Equal] y0}, {x[t], 
+            y[t]}, {t, 0, 10}];\), "\[IndentingNewLine]", \(solset3 = 
+      Flatten[{x[t], y[t]} /. fastsoln3] // Simplify\)}], "Input",
+  PageWidth->WindowWidth]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Plotting Solution Trajectories in the Phase Plane Together with the Direction \
+Field \
+\>", "Subsection",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+To plot the direction field, we need to load a graphics package.\
+\>", "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[
+    \(<< Graphics`PlotField`\)], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+The plot of the direction field uses the right hand side of the first \
+differential equation as the first input and the right hand side of the \
+second differential equation as the second input. The ScaleFunction is a \
+built-in option that displays the direction field well here.\
+\>", "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"plotvf", "=", 
+        RowBox[{"PlotVectorField", "[", 
+          RowBox[{\({rhs1[x, y], rhs2[x, y]}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"x", ",", 
+                StyleBox[\(-6\),
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["6",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], ",", 
+            RowBox[{"{", 
+              RowBox[{"y", ",", 
+                StyleBox[\(-3\),
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["3",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(ScaleFunction \[Rule] \(( .4 &)\)\), 
+            ",", \(AspectRatio \[Rule] 1\)}], "]"}]}], ";"}]], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+We will call upon the general solution found above and plot several \
+trajectories in the phase plane corresponding to three different sets of \
+initial conditions.\
+\>", "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"plotsoln", "=", 
+        RowBox[{"ParametricPlot", "[", 
+          RowBox[{\({solset1, solset2, solset3}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", 
+                StyleBox["0",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["9",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], ",", 
+            RowBox[{"PlotRange", "\[Rule]", 
+              RowBox[{"{", 
+                StyleBox[\({\(-3\), 6}, {\(-3\), 3}\),
+                  FontColor->RGBColor[1, 0, 0]], "}"}]}], 
+            ",", \(PlotStyle \[Rule] {Hue[ .3], Hue[ .6], Hue[ .9]}\)}], 
+          "]"}]}], ";"}]], "Input"],
+
+Cell["\<\
+Now, we can plot these together. If they do not match, we have made a \
+mistake. \
+\>", "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Show", "[", 
+        RowBox[{"plotvf", ",", "plotsoln", ",", 
+          RowBox[{"PlotRange", "\[Rule]", 
+            RowBox[{"{", 
+              StyleBox[\({\(-3\), 6}, {\(-3\), 3}\),
+                FontColor->RGBColor[1, 0, 0]], "}"}]}], 
+          ",", \(Axes \[Rule] True\), ",", \(AxesLabel \[Rule] {x, y}\)}], 
+        "]"}], ";"}]], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+It appears that as predicted, the critical point {-1.19345, -1.4797} is a \
+stable spiral equilibrium and the critical point (0, 0) is unstable. You can \
+check out the solution near other starting points by changing the x0 and y0 \
+in the code for solving the system of differential equations.\
+\>", "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{648, 527},
+WindowMargins->{{0, Automatic}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 68, 1, 95, "Title"],
+Cell[1847, 56, 1006, 25, 210, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2878, 85, 178, 6, 99, "Section"],
+
+Cell[CellGroupData[{
+Cell[3081, 95, 67, 1, 38, "Subsection",
+  Evaluatable->False],
+Cell[3151, 98, 458, 8, 90, "Input"],
+Cell[3612, 108, 270, 5, 52, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[3919, 118, 62, 0, 30, "Subsection"],
+Cell[3984, 120, 259, 5, 52, "Text"],
+Cell[4246, 127, 1002, 23, 130, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5285, 155, 68, 0, 30, "Subsection"],
+Cell[5356, 157, 155, 3, 33, "Text"],
+Cell[5514, 162, 107, 2, 50, "Input"],
+Cell[5624, 166, 351, 6, 52, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[6012, 177, 118, 3, 30, "Subsection"],
+Cell[6133, 182, 252, 5, 52, "Text"],
+Cell[6388, 189, 630, 13, 90, "Input"],
+Cell[7021, 204, 216, 4, 33, "Text"],
+Cell[7240, 210, 597, 13, 70, "Input"],
+Cell[7840, 225, 593, 13, 70, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[8470, 243, 142, 4, 48, "Subsection"],
+Cell[8615, 249, 114, 3, 33, "Text"],
+Cell[8732, 254, 81, 2, 30, "Input"],
+Cell[8816, 258, 331, 6, 52, "Text"],
+Cell[9150, 266, 933, 23, 30, "Input"],
+Cell[10086, 291, 214, 5, 33, "Text"],
+Cell[10303, 298, 765, 18, 50, "Input"],
+Cell[11071, 318, 131, 4, 33, "Text"],
+Cell[11205, 324, 416, 10, 30, "Input"],
+Cell[11624, 336, 318, 5, 52, "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

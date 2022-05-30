@@ -1,0 +1,268 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      6689,        204]*)
+(*NotebookOutlinePosition[      7336,        226]*)
+(*  CellTagsIndexPosition[      7292,        222]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 3  -  Section 3.8", "Title"],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will explore the behavior of a solution to a \
+linear differential equation representing an under-damped free vibration. The \
+solution and its derivative will be plotted first as functions of time and \
+then plotted parametrically in the phase plane. ",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem 29:  u'' + ",
+  Cell[BoxData[
+      \(TraditionalForm\`1\/4\)]],
+  "u' + 2u = 0\t\t"
+}], "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Finding the Solution", "Subsection"],
+
+Cell[TextData[{
+  "We will use ",
+  StyleBox["DSolve",
+    FontWeight->"Bold"],
+  " to solve the differential equation and refer to the solution as ufun and \
+its derivative as uderiv."
+}], "Text"],
+
+Cell[BoxData[
+    \(Clear[ufun, uderiv]\)], "Input"],
+
+Cell[BoxData[{\(Clear[eq, u, t]\), "\[IndentingNewLine]", 
+    RowBox[{"eq", ":=", 
+      StyleBox[\(\(u''\)[t] + 1\/4\ \(u'\)[t] + u[t] \[Equal] 0\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"u0", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"up0", "=", 
+        StyleBox["2",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(solnde = 
+      DSolve[{eq, u[0] \[Equal] u0, \(u'\)[0] \[Equal] up0}, u[t], 
+        t]\), "\[IndentingNewLine]", \(ufun[t_] = 
+      u[t] /. solnde // N\), "\[IndentingNewLine]", \(uderiv[t_] = \(ufun'\)[
+        t]\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Plotting u and u' as Functions of Time", "Subsection"],
+
+Cell["We will plot the solution in red and its derivative in blue.", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{\({ufun[t], uderiv[t]}\), ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["30",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], RGBColor[0, 0, 1]}\)}],
+         "]"}], ";"}]], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Plotting u' Versus u in the Phase Plane", "Subsection"],
+
+Cell[TextData[{
+  "To plot in the phase plane, we call upon the ",
+  StyleBox["ParametricPlot ",
+    FontWeight->"Bold"],
+  "command."
+}], "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"ParametricPlot", "[", 
+        RowBox[{\(Flatten[{ufun[t], uderiv[t]}]\), ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["30",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(AxesLabel \[Rule] {"\<u(t)\>", "\<u'(t)\>"}\), 
+          ",", \(AspectRatio \[Rule] Automatic\), 
+          ",", \(PlotRange \[Rule] {{\(-2\), 2}, {\(-2\), 2}}\)}], "]"}], 
+      ";"}]], "Input"],
+
+Cell[TextData[{
+  "To see this plot as it is formed, we can construct a table of plots where \
+we increase the value of t (tval) in the domain over which the functions are \
+plotted. After executing this command, double click on any of the graphs to \
+see the animated drawing. The endpoint of the first plot corresponds to ",
+  StyleBox["t",
+    FontSlant->"Italic"],
+  " = 1, the endpoint of the second to ",
+  StyleBox["t",
+    FontSlant->"Italic"],
+  " = 2, etc. You can change this step size of 1 by changing the \"",
+  StyleBox["1",
+    FontColor->RGBColor[1, 0, 0]],
+  "\" in red. You can change the range of values over which you plot by \
+changing the \"",
+  StyleBox["30",
+    FontColor->RGBColor[1, 0, 0]],
+  "\". You may ignore the error message here."
+}], "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Table", "[", 
+        RowBox[{\(ParametricPlot[Flatten[{ufun[t], uderiv[t]}], {t, 0, tval}, 
+              AxesLabel \[Rule] {"\<u(t)\>", "\<u'(t)\>"}, 
+              AspectRatio \[Rule] Automatic, 
+              PlotRange \[Rule] {{\(-2\), 2}, {\(-2\), 2}}];\), ",", 
+          RowBox[{"{", 
+            RowBox[{"tval", ",", "0", ",", 
+              StyleBox["30",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox[",",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox["1",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}], 
+      ";"}]], "Input"],
+
+Cell["\<\
+You should delete your output before saving this file, since the numerous \
+plots generated consume a lot of memory. You can do this easily by selecting \
+the Kernel and choosing the option to delete all output.\
+\>", "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{630, 561},
+WindowMargins->{{121, Automatic}, {-89, Automatic}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 711, 17, 168, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2557, 76, 126, 5, 77, "Section"],
+
+Cell[CellGroupData[{
+Cell[2708, 85, 42, 0, 38, "Subsection"],
+Cell[2753, 87, 197, 6, 52, "Text"],
+Cell[2953, 95, 52, 1, 30, "Input"],
+Cell[3008, 98, 693, 15, 144, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[3738, 118, 60, 0, 30, "Subsection"],
+Cell[3801, 120, 76, 0, 33, "Text"],
+Cell[3880, 122, 365, 9, 50, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4282, 136, 61, 0, 30, "Subsection"],
+Cell[4346, 138, 146, 5, 33, "Text"],
+Cell[4495, 145, 486, 11, 70, "Input"],
+Cell[4984, 158, 776, 18, 109, "Text"],
+Cell[5763, 178, 648, 15, 70, "Input"],
+Cell[6414, 195, 235, 4, 52, "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

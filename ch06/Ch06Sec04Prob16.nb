@@ -1,0 +1,554 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     15136,        463]*)
+(*NotebookOutlinePosition[     15782,        485]*)
+(*  CellTagsIndexPosition[     15738,        481]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 6  -  Section 6.4", "Title"],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will use ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" to solve a differential equation using the Laplace Transform and \
+explore the impact of a variable magnitude on the forcing function.",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem 16:   u'' + ",
+  Cell[BoxData[
+      \(TraditionalForm\`1\/4\)]],
+  " u' +  u = k g(t)"
+}], "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Defining the Functions and Taking Laplace Transforms", "Subsection"],
+
+Cell[TextData[{
+  "In older versions of ",
+  StyleBox["Mathematica, ",
+    FontSlant->"Italic"],
+  "a special package had to be loaded for taking Laplace Transforms. Now, the \
+Laplace Transform and its Inverse are built into the kernel. We will call \
+upon the ",
+  StyleBox["UnitStep[x-a].",
+    FontWeight->"Bold"],
+  " This is the same unit step function defined in your book and takes on the \
+value 0 if x - a < 0 and 1 if x - a \[GreaterEqual] 0. "
+}], "Text"],
+
+Cell[BoxData[{\(Clear[lhs, u, g, t, s, k]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"lhs", "=", 
+        StyleBox[\(\(u''\)[t] + 1\/4\ \(u'\)[t] + u[t]\),
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{\(u[0]\), "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{\(\(u'\)[0]\), "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{\(g[t_]\), "=", 
+        StyleBox[\(UnitStep[t - 3/2]\  - \ UnitStep[t - 5/2]\),
+          FontColor->RGBColor[1, 0, 0]]}], ";"}]}], "Input"],
+
+Cell["\<\
+Let's first make certain that we have defined g(t) correctly.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"pg", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{\(g[t]\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["4",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] RGBColor[0, 0, 1]\)}], "]"}]}], 
+      ";"}]], "Input"],
+
+Cell[TextData[{
+  "Now, we will take the Laplace transform of each side of the differential \
+equation. The command ",
+  StyleBox["LaPlace[ f[t], t, s]",
+    FontWeight->"Bold"],
+  " yields ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[Integral]\_0\%\[Infinity]\( \[ExponentialE]\^\(-st\
+\)\) f[t]\ \[DifferentialD]t\)]],
+  ". Note in the last line of code how we leave k arbitrary. "
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(U[s_] = LaplaceTransform[u[t], t, s];\)\), "\[IndentingNewLine]", 
+    \(lptlhs = LaplaceTransform[lhs, t, s]\), "\[IndentingNewLine]", 
+    \(lptg = LaplaceTransform[g[t], t, s]\), "\[IndentingNewLine]", 
+    \(lptsoln = Solve[lptlhs \[Equal] k\ lptg, U[s]] // Simplify\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Using ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " to Compute the Inverse Laplace Transform"
+}], "Subsection"],
+
+Cell[TextData[{
+  "We will now take the Inverse Laplace Transform of the Laplace Transform of \
+y[t]. We need to call upon the command ",
+  StyleBox["ComplexExpand",
+    FontWeight->"Bold"],
+  " in order write our solution in real form."
+}], "Text"],
+
+Cell[BoxData[{\(usoln = \(InverseLaplaceTransform[U[s] /. lptsoln, s, t] // 
+            ComplexExpand\) // Simplify;\), "\[IndentingNewLine]", 
+    RowBox[{
+      StyleBox[\(utk[t_, k_]\),
+        FontColor->RGBColor[1, 0, 0]], "=", \(usoln[\([1]\)]\)}]}], "Input"],
+
+Cell["\<\
+You should note that this solution also involves the unit step function at \
+both 3/2 and 5/2.\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Plotting the Solution for Different Values of K", "Subsection"],
+
+Cell["\<\
+We will plot the solutions corresponding to k = 1/2, 1, 2 in red, green, \
+blue, respectively.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"pk", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{
+            RowBox[{"{", 
+              RowBox[{
+                RowBox[{"utk", "[", 
+                  RowBox[{"t", ",", 
+                    StyleBox[\(1/2\),
+                      FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+                RowBox[{"utk", "[", 
+                  RowBox[{"t", ",", 
+                    StyleBox["1",
+                      FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+                RowBox[{"utk", "[", 
+                  RowBox[{"t", ",", 
+                    StyleBox["2",
+                      FontColor->RGBColor[1, 0, 0]]}], "]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["20",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], RGBColor[0, 1, 0], 
+                RGBColor[0, 0, 1]}\), ",", \(PlotRange \[Rule] All\)}], 
+          "]"}]}], ";"}]], "Input"],
+
+Cell["\<\
+You can see that as the value of k increases, the amplitude of the \
+oscillation increases\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Determining the Value of K Needed to Create an Oscillation of Magnitude Two\
+\>", "Subsection"],
+
+Cell["\<\
+We can see from the previous graphs that u(t) never reached 2. We can \
+continue graphing the solution for larger values of k.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"pk2", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{
+            RowBox[{"{", 
+              RowBox[{
+                RowBox[{"utk", "[", 
+                  RowBox[{"t", ",", 
+                    StyleBox["2.5",
+                      FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+                RowBox[{"utk", "[", 
+                  RowBox[{"t", ",", 
+                    StyleBox["3",
+                      FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+                RowBox[{"utk", "[", 
+                  RowBox[{"t", ",", 
+                    StyleBox["3.5",
+                      FontColor->RGBColor[1, 0, 0]]}], "]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["20",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], RGBColor[0, 1, 0], 
+                RGBColor[0, 0, 1]}\), ",", \(PlotRange \[Rule] All\)}], 
+          "]"}]}], ";"}]], "Input"],
+
+Cell["\<\
+Let us plot the solution for values of k between 2.5 and 3, together with the \
+line u = 2.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"pk3", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{
+            RowBox[{"{", 
+              RowBox[{"2", ",", 
+                RowBox[{"utk", "[", 
+                  RowBox[{"t", ",", 
+                    StyleBox["2.6",
+                      FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+                RowBox[{"utk", "[", 
+                  RowBox[{"t", ",", 
+                    StyleBox["2.7",
+                      FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+                RowBox[{"utk", "[", 
+                  RowBox[{"t", ",", 
+                    StyleBox["2.8",
+                      FontColor->RGBColor[1, 0, 0]]}], "]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["10",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {Thickness[ .01], RGBColor[1, 0, 0], 
+                RGBColor[0, 1, 0], RGBColor[0, 0, 1]}\), 
+            ",", \(PlotRange \[Rule] All\)}], "]"}]}], ";"}]], "Input"],
+
+Cell[TextData[{
+  "We can see that the correct value of k is very near 2.6. We could keep \
+narrowing our plot or we could use the ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " command ",
+  StyleBox["FindMaximum. ",
+    FontWeight->"Bold"],
+  "The maximum appears to occur near t = 3.5"
+}], "Text"],
+
+Cell[BoxData[
+    RowBox[{"FindMaximum", "[", 
+      RowBox[{
+        RowBox[{"utk", "[", 
+          RowBox[{"t", ",", 
+            StyleBox["2.6",
+              FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+        RowBox[{"{", 
+          RowBox[{"t", ",", 
+            StyleBox["3.5",
+              FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}]], "Input"],
+
+Cell["Let's check this out for values of k just under 2.6.", "Text"],
+
+Cell[BoxData[{
+    RowBox[{"FindMaximum", "[", 
+      RowBox[{
+        RowBox[{"utk", "[", 
+          RowBox[{"t", ",", 
+            StyleBox["2.56",
+              FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+        RowBox[{"{", 
+          RowBox[{"t", ",", 
+            StyleBox["3.5",
+              FontColor->RGBColor[1, 0, 0]]}], "}"}]}], 
+      "]"}], "\[IndentingNewLine]", 
+    RowBox[{"FindMaximum", "[", 
+      RowBox[{
+        RowBox[{"utk", "[", 
+          RowBox[{"t", ",", 
+            StyleBox["2.54",
+              FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+        RowBox[{"{", 
+          RowBox[{"t", ",", 
+            StyleBox["3.5",
+              FontColor->RGBColor[1, 0, 0]]}], "}"}]}], 
+      "]"}], "\[IndentingNewLine]", 
+    RowBox[{"FindMaximum", "[", 
+      RowBox[{
+        RowBox[{"utk", "[", 
+          RowBox[{"t", ",", 
+            StyleBox["2.52",
+              FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+        RowBox[{"{", 
+          RowBox[{"t", ",", 
+            StyleBox["3.5",
+              FontColor->RGBColor[1, 0, 0]]}], "}"}]}], 
+      "]"}], "\[IndentingNewLine]", 
+    RowBox[{"FindMaximum", "[", 
+      RowBox[{
+        RowBox[{"utk", "[", 
+          RowBox[{"t", ",", 
+            StyleBox["2.5",
+              FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+        RowBox[{"{", 
+          RowBox[{"t", ",", 
+            StyleBox["3.5",
+              FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}]}], "Input"],
+
+Cell["We can look closer to k = 2.5.", "Text"],
+
+Cell[BoxData[{
+    RowBox[{"FindMaximum", "[", 
+      RowBox[{
+        RowBox[{"utk", "[", 
+          RowBox[{"t", ",", 
+            StyleBox["2.502",
+              FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+        RowBox[{"{", 
+          RowBox[{"t", ",", 
+            StyleBox["3.5",
+              FontColor->RGBColor[1, 0, 0]]}], "}"}]}], 
+      "]"}], "\[IndentingNewLine]", 
+    RowBox[{"FindMaximum", "[", 
+      RowBox[{
+        RowBox[{"utk", "[", 
+          RowBox[{"t", ",", 
+            StyleBox["2.503",
+              FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+        RowBox[{"{", 
+          RowBox[{"t", ",", 
+            StyleBox["3.5",
+              FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}]}], "Input"],
+
+Cell["\<\
+So, now we know that the desired value of k is between 2.502 and 2.503. Let's \
+plot these.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"pk4", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{
+            RowBox[{"{", 
+              RowBox[{"2", ",", 
+                RowBox[{"utk", "[", 
+                  RowBox[{"t", ",", 
+                    StyleBox["2.502",
+                      FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+                RowBox[{"utk", "[", 
+                  RowBox[{"t", ",", 
+                    StyleBox["2.503",
+                      FontColor->RGBColor[1, 0, 0]]}], "]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["10",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {Thickness[ .01], RGBColor[1, 0, 0], 
+                RGBColor[0, 1, 0]}\), ",", \(PlotRange \[Rule] All\)}], 
+          "]"}]}], ";"}]], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Seeing How Long It Takes for the Motion to Die Out", "Subsection"],
+
+Cell["\<\
+To see how long it takes the solution to become less than 0.01 in size, let's \
+plot the solution together with the lines +/- .01\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{\({\(- .01\),  .01, utk[t, 2]}\), ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", 
+              StyleBox["35",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox[",",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox["70",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(PlotRange \[Rule] {\(- .02\),  .02}\)}], "]"}], 
+      ";"}]], "Input"],
+
+Cell["\<\
+It appears as though the oscillation is within the 0.01 bounds from around t \
+= 43 on. We could get more precise by evaluating our function at points near \
+the boundary.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{"utk", "[", 
+      StyleBox[\(42.3, 2\),
+        FontColor->RGBColor[1, 0, 0]], "]"}], "\[IndentingNewLine]", 
+    RowBox[{"utk", "[", 
+      StyleBox[\(42.2, 2\),
+        FontColor->RGBColor[1, 0, 0]], "]"}]}], "Input"],
+
+Cell["So, for t > 42.3, we can be assured that |u(t) | < .01", "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{495, 561},
+WindowMargins->{{114, Automatic}, {Automatic, 40}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 719, 20, 168, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2565, 79, 129, 5, 77, "Section"],
+
+Cell[CellGroupData[{
+Cell[2719, 88, 74, 0, 38, "Subsection"],
+Cell[2796, 90, 467, 11, 109, "Text"],
+Cell[3266, 103, 659, 15, 104, "Input"],
+Cell[3928, 120, 85, 2, 33, "Text"],
+Cell[4016, 124, 367, 10, 50, "Input"],
+Cell[4386, 136, 396, 10, 71, "Text"],
+Cell[4785, 148, 307, 4, 90, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5129, 157, 143, 5, 48, "Subsection"],
+Cell[5275, 164, 249, 6, 71, "Text"],
+Cell[5527, 172, 266, 4, 90, "Input"],
+Cell[5796, 178, 118, 3, 52, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5951, 186, 69, 0, 30, "Subsection"],
+Cell[6023, 188, 118, 3, 52, "Text"],
+Cell[6144, 193, 1036, 25, 90, "Input"],
+Cell[7183, 220, 114, 3, 52, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7334, 228, 105, 2, 48, "Subsection"],
+Cell[7442, 232, 150, 3, 52, "Text"],
+Cell[7595, 237, 1037, 25, 90, "Input"],
+Cell[8635, 264, 115, 3, 52, "Text"],
+Cell[8753, 269, 1068, 25, 110, "Input"],
+Cell[9824, 296, 311, 9, 71, "Text"],
+Cell[10138, 307, 359, 10, 30, "Input"],
+Cell[10500, 319, 68, 0, 33, "Text"],
+Cell[10571, 321, 1465, 43, 90, "Input"],
+Cell[12039, 366, 46, 0, 33, "Text"],
+Cell[12088, 368, 732, 21, 50, "Input"],
+Cell[12823, 391, 115, 3, 52, "Text"],
+Cell[12941, 396, 873, 21, 90, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[13851, 422, 72, 0, 30, "Subsection"],
+Cell[13926, 424, 153, 3, 52, "Text"],
+Cell[14082, 429, 493, 13, 50, "Input"],
+Cell[14578, 444, 195, 4, 71, "Text"],
+Cell[14776, 450, 247, 6, 50, "Input"],
+Cell[15026, 458, 70, 0, 33, "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

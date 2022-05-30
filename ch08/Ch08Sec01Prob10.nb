@@ -1,0 +1,486 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     14775,        413]*)
+(*NotebookOutlinePosition[     15420,        435]*)
+(*  CellTagsIndexPosition[     15376,        431]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 8  -  Section 8.1", "Title",
+  PageWidth->WindowWidth],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will use a numerical method called Euler's Method \
+to approximate the solution to a differential equation with a specified \
+initial condition. The results will be compared to a more exact solution to \
+be determined using ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle",
+  PageWidth->WindowWidth],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem 10:   y' =  2t + ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[ExponentialE]\^\(\(-t\)\ y\)\)]]
+}], "Section",
+  PageWidth->WindowWidth],
+
+Cell[CellGroupData[{
+
+Cell["Applying Euler's Method with h = 0.025", "Subsection"],
+
+Cell[TextData[{
+  "We will begin by defining our function and detailing the steps that are to \
+be followed in applying Euler's method. The ",
+  StyleBox["Do",
+    FontWeight->"Bold"],
+  " command is used to repeat the sequence of steps specified in your text. \
+The number of times it is repeated is specified at the end of the command in \
+curly braces. The ",
+  StyleBox["Do",
+    FontWeight->"Bold"],
+  " command has no output, so we ask to see the solution list computed at the \
+end."
+}], "Text"],
+
+Cell[BoxData[{\(Clear[f, t, y, new, solnslist1]\), "\[IndentingNewLine]", 
+    RowBox[{\(f[t_, y_]\), ":=", 
+      StyleBox[\(2  t\  + \ \[ExponentialE]\^\(\(-t\)\ y\)\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"t0", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"y0", "=", 
+        StyleBox["1",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"h", "=", 
+        StyleBox[".025",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(solnslist1 = {{t0, 
+            y0}};\), "\[IndentingNewLine]", 
+    RowBox[{"Do", "[", 
+      RowBox[{\({new = y0 + f[t0, y0]\ h, t0 = t0 + h, y0 = new, 
+          AppendTo[solnslist1, {t0, y0}]}\), ",", 
+        RowBox[{"{", 
+          StyleBox["80",
+            FontColor->RGBColor[1, 0, 0]], "}"}]}], 
+      "]"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"compare1", "=", 
+        RowBox[{"Table", "[", 
+          RowBox[{\(solnslist1[\([i]\)]\), ",", 
+            RowBox[{"{", 
+              RowBox[{"i", ",", 
+                StyleBox["1",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["81",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["20",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}]}], 
+      ";"}], "\[IndentingNewLine]", \(compare1 // 
+      TableForm\), "\[IndentingNewLine]", \(lp1 = 
+        ListPlot[solnslist1, 
+          PlotStyle \[Rule] {RGBColor[0, 1, 0], 
+              PointSize[ .01]}];\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Applying Euler's Method with h = 0.0125", "Subsection"],
+
+Cell[BoxData[{\(Clear[f, t, y, new, solnslist2]\), "\[IndentingNewLine]", 
+    RowBox[{\(f[t_, y_]\), ":=", 
+      StyleBox[\(2  t\  + \ \[ExponentialE]\^\(\(-t\)\ y\)\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"t0", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"y0", "=", 
+        StyleBox["1",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"h", "=", 
+        StyleBox[".0125",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(solnslist2 = {{t0, 
+            y0}};\), "\[IndentingNewLine]", 
+    RowBox[{"Do", "[", 
+      RowBox[{\({new = y0 + f[t0, y0]\ h, t0 = t0 + h, y0 = new, 
+          AppendTo[solnslist2, {t0, y0}]}\), ",", 
+        RowBox[{"{", 
+          StyleBox["160",
+            FontColor->RGBColor[1, 0, 0]], "}"}]}], 
+      "]"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"compare2", "=", 
+        RowBox[{"Table", "[", 
+          RowBox[{\(solnslist2[\([i]\)]\), ",", 
+            RowBox[{"{", 
+              RowBox[{"i", ",", 
+                StyleBox["1",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["161",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["40",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}]}], 
+      ";"}], "\[IndentingNewLine]", \(compare2 // 
+      TableForm\), "\[IndentingNewLine]", \(lp2 = 
+        ListPlot[solnslist2, 
+          PlotStyle \[Rule] {RGBColor[0,  .5,  .5], 
+              PointSize[ .01]}];\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Applying Euler's Backward Method with h = 0.025", "Subsection"],
+
+Cell[BoxData[{\(Clear[f, t, y, new, newy, solnslist3, h, t0, 
+      y0]\), "\[IndentingNewLine]", 
+    RowBox[{\(f[t_, y_]\), ":=", 
+      StyleBox[\(2  t\  + \ \[ExponentialE]\^\(\(-t\)\ y\)\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", \(newysoln = 
+      Solve[newy == y0 + f[t0 + h, newy]\ h, newy]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"t0", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"y0", "=", 
+        StyleBox["1",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"h", "=", 
+        StyleBox[".025",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(solnslist3 = {{t0, 
+            y0}};\), "\[IndentingNewLine]", 
+    RowBox[{"Do", "[", 
+      RowBox[{\({new = newy /. newysoln, t0 = t0 + h, y0 = new[\([1]\)], 
+          AppendTo[solnslist3, {t0, y0}]}\), ",", 
+        RowBox[{"{", 
+          StyleBox["80",
+            FontColor->RGBColor[1, 0, 0]], "}"}]}], 
+      "]"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"compare3", "=", 
+        RowBox[{"Table", "[", 
+          RowBox[{\(solnslist3[\([i]\)]\), ",", 
+            RowBox[{"{", 
+              RowBox[{"i", ",", 
+                StyleBox["1",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["81",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["20",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}]}], 
+      ";"}], "\[IndentingNewLine]", \(compare3 // 
+      TableForm\), "\[IndentingNewLine]", \(lp3 = 
+        ListPlot[solnslist3, 
+          PlotStyle \[Rule] {RGBColor[0, 0, 1], 
+              PointSize[ .01]}];\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Applying Euler's Backward Method with h = 0.0125", "Subsection"],
+
+Cell[BoxData[{\(Clear[f, t, y, new, newy, solnslist4, h, t0, 
+      y0]\), "\[IndentingNewLine]", 
+    RowBox[{\(f[t_, y_]\), ":=", 
+      StyleBox[\(2  t\  + \ \[ExponentialE]\^\(\(-t\)\ y\)\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", \(newysoln = 
+      Solve[newy == y0 + f[t0 + h, newy]\ h, newy]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"t0", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"y0", "=", 
+        StyleBox["1",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"h", "=", 
+        StyleBox[".0125",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(solnslist4 = {{t0, 
+            y0}};\), "\[IndentingNewLine]", 
+    RowBox[{"Do", "[", 
+      RowBox[{\({new = newy /. newysoln, t0 = t0 + h, y0 = new[\([1]\)], 
+          AppendTo[solnslist4, {t0, y0}]}\), ",", 
+        RowBox[{"{", 
+          StyleBox["160",
+            FontColor->RGBColor[1, 0, 0]], "}"}]}], 
+      "]"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"compare4", "=", 
+        RowBox[{"Table", "[", 
+          RowBox[{\(solnslist4[\([i]\)]\), ",", 
+            RowBox[{"{", 
+              RowBox[{"i", ",", 
+                StyleBox["1",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["161",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["40",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}]}], 
+      ";"}], "\[IndentingNewLine]", \(compare4 // 
+      TableForm\), "\[IndentingNewLine]", \(lp4 = 
+      ListPlot[solnslist4, 
+        PlotStyle \[Rule] {RGBColor[ .5, 0,  .5], 
+            PointSize[ .01]}]\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Determining the a More Exact Solution and Comparing Results", \
+"Subsection"],
+
+Cell[TextData[{
+  "This is a differential equation which cannot be solved by the traditional \
+methods, so we will use the built-in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " numerical solver ",
+  StyleBox["NDSolve",
+    FontWeight->"Bold"],
+  " and then compare the approximations with the results obtained by this \
+more sophisticated method.."
+}], "Text"],
+
+Cell[BoxData[{\(Clear[y, t]\), "\[IndentingNewLine]", 
+    RowBox[{\(f[t_, y_]\), ":=", 
+      StyleBox[\(2  t\  + \ \[ExponentialE]\^\(\(-t\)\ y\)\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"t0", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"y0", "=", 
+        StyleBox["1",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{"desol", "=", 
+      RowBox[{"NDSolve", "[", 
+        RowBox[{\({\(y'\)[t] \[Equal] f[t, y[t]], y[t0] \[Equal] y0}\), 
+          ",", \(y[t]\), ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["2",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], 
+        "]"}]}], "\[IndentingNewLine]", 
+    RowBox[{"exactsoln", "=", 
+      RowBox[{"Table", "[", 
+        RowBox[{\({t, \((y[t] /. desol)\)}\), ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "t0", ",", 
+              StyleBox["2",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox[",",
+                FontColor->RGBColor[1, 0, 0]], 
+              StyleBox[".5",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], 
+        "]"}]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"lpexact", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{\(desol[\([1, 1, 2]\)]\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["2",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0]}\)}], "]"}]}], 
+      ";"}]}], "Input"],
+
+Cell[BoxData[
+    \(\(Show[lp1, lp2, lp3, lp4, lpexact];\)\)], "Input"],
+
+Cell[TextData[{
+  "It is hard to analyze these results very precisely using only the picture, \
+so we will list our results in a table. The following command pulls out t \
+values of the exact solution and then the y values of the exact and each of \
+the above approximations. We do this by creating a table and then showing the \
+table in ",
+  StyleBox["TableForm",
+    FontWeight->"Bold"],
+  " with ",
+  StyleBox["Headings",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(comparisons = 
+        Table[{exactsoln[\([i, 1]\)], exactsoln[\([i, 2]\)], 
+            compare1[\([i, 2]\)], compare2[\([i, 2]\)], compare3[\([i, 2]\)], 
+            compare4[\([i, 2]\)]}, {i, 1, 5}];\)\), "\[IndentingNewLine]", 
+    \(TableForm[comparisons, 
+      TableHeadings \[Rule] {None, {"\<t\>", \ "\<almost exact\>", \ \
+"\<Euler.05\>", "\<Euler.025\>", "\<EulerB.05\>", "\<EulerB.025\>"}}]\)}], \
+"Input"],
+
+Cell["\<\
+You can see that the smaller values of h provide a better approximation. \
+Also, it appears that Euler's forward method underestimates the solution, \
+whereas, the backward method overestimates the solution.\
+\>", "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{665, 561},
+WindowMargins->{{14, Automatic}, {38, Automatic}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 68, 1, 95, "Title"],
+Cell[1847, 56, 826, 23, 168, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2698, 83, 163, 5, 73, "Section"],
+
+Cell[CellGroupData[{
+Cell[2886, 92, 60, 0, 38, "Subsection"],
+Cell[2949, 94, 502, 12, 90, "Text"],
+Cell[3454, 108, 1827, 45, 230, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5318, 158, 61, 0, 30, "Subsection"],
+Cell[5382, 160, 1834, 45, 230, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7253, 210, 69, 0, 30, "Subsection"],
+Cell[7325, 212, 1950, 47, 250, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9312, 264, 70, 0, 30, "Subsection"],
+Cell[9385, 266, 1950, 47, 250, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[11372, 318, 83, 1, 30, "Subsection"],
+Cell[11458, 321, 374, 10, 71, "Text"],
+Cell[11835, 333, 1677, 42, 150, "Input"],
+Cell[13515, 377, 71, 1, 30, "Input"],
+Cell[13589, 380, 468, 12, 71, "Text"],
+Cell[14060, 394, 441, 8, 150, "Input"],
+Cell[14504, 404, 231, 4, 52, "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

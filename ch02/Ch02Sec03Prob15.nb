@@ -1,0 +1,296 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      8514,        232]*)
+(*NotebookOutlinePosition[      9159,        254]*)
+(*  CellTagsIndexPosition[      9115,        250]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 2  -  Section 2.3", "Title"],
+
+Cell[TextData[{
+  StyleBox["In this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will explore the importance of initial conditions \
+and parameters when solving differential equations that model population \
+dynamics\n\n",
+    FontWeight->"Bold"],
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. Throughout this notebook, you may \
+ignore the warnings about possible spelling errors. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell["Problem 15: Population Dynamics", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Critical Initial Condition for k = 1/5", "Subsection"],
+
+Cell[BoxData[{
+    \(Clear[t, y, k]\), "\[IndentingNewLine]", 
+    \(\(yprime = \(1 + Sin[t]\)\/5\ y[t]\  - \ 
+          k;\)\), "\[IndentingNewLine]", 
+    \(\(k = 1/5;\)\), "\[IndentingNewLine]", 
+    \(\({init1, \ init2, \ init3, \ init4} = {1/2, 3/4, 7/8, 
+          1};\)\), "\[IndentingNewLine]", 
+    \(popsoln1 = 
+      NDSolve[{\(y'\)[t] == yprime, y[0] \[Equal] init1}, 
+        y[t], {t, 0, 100}]\), "\[IndentingNewLine]", 
+    \(popsoln2 = 
+      NDSolve[{\(y'\)[t] == yprime, y[0] \[Equal] init2}, 
+        y[t], {t, 0, 100}]\), "\[IndentingNewLine]", 
+    \(popsoln3 = 
+      NDSolve[{\(y'\)[t] == yprime, y[0] \[Equal] init3}, 
+        y[t], {t, 0, 100}]\), "\[IndentingNewLine]", 
+    \(popsoln4 = 
+      NDSolve[{\(y'\)[t] == yprime, y[0] \[Equal] init4}, 
+        y[t], {t, 0, 100}]\), "\[IndentingNewLine]", 
+    \(\(solutionset = 
+        Flatten[y[t] /. {popsoln1, popsoln2, popsoln3, 
+              popsoln4}];\)\), "\[IndentingNewLine]", 
+    \(Plot[Evaluate[solutionset], {t, 0, 40}, 
+      PlotStyle \[Rule] {RGBColor[0,  .5,  .5], RGBColor[0, 1, 0], 
+          RGBColor[0, 0, 1], RGBColor[1, 0, 0]}]\)}], "Input"],
+
+Cell[BoxData[
+    \(The\ order\ of\ the\ plots\ is\ from\ bottom\ to\ top\ for\ solutions\ \
+1\ through\ 4\ respectively . \ 
+        It\ appears\ that\ the\ population\ becomes\ extinct\ for\ values\ of\
+\ \(y\_0\) below\ 3/4\ but\ not\ below\ \ 7/8. \ Let' 
+      s\ see\ if\ we\ can\ narrow\ down\ that\ \(\(interval\)\(.\)\)\)], \
+"Text"],
+
+Cell[BoxData[{
+    \(\({init1, \ init2, \ init3, \ 
+          init4} = { .78,  .80,  .83,  .85};\)\), "\[IndentingNewLine]", 
+    \(popsoln1 = 
+      NDSolve[{\(y'\)[t] == yprime, y[0] \[Equal] init1}, 
+        y[t], {t, 0, 100}]\), "\[IndentingNewLine]", 
+    \(popsoln2 = 
+      NDSolve[{\(y'\)[t] == yprime, y[0] \[Equal] init2}, 
+        y[t], {t, 0, 100}]\), "\[IndentingNewLine]", 
+    \(popsoln3 = 
+      NDSolve[{\(y'\)[t] == yprime, y[0] \[Equal] init3}, 
+        y[t], {t, 0, 100}]\), "\[IndentingNewLine]", 
+    \(popsoln4 = 
+      NDSolve[{\(y'\)[t] == yprime, y[0] \[Equal] init4}, 
+        y[t], {t, 0, 100}]\), "\[IndentingNewLine]", 
+    \(\(solutionset = 
+        Flatten[y[t] /. {popsoln1, popsoln2, popsoln3, 
+              popsoln4}];\)\), "\n", 
+    \(Plot[Evaluate[solutionset], {t, 0, 40}, 
+      PlotStyle \[Rule] {RGBColor[0,  .5,  .5], RGBColor[0, 1, 0], 
+          RGBColor[0, 0, 1], RGBColor[1, 0, 0]}]\)}], "Input"],
+
+Cell["\<\
+Now, it is between .83 and .85. You could keep checking to determine this \
+more precisely \
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Critical Initial Condition for k = 1", "Subsection"],
+
+Cell[BoxData[{
+    \(Clear[t, y, k]\), "\[IndentingNewLine]", 
+    \(\(yprime = \(1 + Sin[t]\)\/5\ y[t]\  - \ 
+          k;\)\), "\[IndentingNewLine]", 
+    \(\(k = 1;\)\), "\[IndentingNewLine]", 
+    \(\({init1, \ init2, \ init3, \ init4} = {3, 4, 5, 
+          6};\)\), "\[IndentingNewLine]", 
+    \(popsoln1 = 
+      NDSolve[{\(y'\)[t] == yprime, y[0] \[Equal] init1}, 
+        y[t], {t, 0, 100}]\), "\[IndentingNewLine]", 
+    \(popsoln2 = 
+      NDSolve[{\(y'\)[t] == yprime, y[0] \[Equal] init2}, 
+        y[t], {t, 0, 100}]\), "\[IndentingNewLine]", 
+    \(popsoln3 = 
+      NDSolve[{\(y'\)[t] == yprime, y[0] \[Equal] init3}, 
+        y[t], {t, 0, 100}]\), "\[IndentingNewLine]", 
+    \(popsoln4 = 
+      NDSolve[{\(y'\)[t] == yprime, y[0] \[Equal] init4}, 
+        y[t], {t, 0, 100}]\), "\[IndentingNewLine]", 
+    \(\(solutionset = 
+        Flatten[y[t] /. {popsoln1, popsoln2, popsoln3, 
+              popsoln4}];\)\), "\[IndentingNewLine]", 
+    \(Plot[Evaluate[solutionset], {t, 0, 40}, 
+      PlotStyle \[Rule] {RGBColor[0,  .5,  .5], RGBColor[0, 1, 0], 
+          RGBColor[0, 0, 1], RGBColor[1, 0, 0]}]\)}], "Input"],
+
+Cell[BoxData[
+    \(It\ appears\ that\ the\ population\ becomes\ extinct\ for\ values\ of\ \
+\(y\_0\) below\ 4\ \ but\ not\ below\ \ 5. \ Let' 
+      s\ see\ if\ we\ can\ narrow\ down\ that\ \(\(interval\)\(.\)\)\)], \
+"Text"],
+
+Cell[BoxData[{
+    \(\({init1, \ init2, \ init3, \ init4} = {4.1, 4.3, 4.5, 
+          4.6};\)\), "\[IndentingNewLine]", 
+    \(popsoln1 = 
+      NDSolve[{\(y'\)[t] == yprime, y[0] \[Equal] init1}, 
+        y[t], {t, 0, 100}]\), "\[IndentingNewLine]", 
+    \(popsoln2 = 
+      NDSolve[{\(y'\)[t] == yprime, y[0] \[Equal] init2}, 
+        y[t], {t, 0, 100}]\), "\[IndentingNewLine]", 
+    \(popsoln3 = 
+      NDSolve[{\(y'\)[t] == yprime, y[0] \[Equal] init3}, 
+        y[t], {t, 0, 100}]\), "\[IndentingNewLine]", 
+    \(popsoln4 = 
+      NDSolve[{\(y'\)[t] == yprime, y[0] \[Equal] init4}, 
+        y[t], {t, 0, 100}]\), "\[IndentingNewLine]", 
+    \(\(solutionset = 
+        Flatten[y[t] /. {popsoln1, popsoln2, popsoln3, 
+              popsoln4}];\)\), "\[IndentingNewLine]", 
+    \(Plot[Evaluate[solutionset], {t, 0, 40}, 
+      PlotStyle \[Rule] {RGBColor[0,  .5,  .5], RGBColor[0, 1, 0], 
+          RGBColor[0, 0, 1], RGBColor[1, 0, 0]}]\)}], "Input"],
+
+Cell["\<\
+Now, it is between 4.1 and 4.3. You could keep checking to determine this \
+more precisely \
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Relationship Between ",
+  Cell[BoxData[
+      \(TraditionalForm\`y\_Critical\)]],
+  " and k"
+}], "Subsection"],
+
+Cell["\<\
+By repeating the above procedure for numerous different values of k, you can \
+observe a relationship between the critical value of initial state and value \
+of k. This was done for k = 3 and k = 5. You should add to this list. We will \
+plot the points and observe the pattern.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(ycrtvsk = {{1/5,  .84}, {1, 4.2}, {3, 12.5}, {5, \ 
+          20.8}}\), "\[IndentingNewLine]", 
+    \(ListPlot[ycrtvsk, \ PlotStyle -> PointSize[ .02], 
+      AxesLabel \[Rule] {ycritical, k}, 
+      AxesOrigin \[Rule] {0, 0}]\)}], "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{495, 561},
+WindowMargins->{{24, Automatic}, {Automatic, 30}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 670, 15, 205, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2516, 74, 50, 0, 73, "Section"],
+
+Cell[CellGroupData[{
+Cell[2591, 78, 60, 0, 38, "Subsection"],
+Cell[2654, 80, 1139, 24, 384, "Input"],
+Cell[3796, 106, 342, 6, 50, "Text"],
+Cell[4141, 114, 944, 20, 170, "Input"],
+Cell[5088, 136, 115, 3, 33, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5240, 144, 58, 0, 30, "Subsection"],
+Cell[5301, 146, 1131, 24, 384, "Input"],
+Cell[6435, 172, 226, 4, 69, "Text"],
+Cell[6664, 178, 957, 20, 310, "Input"],
+Cell[7624, 200, 115, 3, 52, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7776, 208, 129, 5, 30, "Subsection"],
+Cell[7908, 215, 302, 5, 90, "Text"],
+Cell[8213, 222, 261, 5, 70, "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

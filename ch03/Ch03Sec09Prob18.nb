@@ -1,0 +1,273 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      7146,        215]*)
+(*NotebookOutlinePosition[      7791,        237]*)
+(*  CellTagsIndexPosition[      7747,        233]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 3  -  Section 3.9", "Title"],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will explore the behavior of a solution to a \
+second order linear differential equation representing an undamped forced \
+vibration. The impact of the frequency of the forcing function will be \
+explored to demonstrate the occurrence of beats.",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Problem 18:  u'' + u = 3 cos(\[Omega] t)\t\t\
+\>", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Solving the Differential Equation for \[Omega] \[NotEqual] 1\
+\>", "Subsection"],
+
+Cell[TextData[{
+  "We will use ",
+  StyleBox["DSolve",
+    FontWeight->"Bold"],
+  " to arrive at the solution. You should note that the natural frequency of \
+the system is 1."
+}], "Text"],
+
+Cell[BoxData[{\(Clear[u, t, eq, soln]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"eq", "=", 
+        StyleBox[\(\(u''\)[t] + u[t] \[Equal] 3\ Cos[\[Omega]\ t]\),
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(soln[\[Omega]_] = 
+      DSolve[{eq, u[0] \[Equal] 0, \(u'\)[0] \[Equal] 0}, u[t], t] // 
+        Simplify\), "\[IndentingNewLine]", \(usolution[t_, \[Omega]_] := 
+      u[t] /. soln[\[Omega]]\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Plotting the Solution for Various Values of \[Omega]\
+\>", "Subsection"],
+
+Cell["\<\
+We will plot the function for three values of \[Omega]. The order of the \
+plots is red, green, and blue, respectively..\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{
+          RowBox[{"{", 
+            RowBox[{
+              RowBox[{"usolution", "[", 
+                RowBox[{"t", ",", 
+                  StyleBox[".7",
+                    FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+              RowBox[{"usolution", "[", 
+                RowBox[{"t", ",", 
+                  StyleBox[".8",
+                    FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+              RowBox[{"usolution", "[", 
+                RowBox[{"t", ",", 
+                  StyleBox[".9",
+                    FontColor->RGBColor[1, 0, 0]]}], "]"}]}], "}"}], ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["30",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], RGBColor[0, 1, 0], 
+              RGBColor[0, 0, 1]}\)}], "]"}], ";"}]], "Input"],
+
+Cell["Let us explore this plot over a larger domain.", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{
+          RowBox[{"{", 
+            RowBox[{
+              RowBox[{"usolution", "[", 
+                RowBox[{"t", ",", 
+                  StyleBox[".7",
+                    FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+              RowBox[{"usolution", "[", 
+                RowBox[{"t", ",", 
+                  StyleBox[".8",
+                    FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+              RowBox[{"usolution", "[", 
+                RowBox[{"t", ",", 
+                  StyleBox[".9",
+                    FontColor->RGBColor[1, 0, 0]]}], "]"}]}], "}"}], ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["150",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], RGBColor[0, 1, 0], 
+              RGBColor[0, 0, 1]}\)}], "]"}], ";"}]], "Input"],
+
+Cell["\<\
+What do you suppose would happen if we tried a values of \[Omega] even closer \
+to 1? We will try \[Omega] = 0.99. Be sure to notice how large the amplitude \
+becomes. Look back at the solution to see why this is occurring.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{
+          RowBox[{"usolution", "[", 
+            RowBox[{"t", ",", 
+              StyleBox[".99",
+                FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["100",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}], 
+      ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{
+          RowBox[{"usolution", "[", 
+            RowBox[{"t", ",", 
+              StyleBox[".99",
+                FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["300",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}], 
+      ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{
+          RowBox[{"usolution", "[", 
+            RowBox[{"t", ",", 
+              StyleBox[".99",
+                FontColor->RGBColor[1, 0, 0]]}], "]"}], ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["700",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}], 
+      ";"}]}], "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{495, 561},
+WindowMargins->{{48, Automatic}, {30, Automatic}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 703, 17, 210, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2549, 76, 71, 2, 73, "Section"],
+
+Cell[CellGroupData[{
+Cell[2645, 82, 90, 2, 38, "Subsection"],
+Cell[2738, 86, 188, 6, 52, "Text"],
+Cell[2929, 94, 461, 8, 110, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[3427, 107, 82, 2, 30, "Subsection"],
+Cell[3512, 111, 144, 3, 52, "Text"],
+Cell[3659, 116, 938, 23, 90, "Input"],
+Cell[4600, 141, 62, 0, 33, "Text"],
+Cell[4665, 143, 939, 23, 90, "Input"],
+Cell[5607, 168, 247, 4, 71, "Text"],
+Cell[5857, 174, 1249, 36, 70, "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

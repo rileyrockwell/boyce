@@ -1,0 +1,389 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     11439,        314]*)
+(*NotebookOutlinePosition[     12084,        336]*)
+(*  CellTagsIndexPosition[     12040,        332]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 3  -  Section 3.9", "Title"],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will extend your explorations of the solutions for \
+Problem 18. You will plot the solutions with their derivatives in the phase \
+plane and analyze the direction in which the paths are moving as ",
+    FontWeight->"Bold"],
+  StyleBox["t",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" increases.",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Problem 20:  u'' + u = 3 cos(\[Omega] t)\t\t\
+\>", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Solving the Differential Equation for \[Omega] \[NotEqual] 1\
+\>", "Subsection"],
+
+Cell[TextData[{
+  "We will use ",
+  StyleBox["DSolve",
+    FontWeight->"Bold"],
+  " to arrive at the solution. You should note that the natural frequency of \
+the system is 1. This time we will write our functions and derivatives as \
+functions of t only and specify a value for \[Omega] before plotting."
+}], "Text"],
+
+Cell[BoxData[{\(Clear[u, t, \[Omega], eq, soln, usolution, 
+      uderivative]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"eq", "=", 
+        StyleBox[\(\(u''\)[t] + u[t] \[Equal] 3\ Cos[\[Omega]\ t]\),
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(soln = 
+      DSolve[{eq, u[0] \[Equal] 0, \(u'\)[0] \[Equal] 0}, u[t], t] // 
+        Simplify\), "\[IndentingNewLine]", \(usolution[t_] = 
+      u[t] /. soln\), "\[IndentingNewLine]", \(uderivative[t_] = 
+      D[usolution[t], t]\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Exploring the Phase Plane When \[Omega] = 0.7\
+\>", "Subsection"],
+
+Cell["\<\
+Here is the phase plane plot for \[Omega] = 0.7. You may reduce or enlarge \
+the domain in order to get a better sense of what is happening.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[\[Omega]]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"\[Omega]", "=", 
+        StyleBox["0.7",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      StyleBox[";",
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"ParametricPlot", "[", 
+        RowBox[{\(Evaluate[Flatten[{usolution[t], uderivative[t]}]]\), ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["21",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(AspectRatio \[Rule] Automatic\)}], "]"}], ";"}]}], "Input"],
+
+Cell["\<\
+Now we will put some arrow on our graph. This requires the loading of a \
+special package. The commands for drawing the arrows may seem quite long, \
+because we have to specify the beginning point and ending point for each \
+arrow drawn.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(<< Graphics`Arrow`\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"pp7", "=", 
+        RowBox[{"ParametricPlot", "[", 
+          
+          RowBox[{\(Evaluate[Flatten[{usolution[t], uderivative[t]}]]\), ",", 
+            
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["21",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(AspectRatio \[Rule] Automatic\), 
+            ",", \(AxesLabel -> {"\<u(t)\>", "\<u'(t)\>"}\), 
+            ",", \(Epilog \[Rule] {Arrow[
+                  Flatten[{usolution[4], uderivative[4]}], 
+                  Flatten[{usolution[4.2], uderivative[4.2]}], 
+                  HeadScaling \[Rule] Absolute], 
+                Arrow[Flatten[{usolution[9], uderivative[9]}], 
+                  Flatten[{usolution[9.2], uderivative[9.2]}], 
+                  HeadScaling \[Rule] Absolute], 
+                Arrow[Flatten[{usolution[14], uderivative[14]}], 
+                  Flatten[{usolution[14.2], uderivative[14.2]}], 
+                  HeadScaling \[Rule] Absolute], 
+                Arrow[Flatten[{usolution[19], uderivative[19]}], 
+                  Flatten[{usolution[19.2], uderivative[19.2]}], 
+                  HeadScaling \[Rule] Absolute]}\)}], "]"}]}], ";"}]], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Exploring the Phase Plane When \[Omega] = 0.8\
+\>", "Subsection"],
+
+Cell["\<\
+Here is the phase plane plot for \[Omega] = 0.8. You may reduce or enlarge \
+the domain in order to get a better sense of what is happening.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[\[Omega]]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"\[Omega]", "=", 
+        StyleBox["0.8",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      StyleBox[";",
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"ParametricPlot", "[", 
+        RowBox[{\(Evaluate[Flatten[{usolution[t], uderivative[t]}]]\), ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["35",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(AspectRatio \[Rule] Automatic\)}], "]"}], ";"}]}], "Input"],
+
+Cell["\<\
+If you have not already loaded the graphics arrow package, do so now. Do not \
+reload if you have already loaded it.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(<< Graphics`Arrow`\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"pp8", "=", 
+        RowBox[{"ParametricPlot", "[", 
+          
+          RowBox[{\(Evaluate[Flatten[{usolution[t], uderivative[t]}]]\), ",", 
+            
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["35",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(AspectRatio \[Rule] Automatic\), 
+            ",", \(AxesLabel -> {"\<u(t)\>", "\<u'(t)\>"}\), 
+            ",", \(Epilog \[Rule] {Arrow[
+                  Flatten[{usolution[4], uderivative[4]}], 
+                  Flatten[{usolution[4.2], uderivative[4.2]}], 
+                  HeadScaling \[Rule] Absolute], 
+                Arrow[Flatten[{usolution[9], uderivative[9]}], 
+                  Flatten[{usolution[9.2], uderivative[9.2]}], 
+                  HeadScaling \[Rule] Absolute], 
+                Arrow[Flatten[{usolution[14], uderivative[14]}], 
+                  Flatten[{usolution[14.2], uderivative[14.2]}], 
+                  HeadScaling \[Rule] Absolute], 
+                Arrow[Flatten[{usolution[19], uderivative[19]}], 
+                  Flatten[{usolution[19.2], uderivative[19.2]}], 
+                  HeadScaling \[Rule] Absolute], 
+                Arrow[Flatten[{usolution[24], uderivative[24]}], 
+                  Flatten[{usolution[24.2], uderivative[24.2]}], 
+                  HeadScaling \[Rule] Absolute], 
+                Arrow[Flatten[{usolution[29], uderivative[29]}], 
+                  Flatten[{usolution[29.2], uderivative[29.2]}], 
+                  HeadScaling \[Rule] Absolute]}\)}], "]"}]}], ";"}]], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Exploring the Phase Plane When \[Omega] = 0.9\
+\>", "Subsection"],
+
+Cell["\<\
+Here is the phase plane plot for \[Omega] = 0.9. You may reduce or enlarge \
+the domain in order to get a better sense of what is happening.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[\[Omega]]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"\[Omega]", "=", 
+        StyleBox["0.9",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      StyleBox[";",
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"ParametricPlot", "[", 
+        RowBox[{\(Evaluate[Flatten[{usolution[t], uderivative[t]}]]\), ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["63",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(AspectRatio \[Rule] Automatic\)}], "]"}], ";"}]}], "Input"],
+
+Cell["\<\
+If you have not already loaded the graphics arrow package, do so now. Do not \
+reload if you have already loaded it.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(<< Graphics`Arrow`\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"pp8", "=", 
+        RowBox[{"ParametricPlot", "[", 
+          
+          RowBox[{\(Evaluate[Flatten[{usolution[t], uderivative[t]}]]\), ",", 
+            
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox["63",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(AspectRatio \[Rule] Automatic\), 
+            ",", \(AxesLabel -> {"\<u(t)\>", "\<u'(t)\>"}\), 
+            ",", \(Epilog \[Rule] {Arrow[
+                  Flatten[{usolution[14], uderivative[14]}], 
+                  Flatten[{usolution[14.2], uderivative[14.2]}], 
+                  HeadScaling \[Rule] Absolute], 
+                Arrow[Flatten[{usolution[24], uderivative[24]}], 
+                  Flatten[{usolution[24.2], uderivative[24.2]}], 
+                  HeadScaling \[Rule] Absolute], 
+                Arrow[Flatten[{usolution[39], uderivative[39]}], 
+                  Flatten[{usolution[39.2], uderivative[39.2]}], 
+                  HeadScaling \[Rule] Absolute], 
+                Arrow[Flatten[{usolution[54], uderivative[54]}], 
+                  Flatten[{usolution[54.2], uderivative[54.2]}], 
+                  HeadScaling \[Rule] Absolute], 
+                Arrow[Flatten[{usolution[60], uderivative[60]}], 
+                  Flatten[{usolution[60.2], uderivative[60.2]}], 
+                  HeadScaling \[Rule] Absolute]}\)}], "]"}]}], ";"}]], "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{495, 561},
+WindowMargins->{{67, Automatic}, {Automatic, 42}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 772, 21, 189, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2618, 80, 71, 2, 73, "Section"],
+
+Cell[CellGroupData[{
+Cell[2714, 86, 90, 2, 38, "Subsection"],
+Cell[2807, 90, 317, 7, 71, "Text"],
+Cell[3127, 99, 541, 10, 130, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[3705, 114, 75, 2, 30, "Subsection"],
+Cell[3783, 118, 164, 3, 52, "Text"],
+Cell[3950, 123, 612, 14, 130, "Input"],
+Cell[4565, 139, 261, 5, 90, "Text"],
+Cell[4829, 146, 51, 1, 30, "Input"],
+Cell[4883, 149, 1258, 25, 410, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[6178, 179, 75, 2, 30, "Subsection"],
+Cell[6256, 183, 164, 3, 52, "Text"],
+Cell[6423, 188, 612, 14, 110, "Input"],
+Cell[7038, 204, 140, 3, 52, "Text"],
+Cell[7181, 209, 51, 1, 30, "Input"],
+Cell[7235, 212, 1622, 31, 570, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[8894, 248, 75, 2, 30, "Subsection"],
+Cell[8972, 252, 164, 3, 52, "Text"],
+Cell[9139, 257, 612, 14, 110, "Input"],
+Cell[9754, 273, 140, 3, 52, "Text"],
+Cell[9897, 278, 51, 1, 30, "Input"],
+Cell[9951, 281, 1448, 28, 530, "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

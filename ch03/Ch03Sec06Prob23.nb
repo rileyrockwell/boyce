@@ -1,0 +1,365 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      9560,        295]*)
+(*NotebookOutlinePosition[     10206,        317]*)
+(*  CellTagsIndexPosition[     10162,        313]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 3  -  Section 3.6", "Title"],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will explore the behavior of solutions to linear \
+differential equations in nonhomogeneous form. The solution arrived at using \
+undetermined coefficients will be compared with the computer algebra \
+solution.",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem 23:  y'' - 4y' + 4 y = 2",
+  Cell[BoxData[
+      \(TraditionalForm\`t\^2\)]],
+  " + 4t ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[ExponentialE]\^\(2  t\)\)]],
+  " + t Sin(2t)"
+}], "Section"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Solving the Differential Equation by the Method of Undetermined \
+Coefficients\
+\>", "Subsection"],
+
+Cell["\<\
+We first find the general solution to the homogeneous equation. As we do \
+this, we define the left hand side of the equation as lhs[t].\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[y, t]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{\(lhs[y_]\), "=", 
+        StyleBox[\(\(y''\)[t] - 4 \( y'\)[t] + 4  y[t]\),
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{"Factor", "[", 
+      StyleBox[\(r\^2 - 4  r + 4\),
+        FontColor->RGBColor[1, 0, 0]], "]"}]}], "Input"],
+
+Cell["\<\
+Since we have a repeated root, the general solution to the homogeneous \
+equation becomes\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{"homsoln", "=", 
+      StyleBox[\(\(\[ExponentialE]\^\(2  t\)\) \((C[1]\  + \ C[2]\ t)\)\),
+        FontColor->RGBColor[1, 0, 0]]}]], "Input"],
+
+Cell["\<\
+Taking this solution into account,the trial solution parts for the \
+nonhomogeneous equation are as follows. Note that the trial solution for the \
+exponential portion was impacted by the solution to the homogeneous equation.\
+\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[a, b, c, d, f, g, h, j, k]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{\(y1trial[t_]\), "=", " ", 
+        StyleBox[\(a\ t\^2 + b\ t + c\),
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{\(y2trial[t_]\), "=", " ", 
+        StyleBox[\(\((d\ t\^3 + f\ t\^2)\)\ \[ExponentialE]\^\(2  t\)\),
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{\(y3trial[t_]\), "=", " ", 
+        StyleBox[\(\((g\ t + h)\)\ Sin[2  t]\  + \ \((j\ t + k)\)\ Cos[
+                2  t]\),
+          FontColor->RGBColor[1, 0, 0]]}], ";"}]}], "Input"],
+
+Cell[TextData[{
+  "We will begin by finding the coefficients for the polynomial expression. \
+To do this, we will extract the coefficients with the ",
+  StyleBox["CoefficientList ",
+    FontWeight->"Bold"],
+  " command, which lists coefficients of ",
+  StyleBox["t",
+    FontSlant->"Italic"],
+  " in order from the constant term to the coefficient of the highest power \
+of ",
+  StyleBox[" t",
+    FontSlant->"Italic"],
+  ". We then set the coefficients on the left side of the equation equal to \
+the corresponding coefficients on the right side of the equation and solve \
+for a, b, and c."
+}], "Text"],
+
+Cell[BoxData[
+    RowBox[{"soln1", "=", 
+      RowBox[{"Solve", "[", 
+        RowBox[{
+          RowBox[{\(CoefficientList[lhs[y1trial], t]\), "\[Equal]", 
+            RowBox[{"{", 
+              StyleBox[\(0, 0, 2\),
+                FontColor->RGBColor[1, 0, 0]], "}"}]}], ",", 
+          RowBox[{"{", 
+            StyleBox[\(a, b, c\),
+              FontColor->RGBColor[1, 0, 0]], "}"}]}], "]"}]}]], "Input"],
+
+Cell[TextData[{
+  "We can use the same technique to solve for the coefficients in the \
+exponential expression, except that we need to divide out the exponential \
+term before we solve. It is also necessary to remove some of the extra braces \
+here with the ",
+  StyleBox["Flatten ",
+    FontWeight->"Bold"],
+  "command."
+}], "Text"],
+
+Cell[BoxData[
+    RowBox[{"soln2", "=", 
+      RowBox[{"Solve", "[", 
+        RowBox[{
+          RowBox[{
+            RowBox[{"Flatten", "[", 
+              RowBox[{"CoefficientList", "[", 
+                RowBox[{
+                  RowBox[{
+                    RowBox[{\(lhs[y2trial]\), 
+                      StyleBox["/",
+                        FontColor->RGBColor[1, 0, 0]], 
+                      StyleBox[\(\[ExponentialE]\^\(2  t\)\),
+                        FontColor->RGBColor[1, 0, 0]]}], "//", "Simplify"}], 
+                  ",", "t"}], "]"}], "]"}], "\[Equal]", 
+            RowBox[{"{", 
+              StyleBox[\(0, 4\),
+                FontColor->RGBColor[1, 0, 0]], "}"}]}], ",", 
+          RowBox[{"{", 
+            StyleBox[\(d, f\),
+              FontColor->RGBColor[1, 0, 0]], "}"}]}], "]"}]}]], "Input"],
+
+Cell[TextData[{
+  "The portion involving the sine and cosine will require a \"by hand\" \
+analysis, but ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " will separate out our terms into those not involving ",
+  StyleBox["t",
+    FontSlant->"Italic"],
+  " and those that are coefficients of ",
+  StyleBox["t",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(CoefficientList[lhs[y3trial] // Simplify, t]\)], "Input"],
+
+Cell["\<\
+We will set the coefficients of corresponding terms equal to one another and \
+solve the resulting system of equations.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{"soln3", "=", 
+      RowBox[{"Solve", "[", 
+        RowBox[{
+          RowBox[{"{", 
+            
+            StyleBox[\(4  g - 8  h - 4  j \[Equal] 
+                0, \(-4\) g - 4  j + 8  k \[Equal] 0, \(-8\) g \[Equal] 0, 
+              8  j \[Equal] 1\),
+              FontColor->RGBColor[1, 0, 0]], 
+            StyleBox["}",
+              FontColor->RGBColor[1, 0, 0]]}], 
+          StyleBox[",",
+            FontColor->RGBColor[1, 0, 0]], 
+          StyleBox[\({g, h, j, k}\),
+            FontColor->RGBColor[1, 0, 0]]}], "]"}]}]], "Input"],
+
+Cell["\<\
+Now, we will put these all together to get the general solution.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(genlsoln[t_] = 
+      homsoln + \((y1trial[t] /. soln1)\) + \((y2trial[t] /. 
+            soln2)\) + \((y3trial[t] /. soln3)\)\)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Solving the Differential Equation Using the DSolve Command.", \
+"Subsection"],
+
+Cell[TextData[{
+  "We can solve the original differential equation in our computer algebra \
+system using the ",
+  StyleBox["DSolve",
+    FontWeight->"Bold"],
+  " command."
+}], "Text"],
+
+Cell[BoxData[
+    RowBox[{"casoln", "=", 
+      RowBox[{
+        RowBox[{"DSolve", "[", 
+          RowBox[{
+            RowBox[{\(lhs[y]\), "\[Equal]", 
+              
+              StyleBox[\(2  t\^2 + 4  t\ \[ExponentialE]\^\(2  t\) + 
+                  t\ Sin[2  t]\),
+                FontColor->RGBColor[1, 0, 0]]}], ",", \(y[t]\), ",", "t"}], 
+          "]"}], "//", "Simplify"}]}]], "Input"],
+
+Cell[TextData[{
+  "Except for a trigonometric identity that was used in the ",
+  StyleBox["DSolve",
+    FontWeight->"Bold"],
+  " command, the solutions look identical. We can check this out by asking ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " whether or not they are equal. If they are, it will return True; if not, \
+it will return False. Sometimes, ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " cannot determine whether or not they are equal until the expressions are \
+simplified."
+}], "Text"],
+
+Cell[BoxData[
+    \(\((y[t] /. casoln)\) \[Equal] genlsoln[t] // Simplify\)], "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{756, 561},
+WindowMargins->{{8, Automatic}, {-160, Automatic}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 669, 17, 129, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2515, 76, 220, 8, 73, "Section"],
+
+Cell[CellGroupData[{
+Cell[2760, 88, 108, 3, 38, "Subsection"],
+Cell[2871, 93, 160, 3, 33, "Text"],
+Cell[3034, 98, 353, 7, 71, "Input"],
+Cell[3390, 107, 113, 3, 33, "Text"],
+Cell[3506, 112, 168, 3, 30, "Input"],
+Cell[3677, 117, 251, 5, 52, "Text"],
+Cell[3931, 124, 660, 13, 91, "Input"],
+Cell[4594, 139, 604, 15, 90, "Text"],
+Cell[5201, 156, 410, 10, 30, "Input"],
+Cell[5614, 168, 333, 8, 52, "Text"],
+Cell[5950, 178, 826, 20, 31, "Input"],
+Cell[6779, 200, 362, 12, 52, "Text"],
+Cell[7144, 214, 77, 1, 30, "Input"],
+Cell[7224, 217, 143, 3, 33, "Text"],
+Cell[7370, 222, 573, 15, 30, "Input"],
+Cell[7946, 239, 88, 2, 33, "Text"],
+Cell[8037, 243, 159, 3, 30, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[8233, 251, 83, 1, 30, "Subsection"],
+Cell[8319, 254, 184, 6, 33, "Text"],
+Cell[8506, 262, 397, 10, 31, "Input"],
+Cell[8906, 274, 525, 13, 71, "Text"],
+Cell[9434, 289, 86, 1, 30, "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

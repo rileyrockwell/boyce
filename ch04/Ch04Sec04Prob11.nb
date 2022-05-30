@@ -1,0 +1,384 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     10418,        310]*)
+(*NotebookOutlinePosition[     11062,        332]*)
+(*  CellTagsIndexPosition[     11018,        328]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 4  -  Section 4.4", "Title"],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will explore the behavior of a complex solution to \
+a nonhomogeneous higher order linear differential equation.",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Problem 11:  y''' - y'' + y' - y = sec(t) \t\t\
+\>", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Solving the Differential Equation (not so easy)", "Subsection"],
+
+Cell["\<\
+We will begin by solving the differential equation by the method of variation \
+of parameters. We must first find the fundamental set of solutions.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{"Solve", "[", 
+      RowBox[{
+        RowBox[{
+          StyleBox[\(r\^3 - r\^2 + r - 1\),
+            FontColor->RGBColor[1, 0, 0]], "\[Equal]", "0"}], ",", "r"}], 
+      "]"}]], "Input"],
+
+Cell["\<\
+We will define our solnvector using the fundamental solutions based on the \
+above values of r. This will provide us with an easy way to compute the array \
+whose determinant is needed for the Wronskian. This array is a matrix and is \
+defined as a list of lists. The last expression shows the array in the more \
+typical form.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{\(solnvector[t_]\), "=", 
+      RowBox[{"{", 
+        StyleBox[\(\[ExponentialE]\^t, Sin[t], Cos[t]\),
+          FontColor->RGBColor[1, 0, 0]], 
+        "}"}]}], "\[IndentingNewLine]", \(wrarray = {solnvector[
+            t], \(solnvector'\)[t], \(solnvector''\)[t]} // 
+        Simplify\), "\[IndentingNewLine]", \(% // MatrixForm\)}], "Input"],
+
+Cell["\<\
+To arrive at the determinants in the numerator of the integrals, we can copy \
+and paste from the Wronskian array, and then change the appropriate terms.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"w1array", "=", 
+        StyleBox[\({{0, Sin[t], Cos[t]}, {0, 
+              Cos[t], \(-Sin[t]\)}, {1, \(-Sin[t]\), \(-Cos[t]\)}}\),
+          FontColor->RGBColor[1, 0, 0]]}], 
+      StyleBox[";",
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"w2array", "=", 
+        StyleBox[\({{\[ExponentialE]\^t, 0, Cos[t]}, {\[ExponentialE]\^t, 
+              0, \(-Sin[t]\)}, {\[ExponentialE]\^t, 1, \(-Cos[t]\)}}\),
+          FontColor->RGBColor[1, 0, 0]]}], 
+      StyleBox[";",
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"w3array", "=", 
+        StyleBox[\({{\[ExponentialE]\^t, Sin[t], 0}, {\[ExponentialE]\^t, 
+              Cos[t], 0}, {\[ExponentialE]\^t, \(-Sin[t]\), 1}}\),
+          FontColor->RGBColor[1, 0, 0]]}], 
+      StyleBox[";",
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", \(wr = 
+      Det[wrarray] // Simplify\), "\[IndentingNewLine]", \(w1 = 
+      Det[w1array] // Simplify\), "\[IndentingNewLine]", \(w2 = 
+      Det[w2array] // Simplify\), "\[IndentingNewLine]", \(w3 = 
+      Det[w3array] // Simplify\)}], "Input"],
+
+Cell["\<\
+We can now construct the solution using formula 12 in your text.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{"ysoln", "=", 
+      RowBox[{
+        RowBox[{
+          StyleBox[\(e\^\(\(t\)\(\ \)\)\),
+            FontColor->RGBColor[1, 0, 
+            0]], \(\[Integral]\_0\%t\(\( Sec[
+                      t]\ w1\)\/wr\) \[DifferentialD]t\)}], "+", 
+        RowBox[{
+          StyleBox[\(Sin[t]\),
+            FontColor->RGBColor[1, 0, 0]], 
+          " ", \(\[Integral]\_0\%t\(\( Sec[
+                      t]\ w2\)\/wr\) \[DifferentialD]t\)}], "+", 
+        RowBox[{
+          StyleBox[\(Cos[t]\),
+            FontColor->RGBColor[1, 0, 0]], 
+          StyleBox[" ",
+            FontColor->RGBColor[1, 0, 
+            0]], \(\[Integral]\_0\%t\(\( Sec[
+                      t]\ w3\)\/wr\) \[DifferentialD]t\)}]}]}]], "Input"],
+
+Cell[TextData[{
+  "The formula looks innocent enough, but the one of the integrals (the first \
+one) is not at all trivial! In fact, this integral involves complex functions \
+that are well documented and even have names. What would happen if we use the \
+",
+  StyleBox["DSolve",
+    FontWeight->"Bold"],
+  " command?"
+}], "Text"],
+
+Cell[BoxData[{\(Clear[y, t, eq, soln]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"eq", "=", 
+        StyleBox[\(\(y'''\)[t] - \(y''\)[t] + \(y'\)[t] - y[t] \[Equal] 
+            Sec[t]\),
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{"soln", "=", 
+      RowBox[{
+        RowBox[{"DSolve", "[", 
+          RowBox[{
+            RowBox[{"{", 
+              RowBox[{"eq", ",", 
+                RowBox[{\(y[0]\), "\[Equal]", 
+                  StyleBox["2",
+                    FontColor->RGBColor[1, 0, 0]]}], ",", 
+                RowBox[{\(\(y'\)[0]\), "\[Equal]", 
+                  StyleBox[\(-1\),
+                    FontColor->RGBColor[1, 0, 0]]}], ",", 
+                RowBox[{\(\(y''\)[0]\), "\[Equal]", 
+                  StyleBox["1",
+                    FontColor->RGBColor[1, 0, 0]]}]}], "}"}], ",", \(y[t]\), 
+            ",", "t"}], "]"}], "//", "Simplify"}]}]}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Analyzing the Solution Graphically", "Subsection"],
+
+Cell["\<\
+We will begin by plotting the solution over a small domain and gradually \
+enlarge the domain. \
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{\(y[t] /. soln\), ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["1",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}], 
+      ";"}]], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{\(y[t] /. soln\), ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["2",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}], 
+      ";"}]], "Input"],
+
+Cell["\<\
+It appears as though the solution is not defined when t gets larger than \
+about 1.5.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        RowBox[{\(y[t] /. soln\), ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["1.5",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}], 
+      ";"}]], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Taking Another Look at the Solution", "Subsection"],
+
+Cell[TextData[{
+  "We could try to look at the numerical solution to this differential \
+equation using the ",
+  StyleBox["NDSolve",
+    FontWeight->"Bold"],
+  " command"
+}], "Text"],
+
+Cell[BoxData[
+    RowBox[{"numsoln", "=", 
+      RowBox[{
+        RowBox[{"NDSolve", "[", 
+          RowBox[{
+            RowBox[{"{", 
+              RowBox[{"eq", ",", 
+                RowBox[{\(y[0]\), "\[Equal]", 
+                  StyleBox["2",
+                    FontColor->RGBColor[1, 0, 0]]}], ",", 
+                RowBox[{\(\(y'\)[0]\), "\[Equal]", 
+                  StyleBox[\(-1\),
+                    FontColor->RGBColor[1, 0, 0]]}], ",", 
+                RowBox[{\(\(y''\)[0]\), "\[Equal]", 
+                  StyleBox["1",
+                    FontColor->RGBColor[1, 0, 0]]}]}], "}"}], ",", \(y[t]\), 
+            ",", \({t, 0, 10}\)}], "]"}], "//", "Simplify"}]}]], "Input"],
+
+Cell["\<\
+This doesn't help much, since it cannot seem to get much past t=1.5  either. \
+Let us explore the analytical solution arrived at earlier.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[ysoln]\), "\[IndentingNewLine]", \(ysoln[t_] = 
+      y[t] /. soln\), "\[IndentingNewLine]", 
+    RowBox[{"ysoln", "[", 
+      StyleBox["1.",
+        FontColor->RGBColor[1, 0, 0]], "]"}], "\[IndentingNewLine]", 
+    RowBox[{"ysoln", "[", 
+      StyleBox["1.5",
+        FontColor->RGBColor[1, 0, 0]], "]"}], "\[IndentingNewLine]", 
+    RowBox[{"ysoln", "[", 
+      StyleBox["1.7",
+        FontColor->RGBColor[1, 0, 0]], "]"}], "\[IndentingNewLine]", 
+    RowBox[{"ysoln", "[", 
+      StyleBox["2.",
+        FontColor->RGBColor[1, 0, 0]], "]"}], "\[IndentingNewLine]", 
+    RowBox[{"ysoln", "[", 
+      StyleBox["3.",
+        FontColor->RGBColor[1, 0, 0]], "]"}]}], "Input"],
+
+Cell["\<\
+You will notice that we are getting answers for larger values of t, but the \
+answers are complex numbers. For smaller values of t, the imaginary parts are \
+essentially 0.\
+\>", "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{495, 561},
+WindowMargins->{{25, Automatic}, {Automatic, 4}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 571, 15, 147, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2417, 74, 73, 2, 99, "Section"],
+
+Cell[CellGroupData[{
+Cell[2515, 80, 69, 0, 38, "Subsection"],
+Cell[2587, 82, 171, 3, 52, "Text"],
+Cell[2761, 87, 214, 6, 31, "Input"],
+Cell[2978, 95, 351, 6, 109, "Text"],
+Cell[3332, 103, 372, 7, 110, "Input"],
+Cell[3707, 112, 177, 3, 52, "Text"],
+Cell[3887, 117, 1185, 25, 210, "Input"],
+Cell[5075, 144, 88, 2, 33, "Text"],
+Cell[5166, 148, 743, 19, 76, "Input"],
+Cell[5912, 169, 330, 8, 90, "Text"],
+Cell[6245, 179, 935, 21, 110, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7217, 205, 56, 0, 30, "Subsection"],
+Cell[7276, 207, 119, 3, 52, "Text"],
+Cell[7398, 212, 276, 8, 30, "Input"],
+Cell[7677, 222, 276, 8, 30, "Input"],
+Cell[7956, 232, 109, 3, 52, "Text"],
+Cell[8068, 237, 278, 8, 30, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[8383, 250, 57, 0, 30, "Subsection"],
+Cell[8443, 252, 182, 6, 52, "Text"],
+Cell[8628, 260, 690, 16, 70, "Input"],
+Cell[9321, 278, 161, 3, 52, "Text"],
+Cell[9485, 283, 694, 16, 150, "Input"],
+Cell[10182, 301, 196, 4, 71, "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

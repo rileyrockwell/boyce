@@ -1,0 +1,295 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      6955,        227]*)
+(*NotebookOutlinePosition[      7600,        249]*)
+(*  CellTagsIndexPosition[      7556,        245]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 5  -  Section 5.3", "Title"],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will use ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" to explore the graphs, the zeros, and the orthogonality property \
+of Legendre polynomials.",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem 24:  (1 - ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\^2\)]],
+  ") y'' - 2x y' +  n (n + 1) y = 0"
+}], "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Solving the Legendre Differential Equation ", "Subsection"],
+
+Cell[BoxData[{
+    \(Clear[x, y, n]\), "\[IndentingNewLine]", 
+    \(eq = \((1 - x\^2)\) \(y''\)[x] - 2  x\ \(y'\)[x]\  + \ 
+          n \((n + 1)\)\ y[x] \[Equal] 0\), "\[IndentingNewLine]", 
+    \(legsolve = DSolve[{eq}, y[x], x]\)}], "Input"],
+
+Cell[TextData[{
+  "The Legendre polynomials referred to in Exercise 24 are what ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " calls ",
+  StyleBox["LegendreP[x,n]",
+    FontWeight->"Bold"],
+  ". You can go to the Help Browser to find out more about both ",
+  StyleBox["LegendreP ",
+    FontWeight->"Bold"],
+  "and ",
+  StyleBox["LegendreQ",
+    FontWeight->"Bold"],
+  ". Let's see what the Legendre polynomials look like for n = 0 through 5 \
+and  and if they are 1 when evaluated at ",
+  StyleBox["x",
+    FontSlant->"Italic"],
+  " = 1. The ",
+  StyleBox["Table",
+    FontWeight->"Bold"],
+  " command streamlines our code here. The ",
+  StyleBox["TableForm",
+    FontWeight->"Bold"],
+  " command allows us to view the results in a clear manner."
+}], "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"Table", "[", 
+        RowBox[{\({n, LegendreP[n, x]}\), ",", 
+          RowBox[{"{", 
+            RowBox[{"n", ",", "0", ",", 
+              StyleBox["5",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}], "//", 
+      "TableForm"}], "\[IndentingNewLine]", \(LegendreP[n, 1]\)}], "Input"],
+
+Cell[TextData[{
+  "You can look at this for larger values of ",
+  StyleBox["n",
+    FontSlant->"Italic"],
+  " as well."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Plotting Legendre Polynomials", "Subsection"],
+
+Cell[TextData[{
+  "The Legendre polynomials corresponding to n =0 through 5 will be plotted \
+in hues varying from green to purple, respectively. The ",
+  StyleBox["Table",
+    FontWeight->"Bold"],
+  " command is useful here, but we need the ",
+  StyleBox["Evaluate",
+    FontWeight->"Bold"],
+  " command in plotting to assist in computation."
+}], "Text"],
+
+Cell[BoxData[{
+    RowBox[{"legtable", "=", 
+      RowBox[{"Table", "[", 
+        RowBox[{\(LegendreP[n, x]\), ",", 
+          RowBox[{"{", 
+            RowBox[{"n", ",", "0", ",", 
+              StyleBox["5",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], 
+        "]"}]}], "\[IndentingNewLine]", \(Plot[
+        Evaluate[legtable], {x, \(-1\), 1}, 
+        PlotStyle \[Rule] {Hue[ .3], Hue[ .4], Hue[ .5], Hue[ .6], Hue[ .7], 
+            Hue[ .8]}];\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Finding the Zeros of Legendre Polynomials", "Subsection"],
+
+Cell[TextData[{
+  "Again, the ",
+  StyleBox["Table",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["TableForm",
+    FontWeight->"Bold"],
+  " commands are convenient to use."
+}], "Text"],
+
+Cell[BoxData[
+    RowBox[{"soln", "=", 
+      RowBox[{
+        RowBox[{
+          RowBox[{"Table", "[", 
+            RowBox[{\({n, Solve[LegendreP[n, x] \[Equal] 0, x]}\), ",", 
+              RowBox[{"{", 
+                RowBox[{"n", ",", "0", ",", 
+                  StyleBox["5",
+                    FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}], "//", 
+          "N"}], "//", "TableForm"}]}]], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Exploring the Orthogonality of the Legendre Polynomials", "Subsection"],
+
+Cell["\<\
+There is another very important property of Legendre Polynomials. They are \
+referred to as being orthogonal over the interval from -1 to 1. This means \
+that if two different Legendre Polynomials are multiplied together, the \
+integral from -1 to 1 of their product is zero. Let's check this out.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{"orthog", "=", 
+      RowBox[{
+        RowBox[{"Table", "[", 
+          
+          RowBox[{\(\[Integral]\_\(-1\)\%1 LegendreP[n, x]\ LegendreP[m, 
+                  x] \[DifferentialD]x\), ",", 
+            RowBox[{"{", 
+              RowBox[{"n", ",", "0", ",", 
+                StyleBox["5",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], ",", 
+            RowBox[{"{", 
+              RowBox[{"m", ",", "0", ",", 
+                StyleBox["5",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}], "//", 
+        "TableForm"}]}]], "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{589, 561},
+WindowMargins->{{48, Automatic}, {30, Automatic}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 676, 20, 147, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2522, 79, 142, 5, 73, "Section"],
+
+Cell[CellGroupData[{
+Cell[2689, 88, 65, 0, 38, "Subsection"],
+Cell[2757, 90, 245, 4, 71, "Input"],
+Cell[3005, 96, 770, 24, 109, "Text"],
+Cell[3778, 122, 345, 8, 50, "Input"],
+Cell[4126, 132, 131, 5, 33, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4294, 142, 51, 0, 30, "Subsection"],
+Cell[4348, 144, 355, 9, 71, "Text"],
+Cell[4706, 155, 477, 11, 90, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5220, 171, 63, 0, 30, "Subsection"],
+Cell[5286, 173, 186, 8, 33, "Text"],
+Cell[5475, 183, 408, 10, 50, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5920, 198, 77, 0, 30, "Subsection"],
+Cell[6000, 200, 321, 5, 71, "Text"],
+Cell[6324, 207, 591, 15, 84, "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

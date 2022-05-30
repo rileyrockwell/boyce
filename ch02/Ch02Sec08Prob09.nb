@@ -1,0 +1,344 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      9610,        275]*)
+(*NotebookOutlinePosition[     10290,        298]*)
+(*  CellTagsIndexPosition[     10246,        294]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 2  -  Section 2.8", "Title"],
+
+Cell[TextData[{
+  StyleBox["In this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will explore the method of successive \
+approximations for solving differential equations and compare the results to \
+those using Euler's method and ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["'s numerical method.\n\n",
+    FontWeight->"Bold"],
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. Throughout this notebook, you may \
+ignore the warnings about possible spelling errors. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem",
+  " 9:  y' = ",
+  Cell[BoxData[
+      \(TraditionalForm\`y\^2\)]],
+  " + ",
+  Cell[BoxData[
+      \(TraditionalForm\`t\^2\)]]
+}], "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Method of Successive Approximations", "Subsection"],
+
+Cell[TextData[{
+  "We will define the sequence \[Phi][t] for the method of successive \
+approximations with starting point \[Phi][0] = 0.. Here the terminology is a \
+bit different in order to enable ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " to find the terms of the sequence efficiently by storing them as they are \
+computed. That way, if \[Phi][6] has already been computed, \[Phi][7] calls \
+on that rather than having to go back to \[Phi][0]. Most problems in this \
+exercise set have the same starting point of \[Phi][0] = 0, so you need to \
+change only the function in the integrand for problems in this section.."
+}], "Text"],
+
+Cell[BoxData[{\(Clear[\[Phi], k, n]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{
+        RowBox[{"\[Phi]", "[", 
+          StyleBox["0",
+            FontColor->RGBColor[1, 0, 0]], "]"}], "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{\(\[Phi][k_]\), ":=", 
+        RowBox[{\(\[Phi][k]\), "=", 
+          RowBox[{
+            RowBox[{
+              SubsuperscriptBox["\[Integral]", 
+                StyleBox["0",
+                  FontColor->RGBColor[1, 0, 0]], "t"], 
+              RowBox[{
+                StyleBox[\((s\^2 + \[Phi][k - 1]\^2)\),
+                  FontColor->RGBColor[1, 0, 0]], \(\[DifferentialD]s\)}]}], "//",
+             "Simplify"}]}]}], ";"}]}], "Input"],
+
+Cell["\<\
+Now, we will gather a list of our successive approximations and plot that \
+list. The first time executed, this could take longer than expected.\
+\>", "Text"],
+
+Cell[BoxData[{\(succapplist[t_, n_] := 
+      Table[\[Phi][k], {k, 0, n}]\), "\[IndentingNewLine]", 
+    RowBox[{"succapplist", "[", 
+      RowBox[{"t", ",", 
+        StyleBox["7",
+          FontColor->RGBColor[1, 0, 0]]}], "]"}], "\[IndentingNewLine]", 
+    RowBox[{"pss", "=", 
+      RowBox[{"Plot", "[", 
+        RowBox[{
+          RowBox[{"Evaluate", "[", 
+            RowBox[{"succapplist", "[", 
+              RowBox[{"t", ",", 
+                StyleBox["7",
+                  FontColor->RGBColor[1, 0, 0]]}], "]"}], "]"}], 
+          ",", \({t, 0, 2}\), ",", \(PlotRange \[Rule] {0, 20}\), 
+          ",", \(PlotStyle -> {Hue[0.2], Hue[0.3], Hue[0.4], Hue[0.5], 
+              Hue[0.6], Hue[0.7], Hue[0.8], Hue[0.9]}\)}], "]"}]}]}], "Input"],
+
+Cell["\<\
+The bottom curve here represents \[Phi][0] while the top represents \
+\[Phi][7]. It would appear that successive approximations of our solution are \
+blowing up near t = 1.\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Euler's Method Revisited", "Subsection"],
+
+Cell[BoxData[{\(Clear[y, t, yprime, \ solnslist]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{\(yprime[y_, t_]\), "=", 
+        StyleBox[\(y\^2\  + \ t\^2\),
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(t0 = 0;\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"y0", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"h", "=", 
+        StyleBox[".01",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(solnslist = {{t0, 
+            y0}};\), "\[IndentingNewLine]", 
+    RowBox[{"Do", "[", 
+      RowBox[{\({new = y0 + yprime[t0, y0]\ h, t0 = t0 + h, y0 = new, 
+          AppendTo[solnslist, {t0, y0}]}\), ",", 
+        RowBox[{"{", 
+          StyleBox["200",
+            FontColor->RGBColor[1, 0, 0]], "}"}]}], 
+      "]"}], "\[IndentingNewLine]", \(solnslist;\), "\[IndentingNewLine]", \
+\(pe = ListPlot[solnslist, 
+          PlotStyle \[Rule] {Hue[ .6], PointSize[ .02]}];\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "'s Numerical Solution, Direction Field, and Comparison of Results"
+}], "Subsection"],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "'s built-in numerical solver can be used to get a sense of what might be \
+happening to the solution of this differential equation."
+}], "Text"],
+
+Cell[BoxData[{\(Clear[y, t]\), "\[IndentingNewLine]", 
+    RowBox[{"msol", "=", 
+      RowBox[{"NDSolve", "[", 
+        RowBox[{
+          RowBox[{"{", 
+            RowBox[{
+              RowBox[{\(\(y'\)[t]\), "\[Equal]", 
+                StyleBox[
+                  RowBox[{
+                    SuperscriptBox[
+                      RowBox[{"y", "[", "t", 
+                        StyleBox["]",
+                          FontColor->RGBColor[1, 0, 0]]}], "2"], " ", "+", 
+                    " ", \(t\^2\)}],
+                  FontColor->RGBColor[1, 0, 0]]}], ",", 
+              RowBox[{
+                RowBox[{"y", "[", 
+                  StyleBox["0",
+                    FontColor->RGBColor[1, 0, 0]], "]"}], "\[Equal]", 
+                StyleBox["0",
+                  FontColor->RGBColor[1, 0, 0]]}]}], "}"}], ",", \(y[t]\), 
+          ",", \({t, 0, 2}\)}], "]"}]}], "\[IndentingNewLine]", \(pm = 
+      Plot[y[t] /. msol, {t, 0, 2}, 
+        PlotStyle \[Rule] {RGBColor[1, 0, 0], Thickness[ .01]}]\)}], "Input"],
+
+Cell["Here is the plot of all the solutions we found.", "Text"],
+
+Cell[BoxData[
+    \(Show[pss, pe, pm, PlotRange -> {0, 10}]\)], "Input"],
+
+Cell[TextData[{
+  "It appears as though all solutions are growing rapidly, but Euler's result \
+and ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "'s result explode near t = 2 rather than t = 1. A look at the direction \
+field for this differential equation might be useful here. First we load the \
+graphics package."
+}], "Text"],
+
+Cell[BoxData[
+    \(<< Graphics`PlotField`\)], "Input"],
+
+Cell[BoxData[{\(Clear[y, t]\), "\[IndentingNewLine]", 
+    RowBox[{\(yprime[y_, t_]\), "=", 
+      StyleBox[\(y\^2\  + \ t\^2\),
+        FontColor->RGBColor[1, 0, 0]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"tmin", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"tmax", "=", 
+        StyleBox["2",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"ymin", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"ymax", "=", 
+        StyleBox["5",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(pd = 
+      PlotVectorField[{1, yprime[y, t]}, {t, tmin, tmax}, {y, ymin, ymax}, \ 
+        Axes \[Rule] True, AxesLabel \[Rule] {t, y}, ScaleFactor \[Rule] 2, 
+        PlotPoints \[Rule] 25, AspectRatio \[Rule] 1.5]\)}], "Input"],
+
+Cell[BoxData[
+    \(Show[pss, pe, pm, pd, PlotRange -> {0, 5}, 
+      AspectRatio \[Rule] 1.5]\)], "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{856, 561},
+WindowMargins->{{-22, Automatic}, {Automatic, 7}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 821, 20, 148, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2667, 79, 169, 8, 73, "Section"],
+
+Cell[CellGroupData[{
+Cell[2861, 91, 57, 0, 38, "Subsection"],
+Cell[2921, 93, 651, 11, 90, "Text"],
+Cell[3575, 106, 769, 19, 82, "Input"],
+Cell[4347, 127, 168, 3, 33, "Text"],
+Cell[4518, 132, 748, 16, 90, "Input"],
+Cell[5269, 150, 196, 4, 52, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5502, 159, 46, 0, 30, "Subsection"],
+Cell[5551, 161, 1049, 24, 190, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[6637, 190, 155, 4, 30, "Subsection"],
+Cell[6795, 196, 215, 5, 33, "Text"],
+Cell[7013, 203, 1020, 23, 71, "Input"],
+Cell[8036, 228, 63, 0, 33, "Text"],
+Cell[8102, 230, 72, 1, 30, "Input"],
+Cell[8177, 233, 341, 8, 52, "Text"],
+Cell[8521, 243, 55, 1, 30, "Input"],
+Cell[8579, 246, 881, 20, 110, "Input"],
+Cell[9463, 268, 107, 2, 30, "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

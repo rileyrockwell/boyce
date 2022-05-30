@@ -1,0 +1,312 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      8700,        249]*)
+(*NotebookOutlinePosition[      9345,        271]*)
+(*  CellTagsIndexPosition[      9301,        267]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 9  -  Section 9.2", "Title",
+  PageWidth->WindowWidth],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will analyze the solution to a nonlinear \
+autonomous differential equation that represents an undamped pendulum. You \
+will find solutions to the system by integration. These solutions will be \
+plotted in the phase plane together with the direction field for the system. \
+\n",
+    FontWeight->"Bold"],
+  "\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle",
+  PageWidth->WindowWidth],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Problem 21:  \tdx/dt = y
+\t\tdy/dt = - Sin[x]\
+\>", "Section",
+  PageWidth->WindowWidth],
+
+Cell[CellGroupData[{
+
+Cell["Finding an Implicit Solution", "Subsection",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+Since this system of differential equations is autonomous, we can solve for \
+dy/dx as a function of x and y and get dy/dx = -Sin[x] / y. In this case, the \
+variables are separable, so we can find an implicit solution using \
+integration.\
+\>", "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[{\(Clear[x, y, t, h, rhs1, rhs2]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"rhs1", "=", 
+        StyleBox["y",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"rhs2", "=", 
+        StyleBox[\(-Sin[x]\),
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(h[x_, 
+        y_] = \[Integral]rhs1 \[DifferentialD]y - \[Integral]rhs2 \
+\[DifferentialD]x\)}], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+Setting this h[x,y] equal to different constants will give us solution curves \
+in the phase plane corresponding to different sets of initial conditions. We \
+should note from the original system that the equilibrium points occur \
+whenever y = 0 and x is an integral multiple of \[Pi].\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Plotting Solution Trajectories in the Phase Plane Together with the Direction \
+Field \
+\>", "Subsection",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+To plot the direction field, we need to load a graphics package.\
+\>", "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[
+    \(<< Graphics`PlotField`\)], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+The plot of the direction field uses the right hand side of the first \
+differential equation as the first input and the right hand side of the \
+second differential equation as the second input. The ScaleFunction is a \
+built-in option that displays the direction field well here.\
+\>", "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"plotvf", "=", 
+        RowBox[{"PlotVectorField", "[", 
+          RowBox[{\({rhs1, rhs2}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"x", ",", 
+                StyleBox[\(-15\),
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["15",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], ",", 
+            RowBox[{"{", 
+              RowBox[{"y", ",", 
+                StyleBox[\(-5\),
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["5",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(ScaleFunction \[Rule] \(( .4 &)\)\), 
+            ",", \(AspectRatio \[Rule] 1\)}], "]"}]}], ";"}]], "Input",
+  PageWidth->WindowWidth],
+
+Cell[TextData[{
+  "We will call upon the general solution in the form h(x, y) == a constant \
+found above and plot several trajectories in the phase plane corresponding to \
+three different sets of initial conditions. We will need to plot these \
+functions implicitly, so to do this, we first load a package that is required \
+for doing implicit plots. Remember that we write our equations with a double \
+equal sign in the implicit plot command. You can expect to get warning \
+messages about fact that inverse functions are being used as ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " is creating the implicit plots"
+}], "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[
+    \(<< Graphics`ImplicitPlot`\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"plotsoln", "=", 
+        RowBox[{"ImplicitPlot", "[", 
+          RowBox[{
+            RowBox[{"{", 
+              RowBox[{
+                RowBox[{\(h[x, y]\), "\[Equal]", 
+                  StyleBox["0",
+                    FontColor->RGBColor[1, 0, 0]]}], ",", 
+                RowBox[{\(h[x, y]\), "\[Equal]", 
+                  StyleBox["1",
+                    FontColor->RGBColor[1, 0, 0]]}], ",", 
+                RowBox[{\(h[x, y]\), "\[Equal]", 
+                  StyleBox["2",
+                    FontColor->RGBColor[1, 0, 0]]}], ",", " ", 
+                RowBox[{\(h[x, y]\), "\[Equal]", 
+                  StyleBox["4",
+                    FontColor->RGBColor[1, 0, 0]]}]}], "}"}], ",", 
+            RowBox[{"{", 
+              RowBox[{"x", ",", 
+                StyleBox[\(-15\),
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["15",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+            ",", \(PlotStyle \[Rule] {Hue[ .2], Hue[ .4], Hue[ .6], 
+                Hue[8]}\)}], "]"}]}], ";"}]], "Input"],
+
+Cell["\<\
+Look at how different the solution appears when we set h(x,y) is 0 or 1. Look \
+back at the functions involved and see if you can determine why that happens. \
+Try out the plot for different constants. 
+We can plot these solutions together with the direction field. In this way, \
+we can see the direction of motion of these solution curves.\
+\>", "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Show", "[", 
+        RowBox[{"plotvf", ",", "plotsoln", ",", 
+          RowBox[{"PlotRange", "\[Rule]", 
+            RowBox[{"{", 
+              StyleBox[\({\(-15\), 15}, {\(-5\), 5}\),
+                FontColor->RGBColor[1, 0, 0]], "}"}]}], 
+          ",", \(Axes \[Rule] True\), ",", \(AxesLabel \[Rule] {x, y}\)}], 
+        "]"}], ";"}]], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+It appears that the critical points, (0, n\[Pi]), stand out in the above \
+graph. Note too how setting h(x, y) equal to a constant allows for more than \
+one set of initial conditions. Recall that this system of differential \
+equations represents the undamped pendulum. You should keep this in mind when \
+interpreting the graph.\
+\>", "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{706, 561},
+WindowMargins->{{24, Automatic}, {Automatic, 30}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 68, 1, 95, "Title"],
+Cell[1847, 56, 760, 19, 150, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2632, 79, 98, 4, 99, "Section"],
+
+Cell[CellGroupData[{
+Cell[2755, 87, 76, 1, 38, "Subsection"],
+Cell[2834, 90, 289, 6, 52, "Text"],
+Cell[3126, 98, 495, 12, 102, "Input"],
+Cell[3624, 112, 310, 5, 71, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[3971, 122, 142, 4, 30, "Subsection"],
+Cell[4116, 128, 114, 3, 33, "Text"],
+Cell[4233, 133, 81, 2, 30, "Input"],
+Cell[4317, 137, 331, 6, 71, "Text"],
+Cell[4651, 145, 923, 23, 50, "Input"],
+Cell[5577, 170, 668, 12, 109, "Text"],
+Cell[6248, 184, 58, 1, 30, "Input"],
+Cell[6309, 187, 1179, 28, 50, "Input"],
+Cell[7491, 217, 391, 7, 90, "Text"],
+Cell[7885, 226, 418, 10, 50, "Input"],
+Cell[8306, 238, 354, 6, 71, "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

@@ -1,0 +1,258 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      5892,        194]*)
+(*NotebookOutlinePosition[      6535,        216]*)
+(*  CellTagsIndexPosition[      6491,        212]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 6  -  Section 6.5", "Title"],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will use Laplace Transforms to solve a \
+differential equation with an impulse forcing function.",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem 1:   y'' + 2 y' +  ",
+  Cell[BoxData[
+      \(TraditionalForm\`2\)]],
+  " y = \[Delta](t - \[Pi])"
+}], "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Defining the Functions and Taking Laplace Transforms", "Subsection"],
+
+Cell[TextData[{
+  "The Dirac Delta function is defined in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " and we will call upon it here."
+}], "Text"],
+
+Cell[BoxData[{\(Clear[lhs, y, g, t, s]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"lhs", "=", 
+        StyleBox[\(\(y''\)[t] + 2 \( y'\)[t] + 2  y[t]\),
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{\(y[0]\), "=", 
+        StyleBox["1",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{\(\(y'\)[0]\), "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{\(g[t_]\), "=", 
+        RowBox[{
+          StyleBox["DiracDelta",
+            FontColor->RGBColor[1, 0, 0]], 
+          StyleBox["[",
+            FontColor->RGBColor[1, 0, 0]], 
+          RowBox[{
+            StyleBox["t",
+              FontColor->RGBColor[1, 0, 0]], 
+            StyleBox["-",
+              FontColor->RGBColor[1, 0, 0]], 
+            StyleBox["\[Pi]",
+              FontColor->RGBColor[1, 0, 0]]}], 
+          StyleBox["]",
+            FontColor->RGBColor[1, 0, 0]]}]}], ";"}]}], "Input"],
+
+Cell[TextData[{
+  "Now, we will take the Laplace transform of each side of the differential \
+equation. The command ",
+  StyleBox["LaPlace[ f[t], t, s]",
+    FontWeight->"Bold"],
+  " yields ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[Integral]\_0\%\[Infinity]\( \[ExponentialE]\^\(-st\
+\)\) f[t]\ \[DifferentialD]t\)]],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(Y[s_] = LaplaceTransform[y[t], t, s];\)\), "\[IndentingNewLine]", 
+    \(lptlhs = LaplaceTransform[lhs, t, s]\), "\[IndentingNewLine]", 
+    \(lptg = LaplaceTransform[g[t], t, s]\), "\[IndentingNewLine]", 
+    \(lptsoln = Solve[lptlhs \[Equal] lptg, Y[s]] // Simplify\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Using ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " to Compute the Inverse Laplace Transform"
+}], "Subsection"],
+
+Cell[TextData[{
+  "We will now take the Inverse Laplace Transform of the Laplace Transform of \
+y[t]. We need to call upon the command ",
+  StyleBox["ComplexExpand",
+    FontWeight->"Bold"],
+  " in order write our solution in real form."
+}], "Text"],
+
+Cell[BoxData[
+    \(ysoln = \(InverseLaplaceTransform[Y[s] /. lptsoln, s, t] // 
+          ComplexExpand\) // Simplify\)], "Input"],
+
+Cell["\<\
+You should note that this solution also involves the unit step function.\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Plotting the Solution ", "Subsection"],
+
+Cell["\<\
+We will plot the solution (red) together with the forcing function (blue) in \
+order to see the impact that the forcing function has on the solution.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"ps", "=", 
+        RowBox[{"Plot", "[", 
+          RowBox[{\({ysoln[\([1]\)]}\), ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+                StyleBox[\(4  \[Pi]\),
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}]}], "]"}]}], 
+      ";"}]], "Input"],
+
+Cell["\<\
+Notice the impact of the initial condition, followed by the impact of the \
+impulse function.\
+\>", "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{495, 527},
+WindowMargins->{{0, Automatic}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 555, 15, 147, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2401, 74, 140, 5, 73, "Section"],
+
+Cell[CellGroupData[{
+Cell[2566, 83, 74, 0, 38, "Subsection"],
+Cell[2643, 85, 160, 5, 52, "Text"],
+Cell[2806, 92, 1023, 27, 90, "Input"],
+Cell[3832, 121, 339, 10, 52, "Text"],
+Cell[4174, 133, 304, 4, 90, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4515, 142, 143, 5, 48, "Subsection"],
+Cell[4661, 149, 249, 6, 71, "Text"],
+Cell[4913, 157, 131, 2, 70, "Input"],
+Cell[5047, 161, 96, 2, 33, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5180, 168, 44, 0, 30, "Subsection"],
+Cell[5227, 170, 173, 3, 52, "Text"],
+Cell[5403, 175, 329, 9, 30, "Input"],
+Cell[5735, 186, 117, 3, 52, "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

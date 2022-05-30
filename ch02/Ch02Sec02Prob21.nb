@@ -1,0 +1,350 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      9397,        277]*)
+(*NotebookOutlinePosition[     10042,        299]*)
+(*  CellTagsIndexPosition[      9998,        295]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 2  -  Section 2.2", "Title"],
+
+Cell[TextData[{
+  StyleBox["In this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will explore hazards associated with solutions in \
+implicit form and in numerical form.  \n",
+    FontWeight->"Bold"],
+  "\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. Throughout this notebook, you may \
+ignore the warnings about possible spelling errors. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem",
+  " 21:   y' = ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(1\  + \ 3  x\^2\)\/\(3  y\^2\  - \ 6  y\)\)]]
+}], "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Implicit Solution by Integration and Implicit Plot", "Subsection"],
+
+Cell["\<\
+We will separate the variables and integrate both sides. We will use the \
+initial condition for bounds on the integrals.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{"lhs", ":=", 
+      RowBox[{
+        StyleBox[\(\[Integral]\_1\%y\),
+          FontColor->RGBColor[1, 0, 0]], 
+        RowBox[{
+          StyleBox[\((3  y\^2 - 6  y)\),
+            FontColor->RGBColor[1, 0, 
+            0]], \(\[DifferentialD]y\)}]}]}], "\[IndentingNewLine]", 
+    RowBox[{"rhs", ":=", 
+      RowBox[{
+        StyleBox[\(\[Integral]\_0\%x\),
+          FontColor->RGBColor[1, 0, 0]], 
+        RowBox[{
+          StyleBox[\((1 + 3  x\^2)\),
+            FontColor->RGBColor[1, 0, 
+            0]], \(\[DifferentialD]x\)}]}]}], "\[IndentingNewLine]", \
+\(equation = lhs \[Equal] rhs\)}], "Input"],
+
+Cell["\<\
+If you have not loaded this graphics package yet, do so at this time.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(<< Graphics`ImplicitPlot`\)], "Input"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"xmin", "=", 
+        StyleBox[\(-10\),
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"xmax", "=", 
+        StyleBox[" ",
+          FontColor->RGBColor[1, 0, 0]], 
+        StyleBox["10",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"ymin", "=", 
+        StyleBox[\(-10\),
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"ymax", "=", 
+        StyleBox["10",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(ImplicitPlot[
+      equation, {x, xmin, xmax}, {y, ymin, ymax}, 
+      AxesLabel \[Rule] {x, y}]\)}], "Input"],
+
+Cell["\<\
+You may change the values of the bounds to see the solution over a larger \
+interval. There may be vertical tangents at two locations on either side of x \
+= 0. We will look more closely at these by reducing our domain and range and \
+we will plot this in blue..\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"xmin", "=", 
+        StyleBox[\(-3\),
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"xmax", "=", 
+        StyleBox["3",
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"ymin", "=", 
+        StyleBox[\(-3\),
+          FontColor->RGBColor[1, 0, 0]]}], ";", " ", 
+      RowBox[{"ymax", "=", 
+        StyleBox["3",
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(pim = 
+      ImplicitPlot[equation, {x, xmin, xmax}, {y, ymin, ymax}, 
+        AxesLabel \[Rule] {x, y}, 
+        PlotStyle \[Rule] {RGBColor[0, 0, 1], {Thickness[ .01]}}]\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Numerical Solutions with Explicit Plot", "Subsection"],
+
+Cell["\<\
+To solve differential equations numerically, we must have an initial \
+condition and when the independent variable is specified, an interval  \
+extending beyond the initial condition must also be specified.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[x, y]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"yprime", "=", 
+        StyleBox[\(\(1 + 3  x\^2\)\/\(3  y[x]\^2 - 6  y[x]\)\),
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{\({a, b}\), "=", 
+        RowBox[{"{", 
+          StyleBox[\(0, 1\),
+            FontColor->RGBColor[1, 0, 0]], "}"}]}], 
+      ";"}], "\[IndentingNewLine]", \(ynum1 = 
+      NDSolve[{\(y'\)[x] \[Equal] yprime, y[a] \[Equal] b}, 
+        y[x], {x, a, xmax}]\), "\[IndentingNewLine]", \(ynum2 = 
+      NDSolve[{\(y'\)[x] \[Equal] yprime, y[a] \[Equal] b}, 
+        y[x], {x, a, xmin}]\)}], "Input"],
+
+Cell["\<\
+The warning messages here ate very important. It tells us that the numerical \
+solution technique has run into a problem near x = 1 and x = -1. So, the \
+numerical solutions only extend from x = 0 to |x| = 1. Let's look at the \
+plot.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{"pn1", "=", 
+      RowBox[{"Plot", "[", 
+        RowBox[{\(y[x] /. ynum1\), ",", 
+          RowBox[{"{", 
+            RowBox[{"x", ",", 
+              StyleBox["0",
+                FontColor->RGBColor[1, 0, 0]], ",", 
+              StyleBox["1",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], {Thickness[ .01]}}\), 
+          ",", " ", \(AxesLabel \[Rule] {x, y}\)}], 
+        "]"}]}], "\[IndentingNewLine]", 
+    RowBox[{"pn2", "=", 
+      RowBox[{"Plot", "[", 
+        RowBox[{\(y[x] /. ynum2\), ",", 
+          RowBox[{"{", 
+            RowBox[{"x", ",", 
+              StyleBox[\(-1\),
+                FontColor->RGBColor[1, 0, 0]], ",", 
+              StyleBox["0",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \(PlotStyle \[Rule] {RGBColor[1, 0, 0], {Thickness[ .01]}}\), 
+          ",", " ", \(AxesLabel \[Rule] {x, y}\)}], "]"}]}]}], "Input"],
+
+Cell["\<\
+You could explore the numerical solution for different initial conditions as \
+well.\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Analysis of the Analytical and Numerical Solutions", "Subsection"],
+
+Cell[BoxData[
+    \(Show[pim, pn1, pn2, PlotRange \[Rule] {ymin, ymax}]\)], "Input"],
+
+Cell["\<\
+This is a good example of a limitation when you use numerical methods to \
+solve a differential equation. In the numerical solution, it is sort of like \
+we fell off a cliff! However, there are many differential equations for which \
+we cannot find an analytical solution, implicitly or explicitly. In those \
+cases, we rely on graphical analyses of direction fields and numerical \
+solutions.\
+\>", "Text"],
+
+Cell["\<\
+Suppose we plot the direction field for this differential equation, together \
+with its solution curves. First we need to load a graphics package.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(<< Graphics`PlotField`\)], "Input"],
+
+Cell["\<\
+For our input, we will use the coefficients for dx and dy, respectively, from \
+the original differential equation after the variables have been separated.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{"pd", "=", 
+      RowBox[{"PlotVectorField", "[", 
+        RowBox[{
+          RowBox[{"{", 
+            RowBox[{
+              StyleBox[\((1 + 3  x\^2)\),
+                FontColor->RGBColor[1, 0, 0]], ",", 
+              StyleBox[\((3  y\^2 - 6  y)\),
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], 
+          ",", \({x, xmin, xmax}\), ",", \({y, ymin, ymax}\), ",", 
+          " ", \(Axes \[Rule] True\), ",", \(AxesLabel \[Rule] {x, y}\), 
+          ",", \(ScaleFactor \[Rule] 1\), ",", \(AspectRatio \[Rule] 1\), 
+          ",", \(PlotPoints \[Rule] 30\)}], "]"}]}]], "Input"],
+
+Cell[BoxData[
+    \(Show[pim, pn1, pn2, pd, PlotRange \[Rule] {ymin, ymax}]\)], "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{575, 561},
+WindowMargins->{{48, Automatic}, {30, Automatic}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 631, 15, 144, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2477, 74, 150, 5, 83, "Section"],
+
+Cell[CellGroupData[{
+Cell[2652, 83, 72, 0, 38, "Subsection"],
+Cell[2727, 85, 145, 3, 52, "Text"],
+Cell[2875, 90, 636, 17, 95, "Input"],
+Cell[3514, 109, 93, 2, 33, "Text"],
+Cell[3610, 113, 58, 1, 30, "Input"],
+Cell[3671, 116, 656, 18, 70, "Input"],
+Cell[4330, 136, 286, 5, 71, "Text"],
+Cell[4619, 143, 663, 17, 90, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5319, 165, 60, 0, 30, "Subsection"],
+Cell[5382, 167, 230, 4, 71, "Text"],
+Cell[5615, 173, 660, 14, 170, "Input"],
+Cell[6278, 189, 258, 5, 71, "Text"],
+Cell[6539, 196, 969, 23, 130, "Input"],
+Cell[7511, 221, 108, 3, 52, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7656, 229, 72, 0, 30, "Subsection"],
+Cell[7731, 231, 84, 1, 30, "Input"],
+Cell[7818, 234, 417, 7, 109, "Text"],
+Cell[8238, 243, 170, 3, 52, "Text"],
+Cell[8411, 248, 55, 1, 30, "Input"],
+Cell[8469, 251, 179, 3, 52, "Text"],
+Cell[8651, 256, 615, 13, 92, "Input"],
+Cell[9269, 271, 88, 1, 30, "Input"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

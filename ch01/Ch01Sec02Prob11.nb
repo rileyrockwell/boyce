@@ -1,0 +1,297 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      7769,        229]*)
+(*NotebookOutlinePosition[      8449,        252]*)
+(*  CellTagsIndexPosition[      8405,        248]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 1  -  Section 1.2", "Title"],
+
+Cell[TextData[{
+  StyleBox["In this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you will explore a differential equation representing \
+the motion of a falling object and analyze the impact on the solution when \
+the drag force is quadratic rather than linear. ",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker. To open a cell \
+grouping, double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem",
+  " 11:  ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(dv\)\(\ \)\)\/dt\)]],
+  "= ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(49\^2 - \ v\^2\)\/245\)]]
+}], "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Separating the Variables and Integrating", "Subsection"],
+
+Cell["\<\
+This problem relates to the falling object of mass 10 kg in Example 2 with \
+limiting velocity 42 m/sec. We will solve this differential equation by \
+separating the variables and integrating the integrands on both the left hand \
+side (lhs) and the right hand side (rhs). You may ignore warnings about \
+spelling errors here.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"lhs", "=", 
+        StyleBox[\(1\/\(49\^2 - v\^2\)\),
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"rhs", "=", 
+        StyleBox[\(1\/245\),
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(lhsint = \[Integral]lhs\ \
+\[DifferentialD]v // 
+        Simplify\), "\[IndentingNewLine]", \(rhsint = \[Integral]rhs \
+\[DifferentialD]t\), "\[IndentingNewLine]", \(eq1 = 
+      lhsint \[Equal] rhsint + c1\), "\[IndentingNewLine]", "Null"}], "Input"],
+
+Cell["\<\
+To stay in the realm of the real numbers, we must insert absolute value signs \
+inside the log functions. You can see that the constant of integration here \
+(c1) is zero if v[0] = 0. \
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"c1", "=", 
+        StyleBox["0",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"newlhsint", "=", 
+        StyleBox[\(\(1\/98\) \((\ Log[Abs[v + 49]] - Log[Abs[v - 49]])\)\),
+          FontColor->RGBColor[1, 0, 0]]}], 
+      ";"}], "\[IndentingNewLine]", \(eq2 = 
+      newlhsint \[Equal] rhsint + c1\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Solving for the Velocity Function", "Subsection"],
+
+Cell[TextData[{
+  "We will let ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " solve for the velocity function. You will note a warning message about \
+the use of inverse functions. In this case, one of the solutions is the \
+correct one."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(\(\[IndentingNewLine]\)\(vel = 
+      Solve[eq2, \ v] // Simplify\)\)\)], "Input"],
+
+Cell["\<\
+The first solution satisfies the differential equation and the second \
+solution is not defined at t=0, so we will isolate the first solution and \
+compare that to the solution for Example 2. We isolate the first solution \
+above by calling on a particular part of vel. This is accomplished using the \
+command vel[[1,1,2]]. If we had wanted the second solution, we would have \
+asked for vel[[2,1,2]]. Learning how to pull out parts of output that you \
+want takes some practice.\
+\>", "Text"],
+
+Cell[BoxData[{
+    StyleBox[\(vex2 = 49 \((1 - \[ExponentialE]\^\(\(-t\)/5\))\)\),
+      FontColor->RGBColor[1, 0, 0]], "\[IndentingNewLine]", 
+    StyleBox[\(v11 = vel[\([1, 1, 2]\)]\),
+      FontColor->RGBColor[1, 0, 0]], "\[IndentingNewLine]", 
+    RowBox[{"Plot", "[", 
+      RowBox[{\({vex2, v11}\), ",", 
+        RowBox[{"{", 
+          RowBox[{"t", ",", "0", ",", 
+            StyleBox["20",
+              FontColor->RGBColor[1, 0, 0]]}], "}"}], ",", 
+        RowBox[{"PlotRange", "\[Rule]", 
+          RowBox[{"{", 
+            RowBox[{"0", ",", 
+              StyleBox["60",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}]}], 
+        ",", \(PlotStyle \[Rule] {RGBColor[0, 0, 1], RGBColor[1, 0, 0]}\)}], 
+      "]"}]}], "Input"],
+
+Cell["\<\
+The linear drag solution is plotted in blue, while the quadratic drag \
+solution is in red.\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Alternative to Solving for the Velocity Function", "Subsection"],
+
+Cell[TextData[{
+  "In some cases,the ",
+  StyleBox["Solve",
+    FontWeight->"Bold"],
+  " function cannot solve explicitly for the desired variable. If this \
+happens, you can plot the solution implicitly together with the linear drag \
+solution from Example 1. To do implicit plots, you must first load a special \
+graphics package. "
+}], "Text"],
+
+Cell[BoxData[
+    \(\(\(<< Graphics`ImplicitPlot`\)\(\[IndentingNewLine]\)
+    \)\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"ImplicitPlot", "[", 
+        RowBox[{
+          RowBox[{"{", 
+            RowBox[{
+              StyleBox[\(v == 49 \((1 - \[ExponentialE]\^\(\(-t\)/5\))\)\),
+                FontColor->RGBColor[1, 0, 0]], ",", "eq2"}], "}"}], ",", 
+          RowBox[{"{", 
+            RowBox[{"t", ",", "0", ",", 
+              StyleBox["20",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], ",", 
+          RowBox[{"{", 
+            RowBox[{"v", ",", "0", ",", 
+              StyleBox["60",
+                FontColor->RGBColor[1, 0, 0]]}], "}"}], ",", 
+          " ", \(PlotStyle \[Rule] {RGBColor[0, 0, 1], RGBColor[1, 0, 0]}\), 
+          ",", \(AspectRatio \[Rule] 1\)}], "]"}], 
+      "\[IndentingNewLine]"}]], "Input"],
+
+Cell["\<\
+The linear drag solution is plotted in blue, while the quadratic drag \
+solution is in red. The upper portion of the red curve has no meaning here.\
+\>", "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{808, 561},
+WindowMargins->{{24, Automatic}, {Automatic, 30}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 42, 0, 95, "Title"],
+Cell[1821, 55, 720, 16, 147, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2566, 75, 199, 8, 80, "Section"],
+
+Cell[CellGroupData[{
+Cell[2790, 87, 62, 0, 38, "Subsection"],
+Cell[2855, 89, 350, 6, 71, "Text"],
+Cell[3208, 97, 573, 13, 183, "Input"],
+Cell[3784, 112, 208, 4, 52, "Text"],
+Cell[3995, 118, 411, 10, 84, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4443, 133, 55, 0, 30, "Subsection"],
+Cell[4501, 135, 262, 7, 52, "Text"],
+Cell[4766, 144, 104, 2, 50, "Input"],
+Cell[4873, 148, 504, 8, 90, "Text"],
+Cell[5380, 158, 744, 17, 71, "Input"],
+Cell[6127, 177, 115, 3, 33, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[6279, 185, 70, 0, 30, "Subsection"],
+Cell[6352, 187, 346, 8, 52, "Text"],
+Cell[6701, 197, 94, 2, 50, "Input"],
+Cell[6798, 201, 757, 18, 72, "Input"],
+Cell[7558, 221, 171, 3, 33, "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

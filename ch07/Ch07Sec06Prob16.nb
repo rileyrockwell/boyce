@@ -1,0 +1,361 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     10259,        295]*)
+(*NotebookOutlinePosition[     10904,        317]*)
+(*  CellTagsIndexPosition[     10860,        313]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Chapter 7  -  Section 7.6", "Title",
+  PageWidth->WindowWidth],
+
+Cell[TextData[{
+  "I",
+  StyleBox["n this ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" notebook, you find the solution to a system of differential \
+equations with a varying parameter in the coefficient matrix. Several \
+solutions to the system will be plotted in the phase plane corresponding to \
+different values for the parameter and different initial states.",
+    FontWeight->"Bold"],
+  "\n\n",
+  StyleBox["In most cases, to adapt this code to other problems, you will \
+have to change only the input shown in red. To open a cell grouping, \
+double-click on the right-hand side of the double cell marker.",
+    FontSize->14]
+}], "Subsubtitle",
+  PageWidth->WindowWidth],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Problem 16:   x' = ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{"(", GridBox[{
+              {\(5\/4\), \(3\/4\)},
+              {"\[Alpha]", \(5\/4\)}
+              }], ")"}], TraditionalForm]]],
+  " x"
+}], "Section",
+  PageWidth->WindowWidth],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Finding the Eigenvalues and Corresponding Eigenvectors for the Coefficient \
+Matrix\
+\>", "Subsection",
+  PageWidth->WindowWidth],
+
+Cell[TextData[{
+  "We will use the ",
+  StyleBox["Eigensystem",
+    FontWeight->"Bold"],
+  " command here and express the result in matrix form for clarity."
+}], "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[{\(Clear[A, \[Alpha]]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"A", "=", 
+        RowBox[{"(", GridBox[{
+              {
+                StyleBox[\(5\/4\),
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[\(3\/4\),
+                  FontColor->RGBColor[1, 0, 0]]},
+              {
+                StyleBox["\[Alpha]",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[\(5\/4\),
+                  FontColor->RGBColor[1, 0, 0]]}
+              }], ")"}]}], 
+      ";"}], "\[IndentingNewLine]", \(eigs = 
+        Eigensystem[A];\), "\[IndentingNewLine]", \(eigs // 
+      MatrixForm\)}], "Input",
+  PageWidth->WindowWidth],
+
+Cell["\<\
+From the eigenvalues, you can see that when \[Alpha] is positive, the \
+eigenvalues will be real, and when \[Alpha] is negative, the eigenvalues will \
+be complex. Thus the pattern of the solution will change dramatically for \
+each of these two cases.\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Solving the System of Differential Equations", "Subsection",
+  PageWidth->WindowWidth],
+
+Cell[TextData[{
+  "We will use the DSolve command here. Recall that you need to use the ",
+  StyleBox["Thread",
+    FontWeight->"Bold"],
+  " command inside the ",
+  StyleBox["DSolve",
+    FontWeight->"Bold"],
+  " command if you want to leave the system of equations in matrix form. Note \
+that we also need the \".\" for matrix multiplication and both dependent \
+variables must be called upon as functions of the independent variable, ",
+  StyleBox["t",
+    FontSlant->"Italic"],
+  "..\nThe ",
+  StyleBox["ComplexExpand",
+    FontWeight->"Bold"],
+  " command is necessary here if we wish to see our solution in real form for \
+all cases. We will leave the initial conditions arbitrary so that we can plot \
+several sets of solutions for each \[Alpha]."
+}], "Text",
+  PageWidth->WindowWidth],
+
+Cell[BoxData[{
+    \(Clear[x1, x2, t, \[Alpha], solset]\), "\[IndentingNewLine]", 
+    \(fastsoln = \(DSolve[{Thread[{\(x1'\)[t], \(x2'\)[t]} == 
+                  A . {x1[t], x2[t]}], 
+              Thread[{x1[0], x2[0]} \[Equal] {init1, init2}]}, {x1[t], 
+              x2[t]}, t] // FullSimplify\) // 
+        ComplexExpand\), "\[IndentingNewLine]", 
+    \(solset[init1_, init2_] = 
+      Flatten[{x1[t], x2[t]} /. fastsoln] // Simplify\)}], "Input",
+  PageWidth->WindowWidth]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Plotting Solutions", "Subsection"],
+
+Cell["\<\
+We will first let \[Alpha] equal one and plot three solution trajectories in \
+the phase plane corresponding to three different initial conditions. You may \
+change the value of \[Alpha] or the initial conditions or the domain or range \
+by changing the terms in red.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[\[Alpha]]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"\[Alpha]", "=", 
+        StyleBox["1",
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"plotsoln1", "=", 
+        RowBox[{"ParametricPlot", "[", 
+          RowBox[{
+            RowBox[{"{", 
+              RowBox[{
+                RowBox[{"solset", "[", 
+                  StyleBox[\(\(-4\), 1\),
+                    FontColor->RGBColor[1, 0, 0]], "]"}], ",", 
+                RowBox[{"solset", "[", 
+                  StyleBox[\(0, 5\),
+                    FontColor->RGBColor[1, 0, 0]], "]"}], ",", 
+                RowBox[{"solset", "[", 
+                  StyleBox[\(1, \(-3\)\),
+                    FontColor->RGBColor[1, 0, 0]], "]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", 
+                StyleBox["0",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["4",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], ",", 
+            RowBox[{"PlotRange", "\[Rule]", 
+              RowBox[{"{", 
+                RowBox[{
+                  RowBox[{"{", 
+                    StyleBox[\(\(-30\), 30\),
+                      FontColor->RGBColor[1, 0, 0]], "}"}], ",", 
+                  RowBox[{"{", 
+                    StyleBox[\(\(-30\), 30\),
+                      FontColor->RGBColor[1, 0, 0]], "}"}]}], "}"}]}], 
+            ",", \(PlotStyle \[Rule] {Hue[ .7], Hue[ .8], Hue[ .9]}\)}], 
+          "]"}]}], ";"}]}], "Input"],
+
+Cell["\<\
+Now we will let \[Alpha] equal negative one and plot three solution \
+trajectories in the phase plane corresponding to the same three different \
+initial conditions. Recall that the eigenvalues will be negative for this \
+case, so we will anticipate spiral trajectories.\
+\>", "Text"],
+
+Cell[BoxData[{\(Clear[\[Alpha]]\), "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"\[Alpha]", "=", 
+        StyleBox[\(-1\),
+          FontColor->RGBColor[1, 0, 0]]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{"plotsoln2", "=", 
+        RowBox[{"ParametricPlot", "[", 
+          RowBox[{
+            RowBox[{"{", 
+              RowBox[{
+                RowBox[{"solset", "[", 
+                  StyleBox[\(\(-1\), 4\),
+                    FontColor->RGBColor[1, 0, 0]], "]"}], ",", 
+                RowBox[{"solset", "[", 
+                  StyleBox[\(0, 5\),
+                    FontColor->RGBColor[1, 0, 0]], "]"}], ",", 
+                RowBox[{"solset", "[", 
+                  StyleBox[\(1, \(-3\)\),
+                    FontColor->RGBColor[1, 0, 0]], "]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+              RowBox[{"t", ",", 
+                StyleBox["0",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox[",",
+                  FontColor->RGBColor[1, 0, 0]], 
+                StyleBox["4",
+                  FontColor->RGBColor[1, 0, 0]]}], "}"}], ",", 
+            RowBox[{"PlotRange", "\[Rule]", 
+              RowBox[{"{", 
+                RowBox[{
+                  RowBox[{"{", 
+                    StyleBox[\(\(-30\), 30\),
+                      FontColor->RGBColor[1, 0, 0]], "}"}], ",", 
+                  RowBox[{"{", 
+                    StyleBox[\(\(-30\), 30\),
+                      FontColor->RGBColor[1, 0, 0]], "}"}]}], "}"}]}], 
+            ",", \(PlotStyle \[Rule] {Hue[ .3], Hue[ .4], Hue[ .5]}\)}], 
+          "]"}]}], ";"}]}], "Input"],
+
+Cell["\<\
+We can look at both sets of these solutions together. We will limit the \
+viewing range for clarity.\
+\>", "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Show", "[", 
+        RowBox[{"plotsoln1", ",", "plotsoln2", ",", 
+          RowBox[{"PlotRange", "\[Rule]", 
+            RowBox[{"{", 
+              StyleBox[\({\(-75\), 75}, {\(-75\), 75}\),
+                FontColor->RGBColor[1, 0, 0]], "}"}]}]}], "]"}], 
+      ";"}]], "Input"],
+
+Cell["\<\
+The form of the expressions looks a bit different, but upon inspection, you \
+can see that both solutions agree with the earlier result arrived at using \
+eigenvalues and eigenvectors.\
+\>", "Text",
+  PageWidth->WindowWidth]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{495, 561},
+WindowMargins->{{24, Automatic}, {Automatic, 30}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 68, 1, 95, "Title"],
+Cell[1847, 56, 747, 18, 210, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2619, 78, 268, 10, 117, "Section"],
+
+Cell[CellGroupData[{
+Cell[2912, 92, 139, 4, 56, "Subsection"],
+Cell[3054, 98, 195, 6, 52, "Text"],
+Cell[3252, 106, 695, 18, 125, "Input"],
+Cell[3950, 126, 276, 5, 71, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4263, 136, 92, 1, 30, "Subsection"],
+Cell[4358, 139, 791, 19, 166, "Text"],
+Cell[5152, 160, 479, 9, 170, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5668, 174, 40, 0, 30, "Subsection"],
+Cell[5711, 176, 291, 5, 90, "Text"],
+Cell[6005, 183, 1611, 38, 130, "Input"],
+Cell[7619, 223, 294, 5, 90, "Text"],
+Cell[7916, 230, 1614, 38, 130, "Input"],
+Cell[9533, 270, 124, 3, 52, "Text"],
+Cell[9660, 275, 322, 8, 50, "Input"],
+Cell[9985, 285, 234, 5, 71, "Text"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+
